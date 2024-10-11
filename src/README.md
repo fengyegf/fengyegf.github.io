@@ -3,10 +3,11 @@ home: true
 layout: BlogHome
 icon: home
 title: Blog Home
-heroImage: https://theme-hope-assets.vuejs.press/logo.svg
-heroText: The name of your blog
-tagline: You can put your slogan here
+heroImage:
+heroText: maple leaf
+tagline: Love programming and development.
 heroFullScreen: true
+bgImage: https://bing.img.run/uhd.php
 projects:
   - icon: project
     name: project name
@@ -38,7 +39,10 @@ projects:
     desc: Detailed description of this custom item
     link: https://link.to.your.friend
 
-footer: customize your footer text
+footer: <img src="https://www.beian.gov.cn/img/new/gongan.png" >
+  <a href="https://beian.mps.gov.cn/#/query/webSearch?code=51018002000145" target="_blank" >川公网安备51018002000145</a></br>
+  <a href="https://beian.miit.gov.cn/" target="_blank">蜀ICP备2023029817号-1</a>
+footerHtml: true
 ---
 
 This is a blog home page demo.

@@ -4,7 +4,7 @@ export const zhSidebar = sidebar({
   "/zh/": [
     "",
     {
-      text: "如何使用",
+      text: "编程语言",
       icon: "laptop-code",
       prefix: "demo/",
       link: "demo/",
@@ -15,12 +15,6 @@ export const zhSidebar = sidebar({
       icon: "book",
       prefix: "posts/",
       children: "structure",
-    },
-    "intro",
-    {
-      text: "幻灯片",
-      icon: "person-chalkboard",
-      link: "https://ecosystem.vuejs.press/zh/plugins/markdown/revealjs/demo.html",
     },
   ],
 });

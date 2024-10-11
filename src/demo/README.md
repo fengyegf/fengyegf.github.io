@@ -1,5 +1,5 @@
 ---
-title: Features demo
+title: Programming languages
 index: false
 icon: laptop-code
 category:

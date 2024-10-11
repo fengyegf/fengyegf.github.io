@@ -3,10 +3,11 @@ home: true
 layout: BlogHome
 icon: home
 title: 博客主页
-heroImage: https://theme-hope-assets.vuejs.press/logo.svg
-heroText: 你博客的名称
+heroImage:
+heroText: 枫叶
 heroFullScreen: true
-tagline: 你可以在这里放置你的口号与标语
+tagline: 热爱编程开发
+bgImage: https://bing.img.run/uhd.php
 projects:
   - icon: project
     name: 项目名称
@@ -38,7 +39,10 @@ projects:
     desc: 自定义详细介绍
     link: https://你的自定义链接
 
-footer: 自定义你的页脚文字
+footer: <img src="https://www.beian.gov.cn/img/new/gongan.png" >
+  <a href="https://beian.mps.gov.cn/#/query/webSearch?code=51018002000145" target="_blank" >川公网安备51018002000145</a></br>
+  <a href="https://beian.miit.gov.cn/" target="_blank">蜀ICP备2023029817号-1</a>
+footerHtml: true
 ---
 
 这是一个博客主页的案例。

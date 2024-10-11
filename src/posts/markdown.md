@@ -96,12 +96,6 @@ This text has footnote[^first].
 
 - [View Detail](https://theme-hope.vuejs.press/guide/markdown/content/footnote.html)
 
-#### Include files
-
-<!-- @include: ./README.md{11-17} -->
-
-- [View Detail](https://theme-hope.vuejs.press/guide/markdown/content/include.html)
-
 #### TeX
 
 $$

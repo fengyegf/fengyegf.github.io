@@ -70,12 +70,6 @@ Orange
 
 - [查看详情](https://theme-hope.vuejs.press/zh/guide/markdown/content/footnote.html)
 
-#### 导入文件
-
-<!-- @include: ./README.md{11-17} -->
-
-- [查看详情](https://theme-hope.vuejs.press/zh/guide/markdown/content/include.html)
-
 #### TeX 语法
 
 $$
