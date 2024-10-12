@@ -3,7 +3,6 @@ import { hopeTheme } from "vuepress-theme-hope";
 import { enNavbar, zhNavbar } from "./navbar/index.js";
 import { enSidebar, zhSidebar } from "./sidebar/index.js";
 
-
 export default hopeTheme({
   hostname: "https://mister-hope.github.io",
 
@@ -38,7 +37,7 @@ export default hopeTheme({
       // sidebar
       sidebar: enSidebar,
 
-      footer: "Default footer",
+      footer: "Blog run time",
 
       displayFooter: true,
 
@@ -62,7 +61,7 @@ export default hopeTheme({
       // sidebar
       sidebar: zhSidebar,
 
-      footer: "默认页脚",
+      footer: "博客运行时间",
 
       displayFooter: true,
 
@@ -91,15 +90,18 @@ export default hopeTheme({
   plugins: {
     blog: true,
     searchPro: true,
+    
 
     // Install @waline/client before enabling it
     // Note: This is for testing ONLY!
     // You MUST generate and use your own comment service in production.
-    // comment: {
-    //   provider: "Artalk",
-    //   server: "https://api.fengyegf.cn:8080",
-    //   site: "枫叶",
-    // },
+    comment: {
+      provider: "Giscus",
+      repo: "MLeaf-coder/Comments",
+      repoId: "R_kgDOM_UG0Q",
+      category: "Announcements",
+      categoryId: "DIC_kwDOM_UG0c4CjTaf",
+    },
     
     components: {
       components: ["Badge", "VPCard"],
