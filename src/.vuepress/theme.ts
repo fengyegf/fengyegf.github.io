@@ -23,8 +23,6 @@ export default hopeTheme({
     medias: {
       Gitee: "https://gitee.com/cold-maple_1_0",
       GitHub: "https://github.com/MLeaf-coder",
-      Twitter: "https://example.com",
-      Youtube: "https://example.com",
     },
   },
 
