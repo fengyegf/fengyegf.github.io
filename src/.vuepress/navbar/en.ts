@@ -11,7 +11,7 @@ export const enNavbar = navbar([
       {
         text: "Android Makeover Plan",
         icon: "pen-to-square",
-        prefix: "apple/",
+        prefix: "android/",
         children: [
           { text: "root-nas free", icon: "pen-to-square", link: "1" },
           { text: "Pagoda panel", icon: "pen-to-square", link: "2" },

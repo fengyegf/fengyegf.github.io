@@ -11,7 +11,7 @@ export const zhNavbar = navbar([
       {
         text: "安卓改造计划",
         icon: "pen-to-square",
-        prefix: "apple/",
+        prefix: "android/",
         children: [
           { text: "免root-nas", icon: "pen-to-square", link: "1" },
           { text: "宝塔面板", icon: "pen-to-square", link: "2" },

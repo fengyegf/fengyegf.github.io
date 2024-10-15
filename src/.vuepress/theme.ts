@@ -4,7 +4,7 @@ import { enNavbar, zhNavbar } from "./navbar/index.js";
 import { enSidebar, zhSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
-  hostname: "https://mister-hope.github.io",
+  hostname: "https://fengyegf.cn",
 
   author: {
     name: "maple leaf",
@@ -15,15 +15,14 @@ export default hopeTheme({
 
   logo: "https://github.com/MLeaf-coder/FY/blob/main/logo.png?raw=true",
 
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  repo: "MLeaf-coder/MLeaf-coder.github.io",
 
   docsDir: "src",
 
   blog: {
     medias: {
-      Discord: "https://example.com",
-      Gitee: "https://example.com",
-      GitHub: "https://example.com",
+      Gitee: "https://gitee.com/cold-maple_1_0",
+      GitHub: "https://github.com/MLeaf-coder",
       Twitter: "https://example.com",
       Youtube: "https://example.com",
     },
@@ -73,6 +72,7 @@ export default hopeTheme({
       // page meta
       metaLocales: {
         editLink: "在 GitHub 上编辑此页",
+
       },
     },
   },
@@ -86,7 +86,9 @@ export default hopeTheme({
 
   // enable it to preview all changes in time
   // hotReload: true,
-
+  docsRepo: "https://github.com/MLeaf-coder/MLeaf-coder.github.io",
+  docsBranch: "main",
+  
   plugins: {
     blog: true,
     searchPro: true,
@@ -178,7 +180,6 @@ export default hopeTheme({
 
       // install sandpack-vue3 before enabling it
       // sandpack: true,
-
     },
 
     // install @vuepress/plugin-pwa and uncomment these if you want a PWA
