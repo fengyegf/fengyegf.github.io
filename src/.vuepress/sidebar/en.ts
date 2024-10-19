@@ -4,7 +4,7 @@ export const enSidebar = sidebar({
   "/": [
     "",
     {
-      text: "Programming languages",
+      text: "Touch the fish 🐟",
       icon: "laptop-code",
       prefix: "demo/",
       link: "demo/",

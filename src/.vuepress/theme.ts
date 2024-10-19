@@ -8,7 +8,7 @@ export default hopeTheme({
 
   author: {
     name: "maple leaf",
-    url: "https://mister-hope.com",
+    url: "https://fengyegf.cn",
   },
 
   iconAssets: "fontawesome-with-brands",
@@ -241,5 +241,8 @@ export default hopeTheme({
     // revealjs: {
     //   plugins: ["highlight", "math", "search", "notes", "zoom"],
     // },
+    copyright: {
+      license: "MIT",
+    },
   },
 });
