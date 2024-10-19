@@ -20,7 +20,7 @@ export const zhNavbar = navbar([
       {
         text: "windows",
         icon: "pen-to-square",
-        prefix: "banana/",
+        prefix: "windows/",
         children: [
           {
             text: "QTalkgram",
