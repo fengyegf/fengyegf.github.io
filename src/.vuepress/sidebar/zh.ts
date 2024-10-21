@@ -16,5 +16,11 @@ export const zhSidebar = sidebar({
       prefix: "posts/",
       children: "structure",
     },
+    {
+      text: "搞机篇",
+      icon: "tag",
+      prefix: "Tossaround/",
+      children: "structure",
+    },
   ],
 });

@@ -16,5 +16,11 @@ export const enSidebar = sidebar({
       prefix: "posts/",
       children: "structure",
     },
+    {
+      text: "Tech Tinkering",
+      icon: "tag",
+      prefix: "Tossaround/",
+      children: "structure",
+    },
   ],
 });

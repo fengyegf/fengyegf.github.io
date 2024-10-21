@@ -4,6 +4,7 @@ import { enNavbar, zhNavbar } from "./navbar/index.js";
 import { enSidebar, zhSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
+  
   hostname: "https://fengyegf.cn",
 
   author: {
@@ -133,6 +134,10 @@ export default hopeTheme({
       include: true,
       mark: true,
       plantuml: true,
+      echarts: true,
+      chart: true,
+      mermaid: true,
+      flowchart: true,
       spoiler: true,
       stylize: [
         {
