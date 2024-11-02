@@ -40,7 +40,7 @@ export default hopeTheme({
       displayFooter: true,
 
       blog: {
-        description: "A developer who loves programming.",
+        description: "Seems to have forgotten something",//介绍
         intro: "/intro.html",
       },
 
@@ -64,7 +64,7 @@ export default hopeTheme({
       displayFooter: true,
 
       blog: {
-        description: "一个热爱编程的开发者",
+        description: "好像遗忘了什么",//介绍
         intro: "/zh/intro.html",
       },
 
@@ -89,6 +89,42 @@ export default hopeTheme({
   docsBranch: "main",
   
   plugins: {
+
+  // 启用公告插件
+  notice: {
+    config: [
+      {
+        path: '/',
+        title: 'Announcement',
+        content: `
+        Scan the QR code to pay attention to the public number, you can quickly leave a message to feedback the problem, or you can leave a message at the bottom of the article<br>
+        <img src="/assets/images/cover4.jpg" alt="二维码" style="max-width: 100%; height: auto;" />
+      `,
+        actions: [
+          {
+            text: 'OK',
+            type: 'primary',
+          },
+        ],
+      },
+      {
+        path: '/zh/',
+        title: '公告',
+        content: `
+          扫描二维码关注公众号，可快捷留言反馈问题，也可在文章下方留言<br>
+          <img src="/assets/images/cover4.jpg" alt="二维码" style="max-width: 100%; height: auto;" />
+        `,
+        actions: [
+          {
+            text: '好的',
+            type: 'primary',
+          },
+        ],
+      },
+    ],
+  },
+    
+
     blog: true,
     searchPro: true,
     

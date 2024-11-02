@@ -5,7 +5,7 @@ icon: home
 title: Blog Home
 heroImage:
 heroText: maple leaf
-tagline: Love programming and development.
+#tagline:
 heroFullScreen: true
 bgImage: https://bing.img.run/uhd.php
 # projects:

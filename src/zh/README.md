@@ -6,7 +6,7 @@ title: 博客主页
 heroImage:
 heroText: 枫叶
 heroFullScreen: true
-tagline: 热爱编程开发
+tagline:
 bgImage: https://bing.img.run/uhd.php
 # projects:
 #   - icon: project
