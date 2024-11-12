@@ -6,12 +6,11 @@ export const enNavbar = navbar([
   {
     text: "Jot down",
     icon: "pen-to-square",
-    prefix: "/posts/",
     children: [
       {
         text: "Android Makeover Plan",
         icon: "pen-to-square",
-        prefix: "android/",
+        prefix: "posts/android/",
         children: [
           { text: "root-nas free", icon: "pen-to-square", link: "1" },
           { text: "Pagoda panel", icon: "pen-to-square", link: "2" },
@@ -20,7 +19,7 @@ export const enNavbar = navbar([
       {
         text: "windows",
         icon: "pen-to-square",
-        prefix: "windows/",
+        prefix: "posts/windows/",
         children: [
           {
             text: "QTalkgram",
@@ -34,11 +33,24 @@ export const enNavbar = navbar([
           },
         ],
       },
+      {
+        text: "link",
+        icon: "link",
+        prefix: "link/",
+        children: [
+          { text: "link", icon: "link", link: "1.md" },
+        ],
+      },
     ],
   },
   {
     text: "Deputy blog",
     icon: "book",
     link: "http://bk.fengyegf.cn",
+  },
+  {
+    text: "Bookmarks",
+    icon: "user",
+    link: "/Collection/1.md",
   },
 ]);
