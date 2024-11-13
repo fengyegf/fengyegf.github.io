@@ -46,7 +46,7 @@ export const zhNavbar = navbar([
   {
     text: "副博客",
     icon: "book",
-    link: "http://bk.fengyegf.cn",
+    link: "http://bc.fengyegf.cn",
   },
   {
     text: "收藏夹",

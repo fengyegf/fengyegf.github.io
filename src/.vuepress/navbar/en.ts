@@ -46,7 +46,7 @@ export const enNavbar = navbar([
   {
     text: "Deputy blog",
     icon: "book",
-    link: "http://bk.fengyegf.cn",
+    link: "http://bc.fengyegf.cn",
   },
   {
     text: "Bookmarks",
