@@ -1,5 +1,5 @@
 const config = {
-  title: "主页",
+  title: "Mapl eleaf",
   Collect: "收藏",
   Archive: "博客",
   Shared: "友链",

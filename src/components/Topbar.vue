@@ -1,44 +1,40 @@
 <script setup>
 import config from '@/config/Config';
 import { RouterLink } from 'vue-router';
-import { HomeIcon, Link1Icon, BookmarkIcon, BookIcon, VerifyIcon } from "tdesign-icons-vue-next";
+import { LogoGithubIcon, VerifyIcon } from "tdesign-icons-vue-next";
+
 </script>
 
 <template>
     <div class="header">
         <div class="left">
             <RouterLink to="/" class="title no_link">
-                <HomeIcon />
+
                 <p class="h1">{{ config.title }}</p>
             </RouterLink>
-        </div>
-        <div class="right">
             <div class="right-item">
-                <RouterLink to="/collect" class="item no_link">
-                    <BookmarkIcon />
-                    <p>{{ config.Collect }}</p>
-                </RouterLink>
-                <RouterLink to="/link" class="item no_link">
-                    <Link1Icon />
-                    <p>{{ config.Shared }}</p>
-                </RouterLink>
                 <a href="https://fengyegf.cn/blog/" class="item no_link">
-                    <BookIcon />
                     <p>{{ config.Archive }}</p>
                 </a>
             </div>
+        </div>
+
+        <div class="right">
+
             <div class="right-item">
-                <RouterLink to="/Mine" class="item no_link">
-                    <VerifyIcon size="30px" />
-                </RouterLink>
+                <a href="https://github.com/MLeaf-coder" target="_blank" class="item no_link">
+                    <LogoGithubIcon size="30px" />
+                    <p>GitHub</p>
+                </a>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.header {
+@import url(https://chinese-fonts-cdn.deno.dev/packages/qxs/dist/quan/result.css);
 
+.header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -50,8 +46,25 @@ import { HomeIcon, Link1Icon, BookmarkIcon, BookIcon, VerifyIcon } from "tdesign
     font-size: var(--header-font-size);
 }
 
+.left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+}
 
 .title {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+    color: #fff;
+    font-size: 30px;
+    font-family: 'QuanPixel 8px';
+
+}
+
+.item {
     display: flex;
     align-items: center;
     padding: 5px;
@@ -66,15 +79,11 @@ import { HomeIcon, Link1Icon, BookmarkIcon, BookIcon, VerifyIcon } from "tdesign
     .right-item {
         display: flex;
         gap: 15px;
+        font-size: 15px;
+
     }
 
-    .item {
-        display: flex;
-        align-items: center;
-        padding: 5px;
-        gap: 5px;
-        color: #fff;
-    }
+
 
     .item:hover {
         background: var(--background-color);
