@@ -1,0 +1,20 @@
+:root {
+  --background-color: rgba(255, 255, 255, 0.195);
+  --header-font-size: 20px;
+  --side--font-size: 25px;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+h1,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.no_link {
+  color: #000;
+  text-decoration: none;
+}
