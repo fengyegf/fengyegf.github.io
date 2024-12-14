@@ -22,10 +22,10 @@ import { HomeIcon, Link1Icon, BookmarkIcon, BookIcon, VerifyIcon } from "tdesign
                     <Link1Icon />
                     <p>{{ config.Shared }}</p>
                 </RouterLink>
-                <RouterLink to="/blog/" class="item no_link">
+                <a href="https://fengyegf.cn/blog/" class="item no_link">
                     <BookIcon />
                     <p>{{ config.Archive }}</p>
-                </RouterLink>
+                </a>
             </div>
             <div class="right-item">
                 <RouterLink to="/Mine" class="item no_link">
