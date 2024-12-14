@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - mian
+      - main
   workflow_dispatch:
 
 jobs:
