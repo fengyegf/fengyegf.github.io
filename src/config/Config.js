@@ -1,11 +1,7 @@
 const config = {
-  title: "Mapl eleaf",
-  Collect: "收藏",
-  Archive: "博客",
-  Shared: "友链",
-  author: "Mapl eleaf",
-  introduce: "介绍",
-  Message: "Welcome to my navigation page",
+  title1: "MLeaf-",
+  title2: "coder",
+  Message: "Welcome to my blog here is the way station of Maple Leaf",
 };
 
 export default config;
