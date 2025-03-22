@@ -1,20 +1,26 @@
 :root {
-  --background-color: rgba(255, 255, 255, 0.195);
-  --header-font-size: 20px;
-  --side--font-size: 25px;
+  --base-100: #ffffff;
+  --base-300: #d1d5db;
+  --base-content: #374151;
+  --primary-color: #4a90e2;
+  --secondary-color: #6c757d;
 }
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-h1,
-p {
-  margin: 0;
-  padding: 0;
+.timeline-view {
+  width: 100%;
 }
 
-.no_link {
-  color: #000;
-  text-decoration: none;
+.container {
+  width: 100%;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
 }
