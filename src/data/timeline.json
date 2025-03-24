@@ -1,0 +1,19 @@
+[
+  {
+    "title": "个人网站上线",
+    "date": "2025-03-23",
+    "content": "我的个人网站正式上线了！这是我学习前端开发的重要里程碑。",
+    "color": "#3498db",
+    "image": "/src/assets/img/1.jpg",
+    "link": ""
+  },
+  {
+    "title": "OneDrive视频测试",
+    "date": "2025-03-15",
+    "content": "测试视频播放功能，这是一个来自OneDrive的视频链接。",
+    "color": "#e74c3c",
+    "video": "https://1drv.ms/v/c/2182f48b953d36f8/UQT4Nj2Vi_SCIIAhlzgAAAAAAFlk8KAyX82w0hM",
+    "videoWidth": 960,
+    "videoHeight": 540
+  }
+]

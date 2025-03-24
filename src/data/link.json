@@ -1,0 +1,44 @@
+[
+  {
+    "name": "GitHub",
+    "url": "https://github.com",
+    "description": "GitHub 是全球最大的软件开发平台，汇集了超过5600万开发者共同构建、扩展和优化软件开发。",
+    "avatar": "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
+    "tags": ["开发", "代码托管"]
+  },
+  {
+    "name": "Vue.js",
+    "url": "https://vuejs.org",
+    "description": "Vue.js 是一套用于构建用户界面的渐进式JavaScript框架。与其它大型框架不同的是，Vue被设计为可以自底向上逐层应用。",
+    "avatar": "https://vuejs.org/logo.svg",
+    "tags": ["前端", "框架"]
+  },
+  {
+    "name": "MDN Web 文档",
+    "url": "https://developer.mozilla.org",
+    "description": "MDN Web 文档是一个提供关于开放网络技术（如HTML、CSS和JavaScript）的信息的开发者社区。",
+    "avatar": "https://developer.mozilla.org/favicon.ico",
+    "tags": ["文档", "学习资源"]
+  },
+  {
+    "name": "掘金",
+    "url": "https://juejin.cn",
+    "description": "掘金是一个帮助开发者成长的社区，是给开发者用的 Hacker News，给设计师用的 Designer News，和给产品经理用的 Product Hunt。",
+    "avatar": "https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/6c61ae65d1c41ae8221a670fa32d05aa.svg",
+    "tags": ["技术社区", "博客"]
+  },
+  {
+    "name": "StackOverflow",
+    "url": "https://stackoverflow.com",
+    "description": "Stack Overflow 是一个程序设计领域的问答网站，隶属于Stack Exchange Network。用户可以在网站免费提交问题，浏览问题，投票表决问题和回答的优劣。",
+    "avatar": "https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png",
+    "tags": ["问答", "编程"]
+  },
+  {
+    "name": "CSS-Tricks",
+    "url": "https://css-tricks.com",
+    "description": "CSS-Tricks 提供丰富的关于CSS的教程、技巧和示例，是前端开发者提高CSS技能的宝贵资源。",
+    "avatar": "https://css-tricks.com/apple-touch-icon.png",
+    "tags": ["CSS", "前端设计"]
+  }
+]
