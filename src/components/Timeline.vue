@@ -1,7 +1,6 @@
 <template>
   <div class="collection-container">
     <h1 class="collection-title">时间轴</h1>
-
     <div class="timeline">
       <div
         v-for="(event, index) in timelineEvents"
@@ -24,29 +23,75 @@
           <div class="timeline-body">
             <p>{{ event.content }}</p>
 
-            <!-- 图片显示 -->
+            <!-- 媒体内容网格 -->
             <div
-              v-if="event.image && !event.video"
-              class="timeline-image-container"
+              v-if="hasMedia(event)"
+              class="timeline-media-grid"
+              :class="getMediaGridClass(event)"
             >
-              <img
-                :src="event.image"
-                :alt="event.title"
-                class="timeline-image"
-              />
-            </div>
+              <!-- 图片展示 -->
+              <div
+                v-for="(img, imgIndex) in event.images"
+                :key="`img-${imgIndex}`"
+                class="timeline-media-item timeline-image-container"
+              >
+                <img
+                  :src="img.url"
+                  :alt="img.caption || event.title"
+                  class="timeline-image"
+                />
+                <div v-if="img.caption" class="timeline-media-caption">
+                  {{ img.caption }}
+                </div>
+              </div>
 
-            <!-- 视频显示 -->
-            <div v-if="event.video" class="timeline-video-container">
-              <iframe
-                :src="event.video"
-                :width="event.videoWidth || 560"
-                :height="event.videoHeight || 315"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                class="timeline-video"
-              ></iframe>
+              <!-- 单张图片展示(向后兼容) -->
+              <div
+                v-if="event.image && !event.images"
+                class="timeline-media-item timeline-image-container"
+              >
+                <img
+                  :src="event.image"
+                  :alt="event.title"
+                  class="timeline-image"
+                />
+              </div>
+
+              <!-- 视频展示 -->
+              <div
+                v-for="(vid, vidIndex) in event.videos"
+                :key="`vid-${vidIndex}`"
+                class="timeline-media-item timeline-video-container"
+              >
+                <iframe
+                  :src="vid.url"
+                  :width="vid.width || 560"
+                  :height="vid.height || 315"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  class="timeline-video"
+                ></iframe>
+                <div v-if="vid.caption" class="timeline-media-caption">
+                  {{ vid.caption }}
+                </div>
+              </div>
+
+              <!-- 单个视频展示(向后兼容) -->
+              <div
+                v-if="event.video && !event.videos"
+                class="timeline-media-item timeline-video-container"
+              >
+                <iframe
+                  :src="event.video"
+                  :width="event.videoWidth || 560"
+                  :height="event.videoHeight || 315"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  class="timeline-video"
+                ></iframe>
+              </div>
             </div>
 
             <!-- 链接按钮 -->
@@ -76,12 +121,42 @@ const formatDate = (dateString) => {
 
 const timelineEvents = ref([]);
 
-// 完全随机分配左右位置
+// 判断事件是否包含媒体
+const hasMedia = (event) => {
+  return (
+    event.image ||
+    event.images?.length > 0 ||
+    event.video ||
+    event.videos?.length > 0
+  );
+};
+
+// 根据媒体数量决定网格类
+const getMediaGridClass = (event) => {
+  // 计算总媒体数量
+  const imagesCount = event.images?.length || (event.image ? 1 : 0);
+  const videosCount = event.videos?.length || (event.video ? 1 : 0);
+  const totalCount = imagesCount + videosCount;
+
+  if (totalCount === 1) {
+    return "grid-1";
+  } else if (totalCount === 2) {
+    return "grid-2";
+  } else if (totalCount === 3) {
+    return "grid-3";
+  } else if (totalCount >= 4 && totalCount <= 6) {
+    return "grid-2-3"; // 2行3列
+  } else if (totalCount > 6) {
+    return "grid-3-3"; // 3行3列（最多显示9个）
+  }
+
+  return "grid-1"; // 默认
+};
+
+// 随机分配左右位置
 const assignRandomPositions = (events) => {
   return events.map((event) => {
-    // 对每个事件完全随机决定左右位置
     const randomPosition = Math.random() > 0.5 ? "right" : "left";
-
     return {
       ...event,
       position: randomPosition,
@@ -90,10 +165,7 @@ const assignRandomPositions = (events) => {
 };
 
 onMounted(() => {
-  // 从JSON文件加载数据并随机分配位置
-  console.log("Timeline component mounted");
   timelineEvents.value = assignRandomPositions(timelineData);
-  console.log("Timeline events:", timelineEvents.value);
 });
 </script>
 
@@ -113,7 +185,6 @@ onMounted(() => {
   font-size: 2.5rem;
   font-weight: 700;
   color: #333;
-  letter-spacing: -0.5px;
 }
 
 .timeline {
@@ -202,13 +273,7 @@ onMounted(() => {
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-}
-
-.timeline-panel:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .timeline-heading {
@@ -229,32 +294,104 @@ onMounted(() => {
 }
 
 .timeline-body p {
-  margin: 0 0 10px;
+  margin: 0 0 15px;
   line-height: 1.5;
   color: #555;
 }
 
-.timeline-image-container {
-  margin-top: 15px;
+/* 媒体网格系统 */
+.timeline-media-grid {
+  display: grid;
+  gap: 12px;
+  margin: 15px 0;
+}
+
+/* 单项 */
+.timeline-media-grid.grid-1 {
+  grid-template-columns: 1fr;
+}
+
+/* 两项横向 */
+.timeline-media-grid.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* 三项横向 */
+.timeline-media-grid.grid-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* 2行3列 */
+.timeline-media-grid.grid-2-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+}
+
+/* 3行3列 */
+.timeline-media-grid.grid-3-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+}
+
+.timeline-media-item {
   border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.timeline-media-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+/* 增加高度 */
+.timeline-image-container {
+  height: 0;
+  position: relative;
+  background-color: #f0f0f0;
+}
+
+/* 根据不同布局调整高度 */
+.timeline-media-grid.grid-1 .timeline-image-container,
+.timeline-media-grid.grid-1 .timeline-video-container {
+  padding-top: 65%;
+}
+
+.timeline-media-grid.grid-2 .timeline-image-container,
+.timeline-media-grid.grid-2 .timeline-video-container {
+  padding-top: 75%;
+}
+
+.timeline-media-grid.grid-3 .timeline-image-container,
+.timeline-media-grid.grid-3 .timeline-video-container {
+  padding-top: 85%;
+}
+
+.timeline-media-grid.grid-2-3 .timeline-image-container,
+.timeline-media-grid.grid-2-3 .timeline-video-container {
+  padding-top: 80%;
 }
 
 .timeline-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-height: 200px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 4px;
 }
 
-/* 视频容器样式 */
 .timeline-video-container {
-  margin-top: 15px;
-  border-radius: 4px;
-  overflow: hidden;
+  height: 0;
   position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 宽高比 */
+  background-color: #000;
 }
 
 .timeline-video {
@@ -273,18 +410,28 @@ onMounted(() => {
 .timeline-link a {
   display: inline-block;
   padding: 6px 12px;
-  background-color: var(--primary-color);
+  background-color: var(--primary-color, #3498db);
   color: white;
   text-decoration: none;
   border-radius: 4px;
-  transition: background-color 0.2s;
-}
-
-.timeline-link a:hover {
-  background-color: var(--primary-hover);
 }
 
 /* 响应式设计 */
+@media (max-width: 992px) {
+  .timeline-media-grid.grid-3,
+  .timeline-media-grid.grid-2-3,
+  .timeline-media-grid.grid-3-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .timeline-media-grid.grid-3 .timeline-image-container,
+  .timeline-media-grid.grid-3 .timeline-video-container,
+  .timeline-media-grid.grid-2-3 .timeline-image-container,
+  .timeline-media-grid.grid-2-3 .timeline-video-container {
+    padding-top: 75%;
+  }
+}
+
 @media (max-width: 768px) {
   .timeline::before {
     left: 40px;
@@ -309,6 +456,15 @@ onMounted(() => {
     right: auto;
     border-left: 0;
     border-right: 10px solid #f8f9fa;
+  }
+}
+
+@media (max-width: 576px) {
+  .timeline-media-grid.grid-2,
+  .timeline-media-grid.grid-3,
+  .timeline-media-grid.grid-2-3,
+  .timeline-media-grid.grid-3-3 {
+    grid-template-columns: 1fr;
   }
 }
 </style>

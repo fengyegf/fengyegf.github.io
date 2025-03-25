@@ -2,7 +2,7 @@
 title: 关于我
 category: 个人介绍
 tags: [个人, 简介, 技能]
-image: src/assets/img/1.jpg
+image: "https://1drv.ms/i/c/2182f48b953d36f8/UQT4Nj2Vi_SCIIAhtwAAAAAAAEvhnIry9zh1bLM?width=4000&height=2762"
 published: 2025-03-23
 description: 这是我的个人介绍页面，包含了我的背景、技能和经历
 ---
