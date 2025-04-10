@@ -1,12 +1,7 @@
 ---
 title: 博客
 published: 2024-12-13
-description: "介绍一下我的博客"
 image: "https://1drv.ms/i/c/2182f48b953d36f8/UQT4Nj2Vi_SCIIAhjDgAAAAAAAZZmPXSlJM35FY?width=3993&height=2894"
-tags: [随手记, 快乐分享]
-category: "我在人间凑数的日子"
-draft: false
-lang: ""
 ---
 
 # 博客
@@ -15,5 +10,11 @@ lang: ""
 
 ## 后续
 
-- 使用 astro 进行开发提升性能
-- 采用卡片样式美化
+- 完善一下旁边的栏因为我也不知道写什么了
+- 逐渐规范代码
+- 优化动画
+- 美化文章样式
+- 完成文章迁移
+- 适配手机端
+
+该界面灵感来源于[codepen](https://codepen.io/leonam-silva-de-souza)

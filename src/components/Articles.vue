@@ -1,0 +1,121 @@
+<template>
+  <div>
+    <h1 class="text-3xl font-bold p-5 mb-0">{{ frontmatter.title }}</h1>
+    <div class="h-1 w-20 bg-blue-500 ml-5 rounded-full"></div>
+    <div class="p-5 flex items-center text-gray-500 text-sm">
+      <span>{{ formatDate(frontmatter.published) }}</span>
+      <span v-if="frontmatter.category" class="ml-4">
+        {{ frontmatter.category }}
+      </span>
+      <div class="ml-auto flex gap-2">
+        <span
+          v-for="tag in frontmatter.tags"
+          :key="tag"
+          class="badge badge-outline"
+        >
+          #{{ tag }}
+        </span>
+      </div>
+    </div>
+    <img
+      v-if="frontmatter.image"
+      class="rounded-xl mt-2 w-full object-cover max-h-96"
+      :src="frontmatter.image"
+      :alt="frontmatter.title || 'bg'"
+      @error="handleImageError"
+    />
+    <!-- 添加 max-w-none 和 w-full 类 -->
+    <article class="prose max-w-none w-full p-5">
+      <div v-html="content"></div>
+    </article>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, nextTick, watch } from "vue";
+import { useRoute } from "vue-router";
+import { processCustomBlocks } from "./utils/markdown-extensions";
+
+const route = useRoute();
+const content = ref("");
+const frontmatter = ref({
+  title: "文章加载中...",
+  image: "",
+  published: "",
+  category: "",
+  tags: [],
+});
+
+// 格式化日期显示
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+};
+
+// 处理图片加载错误
+const handleImageError = () => {
+  frontmatter.value.image = "";
+};
+
+// 加载文章内容函数
+const loadArticle = async () => {
+  try {
+    const path = route.params.path;
+    const type = route.name; // "blog" 或 "life"
+
+    // 根据路由名称决定从哪个文件夹加载
+    let module;
+    if (type === "blog") {
+      module = await import(`../md/${path}.md`);
+    } else if (type === "life") {
+      module = await import(`../life/${path}.md`);
+    } else {
+      throw new Error("未知的文章类型");
+    }
+
+    // 获取 frontmatter 数据
+    if (module.attributes) {
+      frontmatter.value = {
+        title: module.attributes.title || "无标题",
+        image: module.attributes.image || "",
+        published: module.attributes.published || "",
+        category: module.attributes.category || "",
+        tags: module.attributes.tags || [],
+      };
+    }
+
+    // 获取内容 HTML 并处理自定义块
+    if (module.html) {
+      content.value = processCustomBlocks(module.html);
+    }
+
+    // 代码高亮处理
+    await nextTick(() => {
+      document.querySelectorAll("pre code").forEach((el) => {
+        if (window.hljs) {
+          window.hljs.highlightElement(el);
+        }
+      });
+    });
+  } catch (error) {
+    console.error("加载文章失败:", error);
+    content.value = `<p class="text-red-500">文章加载失败: ${error.message}</p>`;
+  }
+};
+
+// 监听路由参数变化，当路径改变时重新加载文章
+watch(
+  () => route.params.path,
+  () => {
+    loadArticle();
+  }
+);
+
+// 首次加载
+onMounted(() => {
+  loadArticle();
+});
+</script>

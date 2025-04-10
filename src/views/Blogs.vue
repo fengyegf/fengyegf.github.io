@@ -1,9 +1,9 @@
 <template>
-  <div class="timeline-view">
-    <Articles />
+  <div>
+    <Blog />
   </div>
 </template>
 
 <script setup>
-import Articles from "@/components/Articles/Articles.vue";
+import Blog from "@/components/Blog/Blog.vue";
 </script>

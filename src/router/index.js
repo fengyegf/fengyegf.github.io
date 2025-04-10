@@ -1,50 +1,54 @@
-import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/components/home/Home.vue";
-import Articles from "@/components/Articles/Articles.vue";
-import Collection from "@/components/Collection.vue";
-import Timeline from "@/components/Timeline.vue";
-import about from "@/views/about.vue";
-import friends from "@/views/friends.vue";
+import { createWebHistory, createRouter } from "vue-router";
+import homes from "@/views/home.vue";
+import Home from "@/components/home.vue";
+import time from "@/components/time/short.vue";
+import gallery from "@/views/gallery.vue";
+import Blogs from "@/views/Blogs.vue";
+import Articles from "@/components/Articles.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home,
-    },
-    {
-      path: "/blogs",
-      name: "blogs",
-      component: Articles,
-    },
-    {
-      path: "/favorites",
-      name: "favorites",
-      component: Collection,
-    },
-    {
-      path: "/Timeline",
-      name: "Timeline",
-      component: Timeline,
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: about,
-    },
-    {
-      path: "/friends",
-      name: "friends",
-      component: friends,
-    },
-    {
-      path: "/page/:path", // 使用动态路由参数
-      name: "Page",
-      component: () => import("../components/Articles/Page.vue"),
+      component: homes,
+      children: [
+        {
+          path: "",
+          name: "Home",
+          component: Home,
+        },
+        {
+          path: "time",
+          name: "time",
+          component: time,
+        },
+        {
+          path: "gallery",
+          name: "gallery",
+          component: gallery,
+        },
+        {
+          path: "blogs",
+          name: "blogs",
+          component: Blogs,
+        },
+        {
+          // 博客文章详情页
+          path: "blog/:path",
+          name: "blog",
+          component: Articles,
+          props: true,
+        },
+        {
+          // 生活记录详情页
+          path: "life/:path",
+          name: "life",
+          component: Articles,
+          props: true,
+        },
+      ],
     },
   ],
 });
-
 export default router;

@@ -1,5 +1,5 @@
 {
-  "name": "mleaf-blog",
+  "name": "fengye",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,21 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "highlight.js": "^11.11.1",
-    "tdesign-icons-vue-next": "^0.3.3",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.3",
+    "tailwindcss": "^4.1.3",
     "vite-plugin-markdown": "^2.2.0",
     "vue": "^3.5.13",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vue/compiler-sfc": "^3.5.13",
-    "vite": "^6.0.1",
-    "vite-plugin-vue-devtools": "^7.6.7"
-  },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "esbuild"
-    ]
+    "@vitejs/plugin-vue": "^5.2.3",
+    "daisyui": "^5.0.12",
+    "vite": "^6.2.4",
+    "vite-plugin-vue-devtools": "^7.7.2"
   }
 }

@@ -1,7 +1,6 @@
 const config = {
-  title1: "MLeaf-",
-  title2: "coder",
-  Message: "Welcome to my blog here is the way station of Maple Leaf",
+  title: "MLeaf-coder",
+  message: "一个记录生活和日志的地方,想要了解一下吗？",
 };
 
-export default config;
+export default config; // 添加这一行来默认导出 config 对象
