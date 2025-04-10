@@ -51,4 +51,21 @@ const router = createRouter({
     },
   ],
 });
+
+// 处理 GitHub Pages 重定向
+if (typeof window !== "undefined") {
+  const redirectPath = sessionStorage.getItem("redirect_path");
+  if (redirectPath) {
+    sessionStorage.removeItem("redirect_path");
+
+    // 如果有存储的路径，则导航到该路径
+    if (
+      redirectPath !== "/" &&
+      redirectPath !== router.currentRoute.value.path
+    ) {
+      router.push(redirectPath);
+    }
+  }
+}
+
 export default router;
