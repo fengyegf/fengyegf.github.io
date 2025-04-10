@@ -5,26 +5,9 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>枫叶的个人小站</title>
-    <script>
-      // 单页应用的GitHub Pages重定向脚本
-      const pathSegmentsToKeep = 0; // 如果部署在根目录下是0，子目录则相应调整
-
-      const l = window.location;
-      // 保存完整的URL路径(包括查询字符串)
-      const redirectPath =
-        l.pathname
-          .split("/")
-          .slice(0, 1 + pathSegmentsToKeep)
-          .join("/") +
-        "/?redirect=" +
-        encodeURIComponent(l.pathname + l.search + l.hash);
-
-      sessionStorage.redirect = l.pathname + l.search + l.hash;
-      window.location.replace(redirectPath);
-    </script>
   </head>
   <body>
     <div id="app"></div>
-    <!-- 重定向中... -->
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>

@@ -97,9 +97,6 @@ const selectTag = (tag) => {
 const navigateToItem = (path) => {
   // 使用相对路径转换
   const relativePath = path.replace("../../life/", "").replace(".md", "");
-
-  // 使用 push 方式导航，确保生成的URL格式正确
-  // 直接使用路径字符串，而不是params参数（这样可以生成更可靠的URL格式）
-  router.push(`/life/${relativePath}`);
+  router.push({ name: "life", params: { path: relativePath } });
 };
 </script>
