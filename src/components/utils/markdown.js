@@ -77,10 +77,10 @@ export const processDiffBlocks = (html) => {
       // 生成图像对比组件的HTML
       return `<figure class="diff aspect-${aspectRatio} rounded-lg overflow-hidden" tabindex="0">
         <div class="diff-item-1" role="img">
-          <img alt="${image1.alt}" src="${image1.url}" />
+          <img class="rounded-lg" alt="${image1.alt}" src="${image1.url}" />
         </div>
         <div class="diff-item-2" role="img" tabindex="0">
-          <img alt="${image2.alt}" src="${image2.url}" />
+          <img class="rounded-lg" alt="${image2.alt}" src="${image2.url}" />
         </div>
         <div class="diff-resizer"></div>
       </figure>`;
