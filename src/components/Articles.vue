@@ -34,7 +34,7 @@
 <script setup>
 import { ref, onMounted, nextTick, watch } from "vue";
 import { useRoute } from "vue-router";
-import { processCustomBlocks } from "./utils/markdown-extensions";
+import { processCustomBlocks } from "./utils/markdown";
 
 const route = useRoute();
 const content = ref("");

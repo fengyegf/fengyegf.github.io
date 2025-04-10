@@ -75,12 +75,12 @@ export const processDiffBlocks = (html) => {
       }
 
       // 生成图像对比组件的HTML
-      return `<figure class="diff aspect-${aspectRatio} rounded-lg" tabindex="0">
+      return `<figure class="diff aspect-${aspectRatio} rounded-lg overflow-hidden" tabindex="0">
         <div class="diff-item-1" role="img">
-          <img class="rounded-md" alt="${image1.alt}" src="${image1.url}" />
+          <img alt="${image1.alt}" src="${image1.url}" />
         </div>
         <div class="diff-item-2" role="img" tabindex="0">
-          <img class="rounded-md" alt="${image2.alt}" src="${image2.url}" />
+          <img alt="${image2.alt}" src="${image2.url}" />
         </div>
         <div class="diff-resizer"></div>
       </figure>`;
@@ -102,26 +102,50 @@ export const processAlertBlocks = (html) => {
     (match, type, variant1, variant2, variant3, content) => {
       // 转换类型为小写并标准化
       let blockType = type.toLowerCase();
-      if (!["info", "warning", "success", "error"].includes(blockType)) {
-        blockType = "info"; // 默认使用info类型
-      }
+
+      // 将类型映射到 DaisyUI 的 alert 类型
+      const typeMap = {
+        info: "info",
+        warning: "warning",
+        success: "success",
+        error: "error",
+      };
+
+      const daisyType = typeMap[blockType] || "info"; // 默认使用info类型
 
       // 处理内容 - 保留HTML标记以支持更丰富的格式
       const cleanContent = content.trim();
 
-      // 处理变体样式
-      let extraClasses = "";
-      if (variant1) extraClasses += ` alert-${variant1}`;
-      if (variant2) extraClasses += ` alert-${variant2}`;
-      if (variant3) extraClasses += ` alert-${variant3}`;
+      // 处理样式变体 (soft, outline, dash)
+      let styleVariant = "";
+      if ([variant1, variant2, variant3].includes("soft")) {
+        styleVariant = " alert-soft";
+      } else if ([variant1, variant2, variant3].includes("outline")) {
+        styleVariant = " alert-outline";
+      } else if ([variant1, variant2, variant3].includes("dash")) {
+        styleVariant = " alert-dash";
+      }
 
-      // 检查是否不显示图标
+      // 处理是否显示图标
       const noIcon = [variant1, variant2, variant3].includes("noicon");
 
       // 根据不同类型选择不同的SVG图标
       let svgIcon = "";
+
+      // 根据官方示例调整 SVG 类名
+      let strokeClass = "";
+      if (daisyType === "info") {
+        strokeClass = "stroke-current"; // 默认 alert-info 用 stroke-current
+      } else if (daisyType === "success") {
+        strokeClass = "stroke-current"; // 默认 alert-success 用 stroke-current
+      } else if (daisyType === "warning") {
+        strokeClass = "stroke-current"; // 默认 alert-warning 用 stroke-current
+      } else if (daisyType === "error") {
+        strokeClass = "stroke-current"; // 默认 alert-error 用 stroke-current
+      }
+
       if (!noIcon) {
-        switch (blockType) {
+        switch (daisyType) {
           case "info":
             svgIcon =
               '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
@@ -141,11 +165,11 @@ export const processAlertBlocks = (html) => {
         }
       }
 
-      // 生成Alert组件的HTML
-      return `<div role="alert" class="alert alert-${blockType}${extraClasses}">
+      // 完全按照官方示例生成 Alert 组件 HTML
+      return `<div role="alert" class="alert alert-${daisyType}${styleVariant}">
       ${
         !noIcon
-          ? `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
+          ? `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="${strokeClass} h-6 w-6 shrink-0">
         ${svgIcon}
       </svg>`
           : ""
@@ -155,7 +179,6 @@ export const processAlertBlocks = (html) => {
     }
   );
 };
-
 /**
  * 处理所有自定义块
  * @param {string} html - 原始 HTML 内容

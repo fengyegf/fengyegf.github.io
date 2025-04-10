@@ -38,8 +38,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
-
 defineEmits(["click"]);
 
 const props = defineProps({

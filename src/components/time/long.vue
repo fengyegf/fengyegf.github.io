@@ -18,8 +18,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
-
 // 定义事件
 defineEmits(["click"]);
 

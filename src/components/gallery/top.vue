@@ -30,8 +30,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
-
 defineEmits(["select-tag"]);
 
 const props = defineProps({
