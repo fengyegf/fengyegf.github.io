@@ -5,9 +5,15 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>枫叶的个人小站</title>
+    <script>
+      // 保存当前 URL 到 sessionStorage
+      sessionStorage.redirect = location.href;
+
+      // 重定向到首页
+      window.location.href = "/";
+    </script>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="app">重定向中...</div>
   </body>
 </html>
