@@ -1,4 +1,4 @@
-const n={title:"样式测试",published:"2024-12-23T00:00:00.000Z",description:"内容样式测试",image:"../assets/img/11.jpg",tags:[],category:""},e=`<h1>文本样式</h1>
+const n={title:"样式测试",published:"2024-12-23T00:00:00.000Z",description:"内容样式测试",image:"/assets/img/11.jpg",tags:[],category:""},e=`<h1>文本样式</h1>
 <h2>2</h2>
 <h3>3</h3>
 <h1>提醒样式</h1>
@@ -47,5 +47,5 @@ vs
 <img src="https://1drv.ms/i/c/2182f48b953d36f8/UQT4Nj2Vi_SCIIAhjDgAAAAAAAZZmPXSlJM35FY?width=3993&amp;height=2894" alt="alt text">
 :::</p>
 <h1>本地图像</h1>
-<p><img src="../assets/img/11.jpg" alt="alt text"></p>
+<p><img src="/assets/img/11.jpg" alt="alt text"></p>
 `,t=[{level:"1",content:"&#x6587;&#x672C;&#x6837;&#x5F0F;"},{level:"2",content:"2"},{level:"3",content:"3"},{level:"1",content:"&#x63D0;&#x9192;&#x6837;&#x5F0F;"},{level:"1",content:"&#x672C;&#x5730;&#x56FE;&#x50CF;"}];export{n as attributes,e as html,t as toc};

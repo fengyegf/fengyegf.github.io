@@ -1,4 +1,4 @@
-const l={title:"博客",published:"2024-12-13T00:00:00.000Z",image:"src/assets/img/bg.jpg"},n=`<h1>博客</h1>
+const l={title:"博客",published:"2024-12-13T00:00:00.000Z",image:"/assets/img/bg.jpg"},n=`<h1>博客</h1>
 <p>博客本身就是记录开发经验，记录生活的地方，但我想要的是一个简洁而不简单的，这个算是开山作品吧</p>
 <h2>后续</h2>
 <ul>
