@@ -7,6 +7,7 @@ import { plugin as mdPlugin } from "vite-plugin-markdown";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
+  base: "/",
   plugins: [
     vue(),
     vueDevTools(),
@@ -41,6 +42,7 @@ export default defineConfig({
     },
   },
   build: {
-    assetsDir: "assets", // 确保静态资源目录正确
+    assetsDir: "assets",
+    manifest: true,
   },
 });
