@@ -20,6 +20,7 @@
     "@vitejs/plugin-vue": "^5.2.3",
     "daisyui": "^5.0.12",
     "vite": "^6.2.4",
+    "vite-plugin-static-copy": "^2.3.1",
     "vite-plugin-vue-devtools": "^7.7.2"
   }
 }

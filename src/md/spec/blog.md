@@ -1,7 +1,7 @@
 ---
 title: 博客
 published: 2024-12-13
-image: "https://1drv.ms/i/c/2182f48b953d36f8/UQT4Nj2Vi_SCIIAhjDgAAAAAAAZZmPXSlJM35FY?width=3993&height=2894"
+image: "src/assets/img/bg.jpg"
 ---
 
 # 博客
