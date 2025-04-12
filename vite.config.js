@@ -7,7 +7,7 @@ import { plugin as mdPlugin } from "vite-plugin-markdown";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
-  base: "/",
+  base: process.env.NODE_ENV === "production" ? "/" : "/",
   plugins: [
     vue(),
     vueDevTools(),
