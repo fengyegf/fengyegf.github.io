@@ -1,0 +1,2 @@
+const t={title:"pv分享",published:"2024-04-13T00:00:00.000Z",image:"https://1drv.ms/i/c/2182f48b953d36f8/IQT4Nj2Vi_SCIIAhmTgAAAAAAUUdn1UoNrD1HSDK4j-znuA?width=492&height=124",tags:["动漫"]},s=`<iframe src="https://1drv.ms/v/c/2182f48b953d36f8/IQQMsrXqkzk0R6jvcdX8bhN0AT0VdqyWvHzFhO0xNDQsu30" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen></iframe>
+`,r=[];export{t as attributes,s as html,r as toc};
