@@ -7,7 +7,7 @@ import { plugin as mdPlugin } from "vite-plugin-markdown";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
-  base: "/",
+  base: "/MLeaf-coder.github.io/", // 根据仓库名称调整
   plugins: [
     vue(),
     vueDevTools(),
