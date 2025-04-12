@@ -7,7 +7,7 @@ import { plugin as mdPlugin } from "vite-plugin-markdown";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
-  base: "/MLeaf-coder.github.io/", // 根据仓库名称调整
+  base: "/",
   plugins: [
     vue(),
     vueDevTools(),
@@ -26,11 +26,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: "src/assets/img/**/*",
-          dest: "assets/img",
-        },
-        {
-          src: "src/md/../assets/img/**/*",
+          src: "src/assets/img/*",
           dest: "assets/img",
         },
       ],
@@ -42,7 +38,6 @@ export default defineConfig({
     },
   },
   build: {
-    assetsDir: "assets",
-    manifest: true,
+    assetsDir: "assets", // 确保静态资源目录正确
   },
 });

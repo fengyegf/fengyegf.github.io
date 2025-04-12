@@ -4,7 +4,7 @@
     <div class="h-1 w-20 bg-blue-500 ml-5 rounded-full"></div>
     <img
       class="rounded-xl mt-6 w-full object-cover h-64 md:h-96"
-      :src="frontmatter.image?.replace(/^(\.\.\/|src\/)/, '') || ''"
+      :src="frontmatter.image ? frontmatter.image : ''"
       :alt="frontmatter.title || 'bg'"
     />
     <article class="prose max-w-none w-full p-5">
