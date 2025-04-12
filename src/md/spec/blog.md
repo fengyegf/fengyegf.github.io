@@ -1,7 +1,7 @@
 ---
 title: 博客
 published: 2024-12-13
-image: "src/assets/img/bg.jpg"
+image: "/assets/img/bg.jpg"
 ---
 
 # 博客
