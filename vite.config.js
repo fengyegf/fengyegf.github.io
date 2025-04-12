@@ -7,7 +7,7 @@ import { plugin as mdPlugin } from "vite-plugin-markdown";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
-  base: process.env.NODE_ENV === "production" ? "/" : "/",
+  base: "/",
   plugins: [
     vue(),
     vueDevTools(),
@@ -31,10 +31,22 @@ export default defineConfig({
         },
       ],
     }),
+    // 添加URL重写插件
+    {
+      name: "rewrite-image-urls",
+      transformIndexHtml(html) {
+        // 将 src/assets/img 替换为 assets/img
+        return html.replace(/src\/assets\/img\//g, "assets/img/");
+      },
+    },
   ],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      // 添加图像路径别名
+      "src/assets/img": fileURLToPath(
+        new URL("./src/assets/img", import.meta.url)
+      ),
     },
   },
   build: {
