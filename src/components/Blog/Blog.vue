@@ -5,7 +5,12 @@
 
     <!-- 文章卡片网格 -->
     <div class="flex flex-wrap p-5">
-      <Card v-for="article in articles" :key="article.path" :article="article" @click="navigateToBlog(article.path)" />
+      <Card
+        v-for="article in articles"
+        :key="article.path"
+        :article="article"
+        @click="navigateToBlog(article.path)"
+      />
     </div>
 
     <!-- 无文章提示 -->
@@ -23,29 +28,18 @@ import Card from "./Card.vue";
 const router = useRouter();
 const articles = ref([]);
 
-// 正确的函数位置
-const navigateToBlog = (path) => {
-  const relativePath = path
-    .replace("../../md/", "")
-    .replace(/\.md$/, "")
-    .replace(/\//g, '_');
-  router.push({ name: "blog", params: { path: relativePath } });
-};
-
+// 加载所有 markdown 文件
 onMounted(async () => {
   try {
-    // 修复路径为正确的相对路径
-    const mdFiles = import.meta.glob("../../md/**/*.md", { eager: false });
+    // 使用更广泛的匹配模式，包含所有子文件夹
+    const mdFiles = import.meta.glob("../../md/**/*.md");
 
     for (const path in mdFiles) {
-      // 修复路径排除逻辑
-      if (path.includes('/spec/')) continue;
+      // 排除spec文件夹中的文章
+      if (path.includes("/spec/")) continue;
 
       const module = await mdFiles[path]();
       if (module.attributes) {
-        // 修改为宽松的草稿判断逻辑
-        if (module.attributes.draft) continue;
-
         const { title, published, image, category, description, draft } =
           module.attributes;
 
@@ -73,4 +67,13 @@ onMounted(async () => {
     console.error("加载文章失败:", error);
   }
 });
+
+// 文章点击处理
+const navigateToBlog = (path) => {
+  // 提取相对路径，保留子文件夹结构
+  const relativePath = path
+    .replace(/^\.\.\/\.\.\/md\//, "")
+    .replace(/\.md$/, "");
+  router.push({ name: "blog", params: { path: relativePath } });
+};
 </script>
