@@ -59,8 +59,9 @@ const loadArticle = async () => {
     const type = route.name;
 
     let module;
+    // 修改动态导入路径添加.js扩展名
     if (type === "blog") {
-      module = await import(/* @vite-ignore */ `../md/${path}.md`);
+      module = await import(/* @vite-ignore */ `../md/${path}.md.js`);
     } else if (type === "life") {
       module = await import(`../life/${path}.md`);
     } else {
