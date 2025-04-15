@@ -28,11 +28,16 @@ export default defineConfig({
         },
       },
     }),
+    // 在viteStaticCopy配置中添加md目录
     viteStaticCopy({
       targets: [
         {
           src: "src/assets/img/*",
           dest: "assets/img",
+        },
+        {
+          src: "src/md/**/*", // 新增md目录处理
+          dest: "md",
         },
       ],
     }),
