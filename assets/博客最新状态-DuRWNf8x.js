@@ -1,4 +1,4 @@
-const t={title:"博客最新状态",published:"2025-04-15T00:00:00.000Z",image:"https://1drv.ms/i/c/2182f48b953d36f8/IQT4Nj2Vi_SCIIAhbzgAAAAAAYvClsQxMBLG4FQHBBb3UrM?width=7680&height=4320",tags:["博客","开发记录"]},i=`<h1>性能方面</h1>
+const t={title:"博客最新状态",published:"2025-04-15T00:00:00.000Z",image:"https://1drv.ms/i/c/2182f48b953d36f8/IQT4Nj2Vi_SCIIAhbzgAAAAAAYvClsQxMBLG4FQHBBb3UrM?width=7680&height=4320",tags:["博客","开发记录","头大"]},i=`<h1>性能方面</h1>
 <p>部署后的性能
 :::Diff
 <img src="https://1drv.ms/i/c/2182f48b953d36f8/IQSdoflwMTP5So84GnSLMlZTATiiy4LGKIf9qs9TUlEFEhk?width=1024" alt="alt text">
@@ -8,7 +8,7 @@ vs
 因为我没有早期的性能图像我用早期的代码本地测试的性能演示，最开始性能只有40多很慢，但是已经优化上去了</p>
 <h1>新增</h1>
 <ul>
-<li>md目录下的文章目录识别</li>
+<li>md目录下的文章目录识别(经过我一顿操作成功给写乱了，以后适配吧)</li>
 <li>使用命令快速创建文章和空间文章</li>
 </ul>
 `,l=[{level:"1",content:"&#x6027;&#x80FD;&#x65B9;&#x9762;"},{level:"1",content:"&#x65B0;&#x589E;"}];export{t as attributes,i as html,l as toc};
