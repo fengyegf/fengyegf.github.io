@@ -18,16 +18,13 @@ export default defineConfig({
         html: true,
         linkify: true,
         typographer: true,
-        highlight: function (str, lang) {
-          return "";
-        },
       },
     }),
     viteStaticCopy({
       targets: [
         {
-          src: "src/md/**/*", // 使用 ** 匹配所有子目录
-          dest: "assets/md", // 改为 assets/md 目录
+          src: "src/md/**/*",
+          dest: "md", // 改为直接复制到 md 目录
         },
         {
           src: "src/assets/img/*",

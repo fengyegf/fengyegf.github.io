@@ -26,7 +26,8 @@ const articles = ref([]);
 // 加载所有 markdown 文件
 onMounted(async () => {
   try {
-    const mdFiles = import.meta.glob('/src/md/**/*.md', { eager: true });
+    // 使用正确的 glob 模式
+    const mdFiles = import.meta.glob('/src/md/*.md', { eager: true });
 
     for (const path in mdFiles) {
       const module = mdFiles[path];
@@ -37,7 +38,8 @@ onMounted(async () => {
         // 跳过标记为草稿的文章
         if (draft === true) continue;
 
-        const fileName = path.split('/').pop().replace('.md', '');
+        // 提取文件名（不带路径和扩展名）
+        const fileName = path.match(/\/([^/]+)\.md$/)[1];
         articles.value.push({
           title: title || "无标题",
           published: published || "",
@@ -56,7 +58,7 @@ onMounted(async () => {
       return new Date(b.published) - new Date(a.published);
     });
   } catch (error) {
-    console.error("加载文章失败:", error);
+    console.error("加载文章列表失败:", error);
   }
 });
 

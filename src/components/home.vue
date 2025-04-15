@@ -12,7 +12,9 @@
 
 <script setup>
 import { ref, onMounted, nextTick } from "vue";
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
 const content = ref("");
 const frontmatter = ref({
   title: "博客",
@@ -24,8 +26,9 @@ const frontmatter = ref({
 
 onMounted(async () => {
   try {
-    // 使用相对路径导入
-    const blogModule = await import("../md/spec/blog.md");
+    let path = route.params.path || 'blog';
+    // 使用动态导入
+    const blogModule = await import(`/src/md/${path}.md`);
 
     // 获取 frontmatter 数据
     if (blogModule.attributes) {
@@ -53,6 +56,7 @@ onMounted(async () => {
     });
   } catch (error) {
     console.error("加载文章失败:", error);
+    content.value = "<p>文章加载失败</p>";
   }
 });
 </script>
