@@ -26,8 +26,7 @@ const articles = ref([]);
 // 加载所有 markdown 文件
 onMounted(async () => {
   try {
-    // 修改 glob 匹配路径
-    const mdFiles = import.meta.glob("/src/md/*.md", { eager: true });
+    const mdFiles = import.meta.glob('/src/md/**/*.md', { eager: true });
 
     for (const path in mdFiles) {
       const module = mdFiles[path];
@@ -38,13 +37,14 @@ onMounted(async () => {
         // 跳过标记为草稿的文章
         if (draft === true) continue;
 
+        const fileName = path.split('/').pop().replace('.md', '');
         articles.value.push({
           title: title || "无标题",
           published: published || "",
           image: image || "",
           category: category || "",
           description: description || "",
-          path: path,
+          path: fileName, // 只保留文件名
         });
       }
     }
@@ -62,8 +62,9 @@ onMounted(async () => {
 
 // 文章点击处理
 const navigateToBlog = (path) => {
-  // 使用相对路径转换
-  const relativePath = path.replace("../../md/", "").replace(".md", "");
-  router.push({ name: "blog", params: { path: relativePath } });
+  router.push({
+    name: 'blog',
+    params: { path }  // 直接使用文件名
+  });
 };
 </script>

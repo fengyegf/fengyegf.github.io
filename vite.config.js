@@ -26,8 +26,8 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: "src/md/*",
-          dest: "md",
+          src: "src/md/**/*", // 使用 ** 匹配所有子目录
+          dest: "assets/md", // 改为 assets/md 目录
         },
         {
           src: "src/assets/img/*",
@@ -43,5 +43,10 @@ export default defineConfig({
   },
   build: {
     assetsDir: "assets", // 确保静态资源目录正确
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL("./index.html", import.meta.url)),
+      },
+    },
   },
 });

@@ -24,8 +24,8 @@ const frontmatter = ref({
 
 onMounted(async () => {
   try {
-    // 修改导入路径
-    const blogModule = await import("/src/md/spec/blog.md");
+    // 使用相对路径导入
+    const blogModule = await import("../md/spec/blog.md");
 
     // 获取 frontmatter 数据
     if (blogModule.attributes) {
