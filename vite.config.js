@@ -8,7 +8,6 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
   base: "/",
-  // 移除viteStaticCopy插件配置
   plugins: [
     vue(),
     vueDevTools(),
@@ -19,15 +18,19 @@ export default defineConfig({
         html: true,
         linkify: true,
         typographer: true,
-        xhtmlOut: false,
-        breaks: false,
-        langPrefix: "language-",
         highlight: function (str, lang) {
           return "";
         },
       },
     }),
-    // 删除viteStaticCopy配置
+    viteStaticCopy({
+      targets: [
+        {
+          src: "src/assets/img/*",
+          dest: "assets/img",
+        },
+      ],
+    }),
   ],
   resolve: {
     alias: {
