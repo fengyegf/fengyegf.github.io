@@ -34,14 +34,18 @@ const navigateToBlog = (path) => {
 
 onMounted(async () => {
   try {
+    // 修复路径为正确的相对路径
     const mdFiles = import.meta.glob("../../md/**/*.md", { eager: false });
 
     for (const path in mdFiles) {
-      // 排除 spec/blog.md 文件
-      if (path.includes('spec/blog.md')) continue;
+      // 修复路径排除逻辑
+      if (path.includes('/spec/')) continue;
 
       const module = await mdFiles[path]();
       if (module.attributes) {
+        // 修改为宽松的草稿判断逻辑
+        if (module.attributes.draft) continue;
+
         const { title, published, image, category, description, draft } =
           module.attributes;
 

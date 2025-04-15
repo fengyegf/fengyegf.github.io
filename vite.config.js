@@ -8,18 +8,17 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
   base: "/",
+  // 移除viteStaticCopy插件配置
   plugins: [
     vue(),
     vueDevTools(),
     tailwindcss(),
     mdPlugin({
       mode: ["html", "toc"],
-      // 在 mdPlugin 配置中添加 markdown-it 设置
       markdownIt: {
         html: true,
         linkify: true,
         typographer: true,
-        // 添加以下配置支持嵌套目录
         xhtmlOut: false,
         breaks: false,
         langPrefix: "language-",
@@ -28,22 +27,7 @@ export default defineConfig({
         },
       },
     }),
-    // 在viteStaticCopy配置中添加md目录
-    viteStaticCopy({
-      targets: [
-        {
-          src: "src/md/**/*.md",
-          dest: "md",
-          rename: (name, extension, fullPath) => {
-            const relativePath = path.relative(
-              path.join(__dirname, "src/md"),
-              fullPath
-            );
-            return relativePath;
-          },
-        },
-      ],
-    }),
+    // 删除viteStaticCopy配置
   ],
   resolve: {
     alias: {
