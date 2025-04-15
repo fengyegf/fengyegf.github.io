@@ -2,28 +2,32 @@
   <div class="glass rounded-xl p-4 text-center text-xs text-gray-500">
     <div class="flex items-center justify-center mb-2">
       <img
-        src="https://beian.mps.gov.cn/web/assets/logo01.6189a29f.png"
+        :src="config.publicSecurity.logo"
         alt="备案图标"
         class="h-4 mr-1"
       />
       <a
-        href="https://beian.mps.gov.cn/#/query/webSearch?code=51018002000145"
+        :href="config.publicSecurity.link"
         target="_blank"
         rel="noopener noreferrer"
         class="hover:text-blue-500 transition-colors"
       >
-        川公网安备51018002000145
+        {{ config.publicSecurity.number }}
       </a>
     </div>
     <div>
       <a
-        href="https://beian.miit.gov.cn/"
+        :href="config.icp.link"
         target="_blank"
         rel="noopener noreferrer"
         class="hover:text-blue-500 transition-colors"
       >
-        蜀ICP备2023029817号-1
+        {{ config.icp.number }}
       </a>
     </div>
   </div>
 </template>
+
+<script setup>
+import config from '@/config/ipc';
+</script>
