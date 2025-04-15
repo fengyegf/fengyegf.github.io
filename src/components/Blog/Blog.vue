@@ -26,10 +26,11 @@ const articles = ref([]);
 // 加载所有 markdown 文件
 onMounted(async () => {
   try {
-    const mdFiles = import.meta.glob("../../md/*.md");
+    // 修改 glob 匹配路径
+    const mdFiles = import.meta.glob("/src/md/*.md", { eager: true });
 
     for (const path in mdFiles) {
-      const module = await mdFiles[path]();
+      const module = mdFiles[path];
       if (module.attributes) {
         const { title, published, image, category, description, draft } =
           module.attributes;

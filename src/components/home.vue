@@ -2,11 +2,8 @@
   <div class="w-full max-w-full">
     <h1 class="text-3xl font-bold p-5 mb-0">{{ frontmatter.title }}</h1>
     <div class="h-1 w-20 bg-blue-500 ml-5 rounded-full"></div>
-    <img
-      class="rounded-xl mt-6 w-full object-cover h-64 md:h-96"
-      :src="frontmatter.image ? frontmatter.image : ''"
-      :alt="frontmatter.title || 'bg'"
-    />
+    <img class="rounded-xl mt-6 w-full object-cover h-64 md:h-96" :src="frontmatter.image ? frontmatter.image : ''"
+      :alt="frontmatter.title || 'bg'" />
     <article class="prose max-w-none w-full p-5">
       <div v-html="content"></div>
     </article>
@@ -27,8 +24,8 @@ const frontmatter = ref({
 
 onMounted(async () => {
   try {
-    // 使用动态导入加载 markdown 文件
-    const blogModule = await import("../md/spec/blog.md");
+    // 修改导入路径
+    const blogModule = await import("/src/md/spec/blog.md");
 
     // 获取 frontmatter 数据
     if (blogModule.attributes) {
