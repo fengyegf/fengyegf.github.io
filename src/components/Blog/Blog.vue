@@ -5,12 +5,7 @@
 
     <!-- 文章卡片网格 -->
     <div class="flex flex-wrap p-5">
-      <Card
-        v-for="article in articles"
-        :key="article.path"
-        :article="article"
-        @click="navigateToBlog(article.path)"
-      />
+      <Card v-for="article in articles" :key="article.path" :article="article" @click="navigateToBlog(article.path)" />
     </div>
 
     <!-- 无文章提示 -->
@@ -28,12 +23,23 @@ import Card from "./Card.vue";
 const router = useRouter();
 const articles = ref([]);
 
-// 加载所有 markdown 文件
+// 正确的函数位置
+const navigateToBlog = (path) => {
+  const relativePath = path
+    .replace("../../md/", "")
+    .replace(/\.md$/, "")
+    .replace(/\//g, '_');
+  router.push({ name: "blog", params: { path: relativePath } });
+};
+
 onMounted(async () => {
   try {
-    const mdFiles = import.meta.glob("../../md/*.md");
+    const mdFiles = import.meta.glob("../../md/**/*.md", { eager: false });
 
     for (const path in mdFiles) {
+      // 排除 spec/blog.md 文件
+      if (path.includes('spec/blog.md')) continue;
+
       const module = await mdFiles[path]();
       if (module.attributes) {
         const { title, published, image, category, description, draft } =
@@ -63,11 +69,4 @@ onMounted(async () => {
     console.error("加载文章失败:", error);
   }
 });
-
-// 文章点击处理
-const navigateToBlog = (path) => {
-  // 使用相对路径转换
-  const relativePath = path.replace("../../md/", "").replace(".md", "");
-  router.push({ name: "blog", params: { path: relativePath } });
-};
 </script>

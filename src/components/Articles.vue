@@ -8,22 +8,13 @@
         {{ frontmatter.category }}
       </span>
       <div class="ml-auto flex gap-2">
-        <span
-          v-for="tag in frontmatter.tags"
-          :key="tag"
-          class="badge badge-outline"
-        >
+        <span v-for="tag in frontmatter.tags" :key="tag" class="badge badge-outline">
           #{{ tag }}
         </span>
       </div>
     </div>
-    <img
-      v-if="frontmatter.image"
-      class="rounded-xl mt-2 w-full object-cover max-h-96"
-      :src="frontmatter.image"
-      :alt="frontmatter.title || 'bg'"
-      @error="handleImageError"
-    />
+    <img v-if="frontmatter.image" class="rounded-xl mt-2 w-full object-cover max-h-96" :src="frontmatter.image"
+      :alt="frontmatter.title || 'bg'" @error="handleImageError" />
     <!-- 添加 max-w-none 和 w-full 类 -->
     <article class="prose max-w-none w-full p-5">
       <div v-html="content"></div>
@@ -35,6 +26,7 @@
 import { ref, onMounted, nextTick, watch } from "vue";
 import { useRoute } from "vue-router";
 import { processCustomBlocks } from "./utils/markdown";
+import "@/assets/css/main.css";
 
 const route = useRoute();
 const content = ref("");
@@ -63,13 +55,12 @@ const handleImageError = () => {
 // 加载文章内容函数
 const loadArticle = async () => {
   try {
-    const path = route.params.path;
-    const type = route.name; // "blog" 或 "life"
+    const path = route.params.path.replace(/_/g, '/'); // 还原路径分隔符
+    const type = route.name;
 
-    // 根据路由名称决定从哪个文件夹加载
     let module;
     if (type === "blog") {
-      module = await import(`../md/${path}.md`);
+      module = await import(/* @vite-ignore */ `../md/${path}.md`);
     } else if (type === "life") {
       module = await import(`../life/${path}.md`);
     } else {

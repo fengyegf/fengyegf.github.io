@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "md": "node scripts/create-md.js",
+    "life": "node scripts/create-life.js"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",

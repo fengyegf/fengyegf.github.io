@@ -47,12 +47,19 @@ const articles = ref([]);
 // 从所有 markdown 文件加载文章信息
 onMounted(async () => {
   try {
-    const mdFiles = import.meta.glob("../../md/*.md");
+    // 使用更广泛的匹配模式，包括所有子文件夹
+    const mdFiles = import.meta.glob("../../md/**/*.md");
 
     for (const path in mdFiles) {
+      // 排除spec文件夹中的文章
+      if (path.includes("/spec/")) continue;
+
       const module = await mdFiles[path]();
       if (module.attributes) {
-        const { title, published, tags } = module.attributes;
+        const { title, published, tags, draft } = module.attributes;
+
+        // 跳过标记为草稿的文章
+        if (draft === true) continue;
 
         if (published) {
           const date = new Date(published);
@@ -111,8 +118,10 @@ const sortedMonths = (year) => {
 
 // 添加导航到文章的方法
 const navigateToArticle = (path) => {
-  // 从路径中提取文件名
-  const relativePath = path.replace("../../md/", "").replace(".md", "");
+  // 提取相对路径，保留子文件夹结构
+  const relativePath = path
+    .replace(/^\.\.\/\.\.\/md\//, "")
+    .replace(/\.md$/, "");
   router.push({ name: "blog", params: { path: relativePath } });
 };
 </script>
