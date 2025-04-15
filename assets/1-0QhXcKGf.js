@@ -1,4 +1,4 @@
-const n={title:"样式测试",published:"2024-12-23T00:00:00.000Z",description:"内容样式测试",image:"/assets/img/11.jpg",tags:[],category:""},e=`<h1>文本样式</h1>
+const n={title:"样式测试",published:"2024-12-23T00:00:00.000Z",description:"内容样式测试",image:"/img/11.jpg",tags:[],category:""},e=`<h1>文本样式</h1>
 <h2>2</h2>
 <h3>3</h3>
 <h1>提醒样式</h1>
