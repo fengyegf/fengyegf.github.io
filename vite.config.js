@@ -14,10 +14,15 @@ export default defineConfig({
     tailwindcss(),
     mdPlugin({
       mode: ["html", "toc"],
+      // 在 mdPlugin 配置中添加 markdown-it 设置
       markdownIt: {
         html: true,
         linkify: true,
         typographer: true,
+        // 添加以下配置支持嵌套目录
+        xhtmlOut: false,
+        breaks: false,
+        langPrefix: "language-",
         highlight: function (str, lang) {
           return "";
         },

@@ -38,7 +38,9 @@ const router = createRouter({
           path: "blog/:path",
           name: "blog",
           component: Articles,
-          props: true,
+          props: (route) => ({
+            path: route.params.path.replace(/_/g, "/"), // 还原路径分隔符
+          }),
         },
         {
           // 生活记录详情页
