@@ -18,14 +18,13 @@ export default defineConfig({
         html: true,
         linkify: true,
         typographer: true,
+        highlight: function (str, lang) {
+          return "";
+        },
       },
     }),
     viteStaticCopy({
       targets: [
-        {
-          src: "src/md/**/*",
-          dest: "md", // 改为直接复制到 md 目录
-        },
         {
           src: "src/assets/img/*",
           dest: "assets/img",
@@ -40,10 +39,5 @@ export default defineConfig({
   },
   build: {
     assetsDir: "assets", // 确保静态资源目录正确
-    rollupOptions: {
-      input: {
-        main: fileURLToPath(new URL("./index.html", import.meta.url)),
-      },
-    },
   },
 });

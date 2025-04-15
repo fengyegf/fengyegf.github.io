@@ -26,7 +26,6 @@
 import { ref, onMounted, nextTick, watch } from "vue";
 import { useRoute } from "vue-router";
 import { processCustomBlocks } from "./utils/markdown";
-import "@/assets/css/main.css";
 
 const route = useRoute();
 const content = ref("");
@@ -55,12 +54,13 @@ const handleImageError = () => {
 // 加载文章内容函数
 const loadArticle = async () => {
   try {
-    const path = route.params.path.replace(/_/g, '/'); // 还原路径分隔符
-    const type = route.name;
+    const path = route.params.path;
+    const type = route.name; // "blog" 或 "life"
 
+    // 根据路由名称决定从哪个文件夹加载
     let module;
     if (type === "blog") {
-      module = await import(/* @vite-ignore */ `../md/${path}.md`);
+      module = await import(`../md/${path}.md`);
     } else if (type === "life") {
       module = await import(`../life/${path}.md`);
     } else {

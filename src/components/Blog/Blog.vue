@@ -26,11 +26,10 @@ const articles = ref([]);
 // 加载所有 markdown 文件
 onMounted(async () => {
   try {
-    // 使用正确的 glob 模式
-    const mdFiles = import.meta.glob('/src/md/*.md', { eager: true });
+    const mdFiles = import.meta.glob("../../md/*.md");
 
     for (const path in mdFiles) {
-      const module = mdFiles[path];
+      const module = await mdFiles[path]();
       if (module.attributes) {
         const { title, published, image, category, description, draft } =
           module.attributes;
@@ -38,15 +37,13 @@ onMounted(async () => {
         // 跳过标记为草稿的文章
         if (draft === true) continue;
 
-        // 提取文件名（不带路径和扩展名）
-        const fileName = path.match(/\/([^/]+)\.md$/)[1];
         articles.value.push({
           title: title || "无标题",
           published: published || "",
           image: image || "",
           category: category || "",
           description: description || "",
-          path: fileName, // 只保留文件名
+          path: path,
         });
       }
     }
@@ -58,15 +55,14 @@ onMounted(async () => {
       return new Date(b.published) - new Date(a.published);
     });
   } catch (error) {
-    console.error("加载文章列表失败:", error);
+    console.error("加载文章失败:", error);
   }
 });
 
 // 文章点击处理
 const navigateToBlog = (path) => {
-  router.push({
-    name: 'blog',
-    params: { path }  // 直接使用文件名
-  });
+  // 使用相对路径转换
+  const relativePath = path.replace("../../md/", "").replace(".md", "");
+  router.push({ name: "blog", params: { path: relativePath } });
 };
 </script>
