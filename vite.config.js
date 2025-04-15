@@ -32,12 +32,15 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: "src/assets/img/*",
-          dest: "assets/img",
-        },
-        {
-          src: "src/md/**/*", // 新增md目录处理
+          src: "src/md/**/*.md",
           dest: "md",
+          rename: (name, extension, fullPath) => {
+            const relativePath = path.relative(
+              path.join(__dirname, "src/md"),
+              fullPath
+            );
+            return relativePath;
+          },
         },
       ],
     }),

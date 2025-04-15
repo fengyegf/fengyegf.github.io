@@ -59,9 +59,9 @@ const loadArticle = async () => {
     const type = route.name;
 
     let module;
-    // 修改动态导入路径添加.js扩展名
+    // 修改为带哈希参数的动态导入
     if (type === "blog") {
-      module = await import(/* @vite-ignore */ `../md/${path}.md.js`);
+      module = await import(/* @vite-ignore */ `../md/${path}.md?t=${Date.now()}`);
     } else if (type === "life") {
       module = await import(`../life/${path}.md`);
     } else {
