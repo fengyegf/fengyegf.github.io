@@ -5,6 +5,7 @@ import time from "@/components/time/short.vue";
 import gallery from "@/views/gallery.vue";
 import Blogs from "@/views/Blogs.vue";
 import Articles from "@/components/Articles.vue";
+import Music from "@/views/Music.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
           path: "blogs",
           name: "blogs",
           component: Blogs,
+        },
+        {
+          path: "Music",
+          name: "Music",
+          component: Music,
         },
         {
           // 博客文章详情页
