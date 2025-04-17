@@ -51,21 +51,40 @@ const handleImageError = () => {
   frontmatter.value.image = "";
 };
 
+// 预加载所有可能的 Markdown 文件
+const mdFiles = {
+  // 博客文章 - 根目录
+  ...import.meta.glob("../md/*.md"),
+  // 博客文章 - 一级子文件夹
+  ...import.meta.glob("../md/*/*.md"),
+  // 生活文章
+  ...import.meta.glob("../life/*.md"),
+  ...import.meta.glob("../life/*/*.md"),
+};
+
 // 加载文章内容函数
 const loadArticle = async () => {
   try {
     const path = route.params.path;
     const type = route.name; // "blog" 或 "life"
 
-    // 根据路由名称决定从哪个文件夹加载
-    let module;
+    // 构建完整的文件路径
+    let fullPath;
     if (type === "blog") {
-      module = await import(`../md/${path}.md`);
+      fullPath = `../md/${path}.md`;
     } else if (type === "life") {
-      module = await import(`../life/${path}.md`);
+      fullPath = `../life/${path}.md`;
     } else {
       throw new Error("未知的文章类型");
     }
+
+    // 检查路径是否存在于预加载的文件中
+    if (!mdFiles[fullPath]) {
+      throw new Error(`找不到文章: ${path}`);
+    }
+
+    // 加载文章
+    const module = await mdFiles[fullPath]();
 
     // 获取 frontmatter 数据
     if (module.attributes) {

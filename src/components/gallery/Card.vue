@@ -1,22 +1,14 @@
 <template>
   <div class="w-full sm:w-1/2 md:w-1/3 p-4" @click="$emit('click')">
     <div
-      class="rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer h-full flex flex-col"
-    >
+      class="rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer h-full flex flex-col">
       <div class="p-4 rounded-xl overflow-hidden">
         <!-- 固定高度的图片容器 -->
         <div class="w-full h-48 relative rounded-xl overflow-hidden">
-          <img
-            v-if="item.image"
+          <img v-if="item.image"
             class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-            :src="item.image"
-            :alt="item.title"
-            @error="handleImageError"
-          />
-          <div
-            v-else
-            class="absolute inset-0 w-full h-full bg-gray-100 flex items-center justify-center"
-          >
+            :src="item.image" :alt="item.title" @error="handleImageError" />
+          <div v-else class="absolute inset-0 w-full h-full bg-gray-100 flex items-center justify-center">
             <span class="text-gray-400">暂无图片</span>
           </div>
         </div>

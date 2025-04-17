@@ -6,14 +6,12 @@
     <div class="flex flex-col items-center">
       <h1 class="text-4xl font-bold p-5">{{ title }}</h1>
       <p
-        class="glass p-3 rounded-xl text-center max-w-[16rem] whitespace-normal break-words overflow-wrap-anywhere leading-normal"
-      >
+        class="glass p-3 rounded-xl text-center max-w-[16rem] whitespace-normal break-words overflow-wrap-anywhere leading-normal">
         {{ message }}
       </p>
     </div>
     <div class="divider"></div>
     <div>
-      <!-- <h1>1</h1> -->
       <Vertical />
     </div>
   </div>

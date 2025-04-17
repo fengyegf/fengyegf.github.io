@@ -16,19 +16,35 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onActivated } from "vue";
 import { useRouter } from "vue-router";
 import Card from "./Card.vue";
 
 const router = useRouter();
 const articles = ref([]);
+const loaded = ref(false);
 
-// 加载所有 markdown 文件
-onMounted(async () => {
+// 加载所有 markdown 文件（包括子文件夹）
+const loadArticles = async () => {
+  if (loaded.value) return;
+
   try {
-    const mdFiles = import.meta.glob("../../md/*.md");
+    // 加载根目录和所有子文件夹中的 markdown 文件
+    const rootFiles = import.meta.glob("../../md/*.md");
+    const subFolderFiles = import.meta.glob("../../md/*/*.md");
+
+    // 合并所有文件路径
+    const mdFiles = { ...rootFiles, ...subFolderFiles };
+
+    // 要排除的特定文件路径
+    const excludePaths = ["../../md/spec/blog.md"];
 
     for (const path in mdFiles) {
+      // 跳过排除的文件
+      if (excludePaths.includes(path)) {
+        continue;
+      }
+
       const module = await mdFiles[path]();
       if (module.attributes) {
         const { title, published, image, category, description, draft } =
@@ -54,15 +70,33 @@ onMounted(async () => {
       if (!b.published) return -1;
       return new Date(b.published) - new Date(a.published);
     });
+
+    loaded.value = true;
+
+    // 预加载所有文章图片
+    preloadImages();
   } catch (error) {
     console.error("加载文章失败:", error);
   }
-});
+};
+
+// 预加载所有文章图片
+const preloadImages = () => {
+  articles.value.forEach(article => {
+    if (article.image) {
+      const img = new Image();
+      img.src = article.image;
+    }
+  });
+};
+
+onMounted(loadArticles);
+onActivated(loadArticles);
 
 // 文章点击处理
 const navigateToBlog = (path) => {
-  // 使用相对路径转换
-  const relativePath = path.replace("../../md/", "").replace(".md", "");
+  // 使用相对路径转换，支持子文件夹结构
+  const relativePath = path.replace(/^\.\.\/\.\.\/md\//, "").replace(/\.md$/, "");
   router.push({ name: "blog", params: { path: relativePath } });
 };
 </script>
