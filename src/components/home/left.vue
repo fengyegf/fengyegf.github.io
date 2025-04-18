@@ -11,7 +11,7 @@
       </p>
     </div>
     <div class="divider"></div>
-    <player />
+
     <div>
       <Vertical />
     </div>
@@ -21,7 +21,7 @@
 <script setup>
 import Vertical from "./Vertical.vue";
 import config from "@/config/Config";
-import player from "./player.vue";
+
 import { ref } from "vue";
 const title = ref(config.title);
 const message = ref(config.message);

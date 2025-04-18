@@ -77,10 +77,10 @@ export const processDiffBlocks = (html) => {
       // 生成图像对比组件的HTML
       return `<figure class="diff aspect-${aspectRatio} rounded-lg overflow-hidden" tabindex="0">
         <div class="diff-item-1" role="img">
-          <img class="rounded-lg" alt="${image1.alt}" src="${image1.url}" />
+          <img alt="${image1.alt}" src="${image1.url}" />
         </div>
         <div class="diff-item-2" role="img" tabindex="0">
-          <img class="rounded-lg" alt="${image2.alt}" src="${image2.url}" />
+          <img alt="${image2.alt}" src="${image2.url}" />
         </div>
         <div class="diff-resizer"></div>
       </figure>`;
@@ -179,6 +179,63 @@ export const processAlertBlocks = (html) => {
     }
   );
 };
+
+/**
+ * 处理图像，添加样式如圆角、阴影等
+ * @param {string} html - 原始 HTML 内容
+ * @returns {string} - 处理后的 HTML
+ */
+export const processImages = (html) => {
+  // 匹配所有<img>标签
+  const imgRegex = /<img(.*?)>/gi;
+
+  return html.replace(imgRegex, (match, attributes) => {
+    // 检查是否已经有类名
+    const hasClass = attributes.includes('class="');
+
+    // 检查是否包含特殊属性来确定样式
+    const isRounded = attributes.includes("data-rounded");
+    const hasShadow = attributes.includes("data-shadow");
+    const isBordered = attributes.includes("data-border");
+    const isCircle = attributes.includes("data-circle");
+
+    // 根据属性构建样式类
+    let classes = [];
+
+    // 默认添加圆角
+    classes.push("rounded-lg");
+
+    // 添加条件样式
+    if (isRounded) classes.push("rounded-xl");
+    if (isCircle) classes.push("rounded-full");
+    if (hasShadow) classes.push("shadow-lg");
+    if (isBordered) classes.push("border border-base-300");
+
+    // 如果已经有class属性，追加新类，否则创建class属性
+    if (hasClass) {
+      return match.replace(/class="([^"]*)"/, (m, cls) => {
+        return `class="${cls} ${classes.join(" ")}"`;
+      });
+    } else {
+      return match.replace("<img", `<img class="${classes.join(" ")}"`);
+    }
+  });
+};
+
+/**
+ * 处理响应式图像容器
+ * @param {string} html - 原始 HTML 内容
+ * @returns {string} - 处理后的 HTML
+ */
+export const processImageContainers = (html) => {
+  // 将独立的图像包装在响应式容器中
+  const paragraphWithImageRegex = /<p>(<img[^>]*>)<\/p>/gi;
+
+  return html.replace(paragraphWithImageRegex, (match, imgTag) => {
+    return `<div class="my-4 flex justify-center">${imgTag}</div>`;
+  });
+};
+
 /**
  * 处理所有自定义块
  * @param {string} html - 原始 HTML 内容
@@ -188,8 +245,14 @@ export const processCustomBlocks = (html) => {
   // 先处理 Diff 块
   html = processDiffBlocks(html);
 
-  // 再处理 Alert 块
+  // 处理 Alert 块
   html = processAlertBlocks(html);
+
+  // 处理图像
+  html = processImages(html);
+
+  // 处理图像容器
+  html = processImageContainers(html);
 
   // 这里可以添加更多自定义块处理
 
