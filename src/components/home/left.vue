@@ -11,7 +11,6 @@
       </p>
     </div>
     <div class="divider"></div>
-
     <div>
       <Vertical />
     </div>

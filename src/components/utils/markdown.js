@@ -181,6 +181,48 @@ export const processAlertBlocks = (html) => {
 };
 
 /**
+ * 处理 Accordion 折叠面板
+ * @param {string} html - 原始 HTML 内容
+ * @returns {string} - 处理后的 HTML
+ */
+export const processAccordionBlocks = (html) => {
+  // 使用正则表达式匹配 Accordion 块语法
+  // 格式为 :::Accordion{标题}内容:::
+  const accordionBlockRegex =
+    /:::Accordion(?:{([^}]*)})?(?:{([^}]*)})?[\r\n]?([\s\S]*?):::/gi;
+
+  // 为整组手风琴面板生成一个共享的ID
+  const accordionGroupId = `accordion-group-${Math.random()
+    .toString(36)
+    .substring(2, 8)}`;
+
+  // 跟踪当前文档中的手风琴索引
+  let accordionIndex = 0;
+
+  return html.replace(accordionBlockRegex, (match, title, variant, content) => {
+    accordionIndex++;
+
+    // 默认标题
+    const accordionTitle = title || "点击展开";
+
+    // 处理内容
+    const cleanContent = content.trim();
+
+    // 检查是否是默认展开
+    const isDefaultOpen = variant === "open" || false;
+
+    // 生成手风琴组件的 HTML，使用共享的name属性
+    return `<div class="collapse bg-base-100 border border-base-300 my-3 rounded-lg">
+      <input type="radio" name="${accordionGroupId}" ${
+      isDefaultOpen && accordionIndex === 1 ? 'checked="checked"' : ""
+    } />
+      <div class="collapse-title font-semibold">${accordionTitle}</div>
+      <div class="collapse-content text-sm">${cleanContent}</div>
+    </div>`;
+  });
+};
+
+/**
  * 处理图像，添加样式如圆角、阴影等
  * @param {string} html - 原始 HTML 内容
  * @returns {string} - 处理后的 HTML
@@ -247,6 +289,9 @@ export const processCustomBlocks = (html) => {
 
   // 处理 Alert 块
   html = processAlertBlocks(html);
+
+  // 处理 Accordion 折叠面板
+  html = processAccordionBlocks(html);
 
   // 处理图像
   html = processImages(html);
