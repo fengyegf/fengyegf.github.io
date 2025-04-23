@@ -1,32 +1,26 @@
 <template>
   <div>
-    <h1 class="text-3xl font-bold p-5 mb-0">时间轴</h1>
-    <div class="h-1 w-20 bg-blue-500 ml-5 rounded-full"></div>
+    <h1 class="text-2xl md:text-3xl font-bold p-3 md:p-5 mb-0">时间轴</h1>
+    <div class="h-1 w-16 md:w-20 bg-blue-500 ml-3 md:ml-5 rounded-full"></div>
 
-    <div class="p-5">
+    <div class="p-2 md:p-5">
       <!-- 按年份和月份组织文章 -->
-      <div v-for="year in sortedYears" :key="year" class="mb-10">
+      <div v-for="year in sortedYears" :key="year" class="mb-5 md:mb-10">
         <!-- 年份 -->
         <time-component :label="`${year}年`" />
 
         <!-- 每个月份下的文章 -->
-        <div v-for="month in sortedMonths(year)" :key="month" class="mt-4">
-          <!-- 月份 -->
-          <div class="pl-20 mb-4">
+        <div v-for="month in sortedMonths(year)" :key="month" class="mt-3 md:mt-4">
+          <!-- 月份：手机上不缩进，桌面保持缩进 -->
+          <div class="md:pl-20 mb-2 md:mb-4">
             <time-component :label="`${month}月`" />
           </div>
 
-          <!-- 该月的文章 -->
-          <div class="pl-40 space-y-4">
-            <long
-              v-for="article in groupedArticles[year][month]"
-              :key="article.title"
-              :day="`${article.month}-${article.day}`"
-              :title="article.title"
-              :tags="article.tags"
-              :path="article.path"
-              @click="navigateToArticle(article.path)"
-            />
+          <!-- 该月的文章：手机上不缩进，桌面保持缩进 -->
+          <div class="md:pl-40 space-y-2 md:space-y-4">
+            <long v-for="article in groupedArticles[year][month]" :key="article.title"
+              :day="`${article.month}-${article.day}`" :title="article.title" :tags="article.tags" :path="article.path"
+              @click="navigateToArticle(article.path)" />
           </div>
         </div>
       </div>

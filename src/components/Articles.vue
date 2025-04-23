@@ -1,22 +1,21 @@
 <template>
   <div>
-    <h1 class="text-3xl font-bold p-5 mb-0">{{ frontmatter.title }}</h1>
-    <div class="h-1 w-20 bg-blue-500 ml-5 rounded-full"></div>
-    <div class="p-5 flex items-center text-gray-500 text-sm">
+    <h1 class="text-2xl md:text-3xl font-bold p-3 md:p-5 mb-0">{{ frontmatter.title }}</h1>
+    <div class="h-1 w-16 md:w-20 bg-blue-500 ml-3 md:ml-5 rounded-full"></div>
+    <div class="p-3 md:p-5 flex flex-wrap items-center text-gray-500 text-xs md:text-sm">
       <span>{{ formatDate(frontmatter.published) }}</span>
-      <span v-if="frontmatter.category" class="ml-4">
+      <span v-if="frontmatter.category" class="ml-2 md:ml-4">
         {{ frontmatter.category }}
       </span>
-      <div class="ml-auto flex gap-2">
-        <span v-for="tag in frontmatter.tags" :key="tag" class="badge badge-outline">
+      <div class="w-full md:w-auto md:ml-auto flex flex-wrap gap-1 md:gap-2 mt-2 md:mt-0">
+        <span v-for="tag in frontmatter.tags" :key="tag" class="badge badge-outline text-xs">
           #{{ tag }}
         </span>
       </div>
     </div>
-    <img v-if="frontmatter.image" class="rounded-xl mt-2 w-full object-cover max-h-96" :src="frontmatter.image"
-      :alt="frontmatter.title || 'bg'" @error="handleImageError" />
-    <!-- 添加 max-w-none 和 w-full 类 -->
-    <article class="prose max-w-none w-full p-5">
+    <img v-if="frontmatter.image" class="rounded-xl mt-2 w-full object-cover max-h-60 md:max-h-96"
+      :src="frontmatter.image" :alt="frontmatter.title || 'bg'" @error="handleImageError" />
+    <article class="prose max-w-none w-full p-3 md:p-5 prose-sm md:prose-base">
       <div v-html="content"></div>
     </article>
   </div>

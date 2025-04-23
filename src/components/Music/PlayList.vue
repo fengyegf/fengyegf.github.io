@@ -1,8 +1,8 @@
 <template>
-    <div class="mt-6 bg-white p-4 rounded-xl shadow-md border border-gray-100">
-        <h3 class="text-lg font-semibold mb-4 border-b pb-2 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20"
-                fill="currentColor">
+    <div class="mt-4 md:mt-6 bg-white p-3 md:p-4 rounded-xl shadow-md border border-gray-100">
+        <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4 border-b pb-2 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 md:h-5 w-4 md:w-5 mr-1 md:mr-2 text-blue-500"
+                viewBox="0 0 20 20" fill="currentColor">
                 <path
                     d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
             </svg>
@@ -15,28 +15,28 @@
                     <div class="flex items-center w-full">
                         <!-- 播放中指示器 -->
                         <div class="song-indicator" v-if="song.isPlaying">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 md:h-4 w-3 md:w-4" viewBox="0 0 20 20"
                                 fill="currentColor">
                                 <path fill-rule="evenodd"
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <div v-else class="song-number">{{ index + 1 }}</div>
+                        <div v-else class="song-number text-xs md:text-sm">{{ index + 1 }}</div>
 
-                        <span class="song-title">
+                        <span class="song-title text-sm md:text-base">
                             {{ song.text }}
                         </span>
                     </div>
                 </div>
             </div>
             <div v-else class="empty-playlist">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-2 text-gray-300" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 md:h-12 w-8 md:w-12 mb-2 text-gray-300" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
                         d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                 </svg>
-                <p>暂无播放列表</p>
+                <p class="text-sm md:text-base">暂无播放列表</p>
             </div>
         </div>
     </div>
@@ -63,9 +63,15 @@ const handleClick = (index) => {
 
 <style scoped>
 .playlist-container {
-    max-height: 320px;
+    max-height: 200px;
     overflow-y: auto;
     border-radius: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .playlist-container {
+        max-height: 320px;
+    }
 }
 
 .playlist-items {
@@ -75,7 +81,7 @@ const handleClick = (index) => {
 }
 
 .playlist-item {
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -84,6 +90,14 @@ const handleClick = (index) => {
     align-items: center;
     color: #374151;
     border-left: 3px solid transparent;
+    font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+    .playlist-item {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
 }
 
 .playlist-item:hover {
@@ -102,22 +116,37 @@ const handleClick = (index) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
-    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
     color: #3b82f6;
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+@media (min-width: 768px) {
+    .song-indicator {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+    }
+}
+
 .song-number {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 12px;
-    font-size: 0.875rem;
+    margin-right: 8px;
     color: #6b7280;
+}
+
+@media (min-width: 768px) {
+    .song-number {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+    }
 }
 
 .song-title {

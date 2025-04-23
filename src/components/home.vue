@@ -1,10 +1,10 @@
 <template>
   <div class="w-full max-w-full">
-    <h1 class="text-3xl font-bold p-5 mb-0">{{ frontmatter.title }}</h1>
-    <div class="h-1 w-20 bg-blue-500 ml-5 rounded-full"></div>
-    <img class="rounded-xl mt-6 w-full object-cover h-64 md:h-96" :src="frontmatter.image ? frontmatter.image : ''"
-      :alt="frontmatter.title || 'bg'" />
-    <article class="prose max-w-none w-full p-5">
+    <h1 class="text-2xl md:text-3xl font-bold p-3 md:p-5 mb-0">{{ frontmatter.title }}</h1>
+    <div class="h-1 w-16 md:w-20 bg-blue-500 ml-3 md:ml-5 rounded-full"></div>
+    <img class="rounded-xl mt-3 md:mt-6 w-full object-cover h-48 md:h-96"
+      :src="frontmatter.image ? frontmatter.image : ''" :alt="frontmatter.title || 'bg'" />
+    <article class="prose max-w-none w-full p-3 md:p-5 prose-sm md:prose-base">
       <div v-html="content"></div>
     </article>
   </div>

@@ -1,21 +1,21 @@
 <template>
     <div class="music-player-container">
-        <h1 class="text-3xl font-bold p-5 mb-0">音乐空间</h1>
-        <div class="h-1 w-20 bg-blue-500 ml-5 rounded-full"></div>
+        <h1 class="text-2xl md:text-3xl font-bold p-3 md:p-5 mb-0">音乐空间</h1>
+        <div class="h-1 w-16 md:w-20 bg-blue-500 ml-3 md:ml-5 rounded-full"></div>
 
         <!-- 播放器信息显示区域 -->
-        <div class="p-5">
+        <div class="p-3 md:p-5">
             <!-- 播放器基本信息 -->
-            <div class="player-main-area bg-white rounded-xl shadow-md p-6 mb-8">
-                <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div class="player-main-area bg-white rounded-xl shadow-md p-4 md:p-6 mb-4 md:mb-8">
+                <div class="flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-6">
                     <!-- 专辑封面 - 添加点击事件控制播放/暂停 -->
                     <div class="album-cover-container" @click="togglePlay">
                         <div class="album-cover-inner">
                             <img v-if="playerImage" :src="playerImage" alt="专辑封面" class="w-full h-full object-cover" />
                             <div v-else
                                 class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 md:h-16 w-12 md:w-16 text-gray-400"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
                                         d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                                 </svg>
@@ -38,35 +38,37 @@
 
                     <!-- 播放信息 -->
                     <div class="flex-grow w-full">
-                        <h2 class="text-2xl font-bold mb-2 truncate">{{ playerSong || '暂无播放曲目' }}</h2>
+                        <h2 class="text-xl md:text-2xl font-bold mb-1 md:mb-2 truncate">{{ playerSong || '暂无播放曲目' }}
+                        </h2>
 
                         <!-- 当前歌词预览 -->
-                        <div class="current-lyric mb-4" :class="isPlaying ? 'text-blue-600' : 'text-gray-700'">
+                        <div class="current-lyric mb-3 md:mb-4" :class="isPlaying ? 'text-blue-600' : 'text-gray-700'">
                             {{ getCurrentLyric() }}
                         </div>
 
                         <!-- 播放进度条 -->
-                        <div class="mb-4 mt-6">
+                        <div class="mb-3 md:mb-4 mt-4 md:mt-6">
                             <div class="progress-bar-container">
                                 <div class="progress-bar-bg"></div>
                                 <div class="progress-bar-fill" :style="{ width: progressPercentage + '%' }"></div>
                                 <div class="progress-bar-handle" :style="{ left: progressPercentage + '%' }"></div>
                             </div>
-                            <div class="flex justify-between text-sm text-gray-500 mt-2">
+                            <div class="flex justify-between text-xs md:text-sm text-gray-500 mt-1 md:mt-2">
                                 <span>{{ formatTime(currentTime) }}</span>
                                 <span>{{ formatTime(totalTime) }}</span>
                             </div>
                         </div>
 
                         <!-- 播放状态 -->
-                        <div class="flex items-center mt-2">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                        <div class="flex items-center mt-1 md:mt-2">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
                                 :class="isPlaying ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'">
                                 {{ isPlaying ? '播放中' : '已暂停' }}
-                                <span v-if="isPlaying" class="ml-1 flex h-2 w-2">
+                                <span v-if="isPlaying" class="ml-1 flex h-1.5 md:h-2 w-1.5 md:w-2">
                                     <span
-                                        class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-green-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                        class="animate-ping absolute inline-flex h-1.5 md:h-2 w-1.5 md:w-2 rounded-full bg-green-400 opacity-75"></span>
+                                    <span
+                                        class="relative inline-flex rounded-full h-1.5 md:h-2 w-1.5 md:w-2 bg-green-500"></span>
                                 </span>
                             </span>
                         </div>
@@ -167,12 +169,21 @@ const handleSongClick = (index) => {
 
 .album-cover-container {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 120px;
+    height: 120px;
     flex-shrink: 0;
     cursor: pointer;
     border-radius: 12px;
     overflow: hidden;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .album-cover-container {
+        width: 180px;
+        height: 180px;
+        margin: 0;
+    }
 }
 
 .album-cover-inner {
@@ -228,24 +239,40 @@ const handleSongClick = (index) => {
 }
 
 .current-lyric {
-    font-size: 1.125rem;
-    line-height: 1.5;
-    height: 3em;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    height: 2.8em;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     font-style: italic;
-    border-left: 3px solid #e5e7eb;
-    padding-left: 0.75rem;
+    border-left: 2px solid #e5e7eb;
+    padding-left: 0.5rem;
     margin: 0.5rem 0;
+}
+
+@media (min-width: 768px) {
+    .current-lyric {
+        font-size: 1.125rem;
+        line-height: 1.5;
+        height: 3em;
+        border-left: 3px solid #e5e7eb;
+        padding-left: 0.75rem;
+    }
 }
 
 .progress-bar-container {
     position: relative;
-    height: 8px;
+    height: 6px;
     width: 100%;
     cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .progress-bar-container {
+        height: 8px;
+    }
 }
 
 .progress-bar-bg {
@@ -272,13 +299,20 @@ const handleSongClick = (index) => {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background-color: white;
     border: 2px solid #3b82f6;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     z-index: 2;
+}
+
+@media (min-width: 768px) {
+    .progress-bar-handle {
+        width: 16px;
+        height: 16px;
+    }
 }
 
 .bar {

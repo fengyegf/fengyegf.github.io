@@ -1,8 +1,8 @@
 <template>
-    <div class="mt-6 bg-white p-4 rounded-xl shadow-md border border-gray-100">
-        <h3 class="text-lg font-semibold mb-4 border-b pb-2 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20"
-                fill="currentColor">
+    <div class="mt-4 md:mt-6 bg-white p-3 md:p-4 rounded-xl shadow-md border border-gray-100">
+        <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4 border-b pb-2 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 md:h-5 w-4 md:w-5 mr-1 md:mr-2 text-blue-500"
+                viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                     d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                     clip-rule="evenodd" />
@@ -17,9 +17,9 @@
             </div>
 
             <!-- 歌词容器 -->
-            <div ref="lyricsContainer" class="max-h-120 overflow-y-auto py-24 hide-scrollbar"
+            <div ref="lyricsContainer" class="max-h-80 md:max-h-120 overflow-y-auto py-16 md:py-24 hide-scrollbar"
                 style="scroll-behavior: smooth;">
-                <div v-if="lyrics.length > 0" class="space-y-3">
+                <div v-if="lyrics.length > 0" class="space-y-2 md:space-y-3">
                     <p v-for="(lyric, index) in lyrics" :key="index"
                         :ref="el => { if (index === currentLyricIndex) activeLyricElement = el }" class="lyric-line"
                         :class="[
@@ -30,12 +30,12 @@
                     </p>
                 </div>
                 <div v-else class="empty-lyrics">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-2 text-gray-300" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 md:h-12 w-8 md:w-12 mb-2 text-gray-300"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <p>暂无歌词</p>
+                    <p class="text-sm md:text-base">暂无歌词</p>
                 </div>
             </div>
         </div>
@@ -168,19 +168,20 @@ const scrollToActiveLyric = () => {
 /* 歌词行样式 */
 .lyric-line {
     transition: all 0.3s ease;
-    padding: 0.5rem 1.5rem;
+    padding: 0.375rem 1rem;
     text-align: center;
-    line-height: 1.6;
+    line-height: 1.5;
     border-radius: 0.5rem;
     margin: 0.25rem 0;
+    font-size: 0.875rem;
 }
 
 .lyric-line.active {
     color: #2563eb;
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 1rem;
     background-color: rgba(219, 234, 254, 0.5);
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
 .lyric-line.near {
@@ -189,7 +190,7 @@ const scrollToActiveLyric = () => {
 
 .lyric-line.far {
     color: #9ca3af;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
 }
 
 /* 添加渐变淡化效果 */
@@ -228,5 +229,14 @@ const scrollToActiveLyric = () => {
     padding: 3rem 0;
     color: #9ca3af;
     font-style: italic;
+}
+
+/* 移动设备上减小渐变高度 */
+@media (max-width: 768px) {
+
+    .relative::before,
+    .relative::after {
+        height: 60px;
+    }
 }
 </style>
