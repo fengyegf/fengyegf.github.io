@@ -38,10 +38,16 @@ const router = useRouter();
 // 存储所有文章
 const articles = ref([]);
 
-// 从所有 markdown 文件加载文章信息
+// 从所有 markdown 文件加载文章信息，包括二级目录
 onMounted(async () => {
   try {
-    const mdFiles = import.meta.glob("../../md/*.md");
+    // 预加载所有可能的 Markdown 文件，包括根目录和一级子文件夹
+    const mdFiles = {
+      // 博客文章 - 根目录
+      ...import.meta.glob("../../md/*.md"),
+      // 博客文章 - 一级子文件夹
+      ...import.meta.glob("../../md/*/*.md"),
+    };
 
     for (const path in mdFiles) {
       const module = await mdFiles[path]();
@@ -103,10 +109,21 @@ const sortedMonths = (year) => {
   return Object.keys(groupedArticles.value[year]).sort((a, b) => b - a);
 };
 
-// 添加导航到文章的方法
+// 修改导航到文章的方法，以支持子文件夹
 const navigateToArticle = (path) => {
-  // 从路径中提取文件名
-  const relativePath = path.replace("../../md/", "").replace(".md", "");
+  // 确定是一级还是二级目录文章
+  let relativePath;
+  if (path.includes("/md/") && path.split("/").length > 3) {
+    // 二级目录文章 - 例如 "../../md/1/video.md"
+    const parts = path.split("/");
+    const folder = parts[parts.length - 2];
+    const filename = parts[parts.length - 1].replace(".md", "");
+    relativePath = `${folder}/${filename}`;
+  } else {
+    // 一级目录文章 - 例如 "../../md/video.md"
+    relativePath = path.replace("../../md/", "").replace(".md", "");
+  }
+
   router.push({ name: "blog", params: { path: relativePath } });
 };
 </script>
