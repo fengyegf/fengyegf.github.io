@@ -1,0 +1,119 @@
+const n={title:"安卓上运行宝塔",published:"2024-07-30T00:00:00.000Z",image:"https://github.com/FY-yun/picx-images-hosting/raw/master/20241217/bt_logo_new.3nrog5i6i5.webp",description:"使用temux安装宝塔面板",tags:["termux"],category:"安卓折腾记",draft:!1},e=`<h1>免 root 安装宝塔面板</h1>
+<h3>欢迎来到本期教程，本期的安卓手机改造服务器教程。</h3>
+<h1>准备工作</h1>
+<ol>
+<li>安卓手机</li>
+<li>电脑</li>
+<li>Termux</li>
+<li>装备 ssh 工具</li>
+</ol>
+<p>本期教学使用的软件都会放在文章下面欢迎各位小伙伴下载</p>
+<h3>教程</h3>
+<ol>
+<li>下载<a href="https://github.com/hanxinhao000/ZeroTermux">ZeroTermux</a>这个是基于 termux 进行的二次开发，比 termux 更加好用对新手比较友好</li>
+<li>下载并且打开 ZeroTermux 同意软件的相关条例后右滑点击切换源，建议使用清华源等待安装完成</li>
+<li>再次右滑点击容器切换，点击下面的悬浮球创建一个新的容器，他会让重启软件同意即可</li>
+<li>再次打开 zerotermux,为了方便操作我们使用 ssh 进行连接，在电脑上进行操作</li>
+<li>在 zerotermux 命令行中输入</li>
+</ol>
+<pre><code class="language-bash">apt install openssh
+</code></pre>
+<p>进行安装 ssh 安装完成后我们需要设置密码输入</p>
+<pre><code class="language-bash">passwd
+</code></pre>
+<p>输入密码后回车，输入两次密码即可,在 Linux 中输入密码是不显示到控制台的
+我们打开电脑上的 ssh 客户端，可以使用<a href="https://www.bt.cn/new/product_ssh.html">宝塔的 ssh 终端工具</a>进行连接首先在 zerotermux 中输入</p>
+<pre><code class="language-bash">ifconfig
+</code></pre>
+<p>我们即可看到当前的 ip 地址，在电脑上打开 ssh 客户端输入对应 ip</p>
+<p>防止小白:127.0.0.1 是本机 ip 无法被其他设备访问，所以访问 192 开头的或者其他你看到的 ip 地址</p>
+<p>接下来设置端口 1200 一下端口安卓好像是不能开启的，应该设置一些大端口切不会被其他软件占用的</p>
+<pre><code class="language-bash">sshd -p 3358
+</code></pre>
+<p>我们这里设置的是 3358 端口，当然你也可以改一个自己喜欢的端口，然后电脑上的 ssh 终端工具填入对应数据即可连接，ssh 终端提示连接成功就可以不用管手机了，用电脑操作 6. 安装 ubuntu 系统，这个是一个 Linux 系统我们需要在这个系统中部署宝塔面板，我们使用国光大佬的脚本进行安装，首先安装依赖</p>
+<pre><code class="language-bash">pkg install proot git python -y
+</code></pre>
+<p>如何就是下载脚本</p>
+<pre><code class="language-bash">git clone https://github.com/sqlsec/termux-install-linux
+cd termux-install-linux
+python termux-linux-install.py
+</code></pre>
+<p>应该是全程不会报错我们就得到了如图所示的窗口
+<img src="https://onedrive.live.com/embed?resid=2182F48B953D36F8%2114555&authkey=%21AHGa9T-9MZ2Xm68&width=844&height=552" width="844" height="552" /></p>
+<p>我们输入 1 即可自动安装，安装完成后我们应该是默认在 unbuntu 系统下，我们输入 ps 应该会出现报错，报错原因是分区挂载异常
+:::caution
+Error: /proc must be mounted
+To mount /proc at boot you need an /etc/fstab line like:
+proc /proc proc defaults
+In the meantime, run “mount proc /proc -t proc”
+:::
+像是这个错误就是/proc 分区挂载异常，我们需要退出 ubuntu 系统，我们输入</p>
+<pre><code class="language-bash">exit
+</code></pre>
+<p>当出现~$这个就代表退出成功
+接下来我们伪造/proc 分区下的五个文件，分别为 loadavg,stat,uptime,version,vmstat 这五个文件
+我们输入命令进行创建</p>
+<p>以下命令只需要挨着复制即可，复制粘贴等待运行</p>
+<pre><code class="language-bash">cd /data/data/com.termux &amp;&amp; touch loadavg stat uptime version vmstat
+</code></pre>
+<p>伪造 loadavg 文件</p>
+<pre><code class="language-bash">echo '0.12 0.07 0.02 2/165 765' &gt; ./loadavg
+</code></pre>
+<p>伪造 stat 文件</p>
+<pre><code class="language-bash">echo -e 'cpu 1957 0 2877 93280 262 342 254 87 0 0\\ncpu0 31 0 226 12027 82 10 4 9 0 0\\ncpu1 45 0 664 11144 21 263 233 12 0 0\\ncpu2 494 0 537 11283 27 10 3 8 0 0\\ncpu3 359 0 234 11723 24 26 5 7 0 0\\ncpu4 295 0 268 11772 10 12 2 12 0 0\\ncpu5 270 0 251 11833 15 3 1 10 0 0\\ncpu6 430 0 520 11386 30 8 1 12 0 0\\ncpu7 30 0 172 12108 50 8 1 13 0 0\\nintr 127541 38 290 0 0 0 0 4 0 1 0 0 25329 258 0 5777 277 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\\nctxt 14022\\nbtime 1680020856\\nprocesses 772\\nprocs_running 2\\nprocs_blocked 0\\nsoftirq 75663 0 5903 6 25375 10774 0 243 11685 0 21677' &gt; ./stat
+</code></pre>
+<p>伪造 uptime 文件</p>
+<pre><code class="language-bash">echo '124.08 932.80' &gt; ./uptime
+</code></pre>
+<p>伪造 version 文件</p>
+<pre><code class="language-bash">echo 'Linux version 版本 (proot@termux) (gcc (GCC) 编译信息)' &gt; ./version
+</code></pre>
+<p>伪造 vmstat 文件</p>
+<pre><code class="language-bash">echo -e '0\\nallocstall_normal 0\\nallocstall_movable 0\\nallocstall_device 0\\npgskip_dma 0\\npgskip_dma32 0\\npgskip_normal 0\\npgskip_movable 0\\npgskip_device 0\\npgfree 3077011\\npgactivate 0\\npgdeactivate 0\\npglazyfree 0\\npgfault 176973\\npgmajfault 488\\npglazyfreed 0\\npgrefill 0\\npgreuse 19230\\npgsteal_kswapd 0\\npgsteal_direct 0\\npgsteal_khugepaged 0\\npgdemote_kswapd 0\\npgdemote_direct 0\\npgdemote_khugepaged 0\\npgscan_kswapd 0\\npgscan_direct 0\\npgscan_khugepaged 0\\npgscan_direct_throttle 0\\npgscan_anon 0\\npgscan_file 0\\npgsteal_anon 0\\npgsteal_file 0\\nzone_reclaim_failed 0\\npginodesteal 0\\nslabs_scanned 0\\nkswapd_inodesteal 0\\nkswapd_low_wmark_hit_quickly 0\\nkswapd_high_wmark_hit_quickly 0\\npageoutrun 0\\npgrotated 0\\ndrop_pagecache 0\\ndrop_slab 0\\noom_kill 0\\nnuma_pte_updates 0\\nnuma_huge_pte_updates 0\\nnuma_hint_faults 0\\nnuma_hint_faults_local 0\\nnuma_pages_migrated 0\\npgmigrate_success 0\\npgmigrate_fail 0\\nthp_migration_success 0\\nthp_migration_fail 0\\nthp_migration_split 0\\ncompact_migrate_scanned 0\\ncompact_free_scanned 0\\ncompact_isolated 0\\ncompact_stall 0\\ncompact_fail 0\\ncompact_success 0\\ncompact_daemon_wake 0\\ncompact_daemon_migrate_scanned 0\\ncompact_daemon_free_scanned 0\\nhtlb_buddy_alloc_success 0\\nhtlb_buddy_alloc_fail 0\\ncma_alloc_success 0\\ncma_alloc_fail 0\\nunevictable_pgs_culled 27002\\nunevictable_pgs_scanned 0\\nunevictable_pgs_rescued 744\\nunevictable_pgs_mlocked 744\\nunevictable_pgs_munlocked 744\\nunevictable_pgs_cleared 0\\nunevictable_pgs_stranded 0\\nthp_fault_alloc 13\\nthp_fault_fallback 0\\nthp_fault_fallback_charge 0\\nthp_collapse_alloc 4\\nthp_collapse_alloc_failed 0\\nthp_file_alloc 0\\nthp_file_fallback 0\\nthp_file_fallback_charge 0\\nthp_file_mapped 0\\nthp_split_page 0\\nthp_split_page_failed 0\\nthp_deferred_split_page 1\\nthp_split_pmd 1\\nthp_scan_exceed_none_pte 0\\nthp_scan_exceed_swap_pte 0\\nthp_scan_exceed_share_pte 0\\nthp_split_pud 0\\nthp_zero_page_alloc 0\\nthp_zero_page_alloc_failed 0\\nthp_swpout 0\\nthp_swpout_fallback 0\\nballoon_inflate 0\\nballoon_deflate 0\\nballoon_migrate 0\\nswap_ra 0\\nswap_ra_hit 0\\nksm_swpin_copy 0\\ncow_ksm 0\\nzswpin 0\\nzswpout 0\\ndirect_map_level2_splits 29\\ndirect_map_level3_splits 0\\nnr_unstable 0' &gt; ./vmstat
+</code></pre>
+<p>然后就在 proot 启动脚本中添加挂载选项</p>
+<p>结构-b 文件路径:/proc/文件名</p>
+<p>例：-b /data/data/com.termux/stat:/proc/stat</p>
+<p>以国光大佬脚本制作的系统为例</p>
+<pre><code class="language-bash">sed -i '15a command+=&quot; -b /data/data/com.termux/uptime:/proc/uptime&quot;\\ncommand+=&quot; -b /data/data/com.termux/vmstat:/proc/vmstat&quot;\\ncommand+=&quot; -b /data/data/com.termux/version:/proc/version&quot;\\ncommand+=&quot; -b /data/data/com.termux/stat:/proc/stat&quot;\\ncommand+=&quot; -b /data/data/com.termux/loadavg:/proc/loadavg&quot;' ~/Termux-Linux/Ubuntu/start-ubuntu.sh
+</code></pre>
+<p>这样我们就修复好了/proc 分区下的五个文件接着我们进入系统验证</p>
+<p>我们输入 cd 进入到默认目录下然后在输入</p>
+<pre><code class="language-bash">cd ~/Termux-Linux/Ubuntu
+./start-ubuntu.sh
+</code></pre>
+<p>启动成功后在输入 ps 应该就没有报错了或者我们严谨一点输入</p>
+<pre><code class="language-bash">ps -ef
+</code></pre>
+<p>出现竖着一排一排的文件就算是成功了
+接下来我们开始安装宝塔面板，首先还是一样先安装工具</p>
+<pre><code class="language-bash">yes | apt install git iproute2 locales vim
+</code></pre>
+<p>安装完成后我们部署宝塔加速包</p>
+<pre><code class="language-bash">git clone https://github.com/NothingMeaning/pdusb-fast-btpanel
+</code></pre>
+<p>可能需要一点时间，安装完成后我们输入</p>
+<pre><code class="language-bash">./pdusb-fast-btpanel/pdbolt-inst-bt-acel.sh
+</code></pre>
+<p>接下来前面如果都没有问题那么我们就开始正式安装宝塔面板了</p>
+<pre><code class="language-bash">bash /tmp/btp/pdbolt-bt-install/install.sh
+</code></pre>
+<p>我们就能看到熟悉的宝塔安装页面了，我们输入 y 回车，然后就是漫长的等待了。。。。</p>
+<p>安装完成后会出现报错第一个就是赋权错误，我们输入</p>
+<pre><code class="language-bash">chmod -R +x /www
+</code></pre>
+<p>要是出现输入这个命令后报错就需要你删除空格然后自己出现打空格这里会等待几秒，要是什么都没有显示就说明赋权成功
+接下来修复另外的错误缺少 en_US.UTF-8 语言环境</p>
+<pre><code class="language-bash">sh: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+</code></pre>
+<p>依次输入 158，在输入 3 然后就安装完成了可以开始玩宝塔了，输入宝塔启动命令，bt 即可看到命令行面板输入</p>
+<pre><code class="language-bash">bt 14
+</code></pre>
+<p>即可看到面板地址了</p>
+<h1>劝告</h1>
+<p>本期教程适合动手能力强，爱折腾的小伙伴，安装宝塔后面板中其实还会遇到很多问题，宝塔是为服务器设计的很多软件的适配对于安卓来说很困难，当然动手能力强的应该也是可以解决的</p>
+<h3>相关文章</h3>
+<p><a href="https://www.sqlsec.com/2020/04/termuxlinux.html">国光大佬</a>Android Termux 安装 Linux 就是这么简单</p>
+<p><a href="https://blog.csdn.net/m0_66678248/article/details/136462877">Termux 安装宝塔面板保姆级教学</a>本期教程由这个大佬提供</p>
+<p><a href="https://blog.csdn.net/m0_66678248/article/details/136440403?spm=1001.2014.3001.5501">Termux 解决使用 ps -ef 出现关于挂载/proc 分区的错误</a></p>
+`,a=[{level:"1",content:"&#x514D; root &#x5B89;&#x88C5;&#x5B9D;&#x5854;&#x9762;&#x677F;"},{level:"3",content:"&#x6B22;&#x8FCE;&#x6765;&#x5230;&#x672C;&#x671F;&#x6559;&#x7A0B;&#xFF0C;&#x672C;&#x671F;&#x7684;&#x5B89;&#x5353;&#x624B;&#x673A;&#x6539;&#x9020;&#x670D;&#x52A1;&#x5668;&#x6559;&#x7A0B;&#x3002;"},{level:"1",content:"&#x51C6;&#x5907;&#x5DE5;&#x4F5C;"},{level:"3",content:"&#x6559;&#x7A0B;"},{level:"1",content:"&#x529D;&#x544A;"},{level:"3",content:"&#x76F8;&#x5173;&#x6587;&#x7AE0;"}];export{n as attributes,e as html,a as toc};
