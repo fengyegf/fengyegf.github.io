@@ -8,14 +8,12 @@
       <router-link to="/Blogs" class="text-xl font-bold">博文</router-link>
       <router-link to="/Music" class="text-xl font-bold">音乐</router-link>
     </ul>
-
     <!-- 移动导航 -->
     <div class="md:hidden">
       <button @click="toggleMenu" class="text-xl p-2">
         <span v-if="!menuOpen">☰</span>
         <span v-else>✕</span>
       </button>
-
       <!-- 移动菜单 -->
       <div v-if="menuOpen" class="absolute top-full right-0 mt-2 glass rounded-xl p-4 w-36">
         <ul class="flex flex-col gap-3">
