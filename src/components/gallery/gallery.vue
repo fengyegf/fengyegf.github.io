@@ -93,19 +93,14 @@ const selectTag = (tag) => {
 
 // 点击处理 - 支持二级目录
 const navigateToItem = (path) => {
-  // 检测是根目录还是子文件夹中的文件
-  let relativePath;
+  // 简化路径处理，直接移除前缀和后缀
+  let relativePath = path
+    .replace("../../life/", "")  // 移除前缀路径
+    .replace(".md", "");         // 移除.md后缀
 
-  if (path.includes("/life/") && path.split("/").length > 3) {
-    // 子文件夹中的文件，例如 "../../life/1/1.md"
-    const parts = path.split("/");
-    const folder = parts[parts.length - 2]; // 文件夹名称
-    const filename = parts[parts.length - 1].replace(".md", ""); // 文件名
-    relativePath = `${folder}/${filename}`;
-  } else {
-    // 根目录中的文件，例如 "../../life/1.md"
-    relativePath = path.replace("../../life/", "").replace(".md", "");
-  }
+  // 输出调试信息
+  console.log("原始路径:", path);
+  console.log("处理后路径:", relativePath);
 
   router.push({ name: "life", params: { path: relativePath } });
 };
