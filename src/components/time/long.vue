@@ -1,6 +1,6 @@
 <template>
   <div
-    class="glass h-auto min-h-12 md:h-15 w-full shadow-sm rounded-xl flex flex-col md:flex-row items-start md:items-center p-3 md:p-5 cursor-pointer hover:shadow-md transition-shadow duration-300"
+    class="glass h-auto min-h-12 md:h-15 w-full shadow-sm rounded-xl flex flex-col md:flex-row items-start md:items-center p-3 md:p-5 cursor-pointer hover:shadow-md transition-all duration-300 timeline-card"
     @click="$emit('click')">
     <div class="flex-none w-16 text-sm md:text-base mb-1 md:mb-0">{{ day }}</div>
     <div
@@ -38,3 +38,38 @@ const props = defineProps({
   },
 });
 </script>
+
+<style scoped>
+.timeline-card {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease-out;
+  z-index: -1;
+}
+
+.timeline-card:hover {
+  transform: translateY(-3px);
+}
+
+.timeline-card:hover::before {
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .timeline-card:hover {
+    transform: none;
+  }
+}
+</style>

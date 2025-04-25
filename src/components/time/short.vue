@@ -7,20 +7,24 @@
       <!-- 按年份和月份组织文章 -->
       <div v-for="year in sortedYears" :key="year" class="mb-5 md:mb-10">
         <!-- 年份 -->
-        <time-component :label="`${year}年`" />
+        <div class="animate-on-scroll slide-in-left">
+          <time-component :label="`${year}年`" />
+        </div>
 
         <!-- 每个月份下的文章 -->
         <div v-for="month in sortedMonths(year)" :key="month" class="mt-3 md:mt-4">
           <!-- 月份：手机上不缩进，桌面保持缩进 -->
-          <div class="md:pl-20 mb-2 md:mb-4">
+          <div class="md:pl-20 mb-2 md:mb-4 animate-on-scroll slide-in-right">
             <time-component :label="`${month}月`" />
           </div>
 
           <!-- 该月的文章：手机上不缩进，桌面保持缩进 -->
           <div class="md:pl-40 space-y-2 md:space-y-4">
-            <long v-for="article in groupedArticles[year][month]" :key="article.title"
-              :day="`${article.month}-${article.day}`" :title="article.title" :tags="article.tags" :path="article.path"
-              @click="navigateToArticle(article.path)" />
+            <div v-for="article in groupedArticles[year][month]" :key="article.title"
+              class="animate-on-scroll fade-in-up">
+              <long :day="`${article.month}-${article.day}`" :title="article.title" :tags="article.tags"
+                :path="article.path" @click="navigateToArticle(article.path)" />
+            </div>
           </div>
         </div>
       </div>
@@ -29,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import timeComponent from "./time.vue";
 import long from "./long.vue";
@@ -50,6 +54,11 @@ onMounted(async () => {
     };
 
     for (const path in mdFiles) {
+      // 排除spec目录下的所有文章
+      if (path.includes('/spec/')) {
+        continue;  // 跳过该目录下的文章
+      }
+
       const module = await mdFiles[path]();
       if (module.attributes) {
         const { title, published, tags } = module.attributes;
@@ -78,7 +87,38 @@ onMounted(async () => {
   } catch (error) {
     console.error("加载文章失败:", error);
   }
+
+  // 在文章加载完成后设置Intersection Observer
+  await nextTick();
+  setupScrollAnimation();
 });
+
+// 设置滚动动画
+const setupScrollAnimation = () => {
+  const animateItems = document.querySelectorAll('.animate-on-scroll');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    animateItems.forEach(item => {
+      observer.observe(item);
+    });
+  } else {
+    // 降级处理：对于不支持IntersectionObserver的浏览器，直接显示所有元素
+    animateItems.forEach(item => {
+      item.classList.add('animate-visible');
+    });
+  }
+};
 
 // 按年份和月份对文章进行分组
 const groupedArticles = computed(() => {
@@ -111,19 +151,45 @@ const sortedMonths = (year) => {
 
 // 修改导航到文章的方法，以支持子文件夹
 const navigateToArticle = (path) => {
-  // 确定是一级还是二级目录文章
-  let relativePath;
-  if (path.includes("/md/") && path.split("/").length > 3) {
-    // 二级目录文章 - 例如 "../../md/1/video.md"
-    const parts = path.split("/");
-    const folder = parts[parts.length - 2];
-    const filename = parts[parts.length - 1].replace(".md", "");
-    relativePath = `${folder}/${filename}`;
-  } else {
-    // 一级目录文章 - 例如 "../../md/video.md"
-    relativePath = path.replace("../../md/", "").replace(".md", "");
-  }
+  // 移除基础路径部分以获得相对路径
+  let relativePath = path
+    .replace("../../md/", "")  // 移除前缀路径
+    .replace(".md", "");       // 移除.md后缀
 
+  // 输出调试信息
+  console.log("原始路径:", path);
+  console.log("处理后路径:", relativePath);
+
+  // 导航到文章页面
   router.push({ name: "blog", params: { path: relativePath } });
 };
 </script>
+
+<style scoped>
+/* 基础样式 - 初始隐藏状态 */
+.animate-on-scroll {
+  opacity: 0;
+  transition: all 0.8s ease-out;
+}
+
+/* 滑入动画 - 从左侧 */
+.slide-in-left {
+  transform: translateX(-50px);
+}
+
+/* 滑入动画 - 从右侧 */
+.slide-in-right {
+  transform: translateX(50px);
+}
+
+/* 渐入动画 - 从下方 */
+.fade-in-up {
+  transform: translateY(30px);
+}
+
+/* 可见状态 */
+.animate-visible {
+  opacity: 1;
+  transform: translate(0);
+}
+</style>
