@@ -1,0 +1,2 @@
+const t={title:"五一",published:"2025-04-30T00:00:00.000Z",image:"https://wp-cdn.4ce.cn/v2/DelIFy2.jpeg",tags:["生活日志","人间凑数的日子"]},e=`<p>唔，五一假期作为最后一个离开寝室的，关门那一刻，突然意识到已经这么久了吗？不知不觉就大二了，以前高中时期居然没有任何感觉</p>
+`,c=[];export{t as attributes,e as html,c as toc};
