@@ -5,24 +5,50 @@
 
     <!-- 文章卡片网格 -->
     <div class="flex flex-wrap p-5">
-      <Card v-for="article in articles" :key="article.path" :article="article" @click="navigateToBlog(article.path)" />
+      <Card v-for="article in paginatedArticles" :key="article.path" :article="article"
+        @click="navigateToBlog(article.path)" />
     </div>
 
     <!-- 无文章提示 -->
     <div v-if="articles.length === 0" class="p-10 text-center text-gray-500">
       暂无文章
     </div>
+    <div class="flex justify-center mt-5">
+      <Pagination :current-page="currentPage" :total-pages="totalPages" @page-change="handlePageChange" />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onActivated } from "vue";
+import { ref, onMounted, onActivated, computed } from "vue";
 import { useRouter } from "vue-router";
 import Card from "./Card.vue";
+import Pagination from "../Pagination.vue";
 
 const router = useRouter();
 const articles = ref([]);
 const loaded = ref(false);
+const currentPage = ref(1);
+const pageSize = 6; // 每页显示6篇文章
+
+// 计算总页数
+const totalPages = computed(() => {
+  return Math.ceil(articles.value.length / pageSize) || 1;
+});
+
+// 获取当前页的文章
+const paginatedArticles = computed(() => {
+  const start = (currentPage.value - 1) * pageSize;
+  const end = start + pageSize;
+  return articles.value.slice(start, end);
+});
+
+// 处理页码变化
+const handlePageChange = (page) => {
+  currentPage.value = page;
+  // 回到顶部
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
 // 加载所有 markdown 文件（包括子文件夹）
 const loadArticles = async () => {

@@ -3,12 +3,15 @@
     <top :tags="allTags" :selectedTag="selectedTag" @select-tag="selectTag" />
 
     <div class="flex flex-wrap p-5">
-      <Card v-for="item in filteredItems" :key="item.path" :item="item" @click="navigateToItem(item.path)" />
+      <Card v-for="item in paginatedItems" :key="item.path" :item="item" @click="navigateToItem(item.path)" />
     </div>
 
     <!-- 无内容提示 -->
     <div v-if="filteredItems.length === 0" class="p-10 text-center text-gray-500">
       暂无内容
+    </div>
+    <div class="flex justify-center mt-5">
+      <Pagination :current-page="currentPage" :total-pages="totalPages" @page-change="handlePageChange" />
     </div>
   </div>
 </template>
@@ -18,10 +21,20 @@ import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import Card from "./Card.vue";
 import top from "./top.vue";
+import Pagination from "../Pagination.vue";
 
 const router = useRouter();
 const lifeItems = ref([]);
 const selectedTag = ref("");
+const currentPage = ref(1);
+const pageSize = 9; // 每页显示9个项目
+
+// 处理页码变化
+const handlePageChange = (page) => {
+  currentPage.value = page;
+  // 回到顶部
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
 // 加载所有 life 目录下的 markdown 文件，包括子文件夹
 onMounted(async () => {
@@ -86,9 +99,22 @@ const filteredItems = computed(() => {
   );
 });
 
-// 选择标签
+// 计算总页数
+const totalPages = computed(() => {
+  return Math.ceil(filteredItems.value.length / pageSize) || 1;
+});
+
+// 获取当前页的项目
+const paginatedItems = computed(() => {
+  const start = (currentPage.value - 1) * pageSize;
+  const end = start + pageSize;
+  return filteredItems.value.slice(start, end);
+});
+
+// 当标签变化时重置页码
 const selectTag = (tag) => {
   selectedTag.value = tag;
+  currentPage.value = 1; // 重置到第一页
 };
 
 // 点击处理 - 支持二级目录
