@@ -6,19 +6,15 @@
     <div class="flex flex-col items-center">
       <h1 class="text-2xl md:text-4xl font-bold p-2 md:p-5">{{ title }}</h1>
       <p
-        class="glass p-2 md:p-3 rounded-xl text-center max-w-[16rem] whitespace-normal break-words overflow-wrap-anywhere leading-normal text-sm md:text-base">
+        class=" p-2 md:p-3 rounded-xl text-center max-w-[16rem] whitespace-normal break-words overflow-wrap-anywhere leading-normal text-sm md:text-base">
         {{ message }}
       </p>
     </div>
     <div class="divider"></div>
-    <div>
-      <Vertical />
-    </div>
   </div>
 </template>
 
 <script setup>
-import Vertical from "./Vertical.vue";
 import config from "@/config/Config";
 
 import { ref } from "vue";

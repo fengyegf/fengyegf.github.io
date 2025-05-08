@@ -1,15 +1,14 @@
 <template>
-  <div class="glass rounded-xl p-2 md:p-4 text-center text-xs text-gray-500">
-    <div class="flex items-center justify-center mb-1 md:mb-2">
+  <div class="glass rounded-xl p-5 text-center text-xs text-gray-500">
+    <div class="flex justify-center items-center">
       <img :src="config.publicSecurity.logo" alt="备案图标" class="h-3 md:h-4 mr-1" />
       <a :href="config.publicSecurity.link" target="_blank" rel="noopener noreferrer"
-        class="hover:text-blue-500 transition-colors text-[10px] md:text-xs">
+        class="md:text-xs flex items-center">
+        {{ config.publicSecurity.name }}
         {{ config.publicSecurity.number }}
       </a>
-    </div>
-    <div>
-      <a :href="config.icp.link" target="_blank" rel="noopener noreferrer"
-        class="hover:text-blue-500 transition-colors text-[10px] md:text-xs">
+      <span class="mx-2">|</span>
+      <a :href="config.icp.link" target="_blank" rel="noopener noreferrer" class="md:text-xs flex items-center">
         {{ config.icp.number }}
       </a>
     </div>
