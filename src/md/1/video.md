@@ -2,7 +2,7 @@
 title: video
 published: 2024-12-23
 description: "视频嵌入测试"
-image: ""
+image: "https://wp-cdn.4ce.cn/v2/tvpSXiP.jpeg"
 tags: []
 category: ""
 ---
