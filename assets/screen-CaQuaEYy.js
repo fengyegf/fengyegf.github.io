@@ -1,4 +1,4 @@
-const e={title:"screen",published:"2024-12-16T00:00:00.000Z",description:"screen 命令使用",image:"https://github.com/FY-yun/picx-images-hosting/raw/master/20241217/0CEC95161C0808119EA15DF679759D2C.58hffm7gwq.webp",tags:["Linux","命令"],category:"教程分享"},n=`<h1>screen 的功能</h1>
+const e={title:"screen",published:"2024-12-16T00:00:00.000Z",description:"screen 命令使用",image:"https://wp-cdn.4ce.cn/v2/yzJB4N3.jpeg",tags:["Linux","命令"],category:"教程分享"},n=`<h1>screen 的功能</h1>
 <ul>
 <li>会话恢复</li>
 <li>多窗口</li>

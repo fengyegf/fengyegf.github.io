@@ -1,4 +1,4 @@
-const i={title:"扣子",published:"2025-04-25T00:00:00.000Z",image:"",tags:[]},e=`<p>最近申请扣子空间也是过了，分享 5 个邀请码</p>
+const i={title:"扣子",published:"2025-04-25T00:00:00.000Z",image:"https://wp-cdn.4ce.cn/v2/27a4zFv.png",tags:[]},n=`<p>最近申请扣子空间也是过了，分享 5 个邀请码</p>
 <p><a href="https://www.coze.cn/space-preview?invite_code=6OSEI6YV">邀请码 1</a>
 <a href="https://www.coze.cn/space-preview?invite_code=E00WI1KK">邀请码 2</a>
 <a href="https://www.coze.cn/space-preview?invite_code=M02PYBD5">邀请码 3</a>
@@ -22,4 +22,4 @@ const i={title:"扣子",published:"2025-04-25T00:00:00.000Z",image:"",tags:[]},e
 <li>Clickhouse</li>
 </ul>
 <p>不过应该也够了，实用的也就那点</p>
-`,n=[];export{i as attributes,e as html,n as toc};
+`,e=[];export{i as attributes,n as html,e as toc};

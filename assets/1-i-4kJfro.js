@@ -1,7 +1,7 @@
-const t={title:"alist安装",published:"2024-08-02T00:00:00.000Z",image:"https://github.com/FY-yun/picx-images-hosting/raw/master/20241217/OIP-C.6t76f3ajvb.webp",description:"安卓手机免root安装alist",tags:["alist","termux"],category:"安卓折腾记",draft:!1},e=`<h1>欢迎来到本期安卓改造计划本期</h1>
+const t={title:"alist安装",published:"2024-08-02T00:00:00.000Z",image:"https://wp-cdn.4ce.cn/v2/vt15x0Z.jpeg",description:"安卓手机免root安装alist",tags:["alist","termux"],category:"安卓折腾记",draft:!1},e=`<h1>欢迎来到本期安卓改造计划本期</h1>
 <h3>前言</h3>
 <ol>
-<li>实现命令安装alist</li>
+<li>实现命令安装 alist</li>
 <li>自动化下载种子视频</li>
 </ol>
 <h3>准备工作</h3>

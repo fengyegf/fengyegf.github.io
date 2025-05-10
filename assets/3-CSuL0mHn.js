@@ -1,4 +1,4 @@
-const n={title:"ssh安装",published:"2024-10-21T00:00:00.000Z",description:"安卓手机使用ssh",tags:["termux"],category:"安卓折腾记",draft:!1},e=`<h1>前言</h1>
+const n={title:"ssh安装",published:"2024-10-21T00:00:00.000Z",description:"安卓手机使用ssh",image:"https://wp-cdn.4ce.cn/v2/l8qzVis.jpeg",tags:["termux"],category:"安卓折腾记",draft:!1},e=`<h1>前言</h1>
 <h4>本期教程纯粹我闲的，出一期</h4>
 <h1>准备工作</h1>
 <ul>

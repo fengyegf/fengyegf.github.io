@@ -1,4 +1,4 @@
-const n={title:"安卓上运行宝塔",published:"2024-07-30T00:00:00.000Z",image:"https://github.com/FY-yun/picx-images-hosting/raw/master/20241217/bt_logo_new.3nrog5i6i5.webp",description:"使用temux安装宝塔面板",tags:["termux"],category:"安卓折腾记",draft:!1},e=`<h1>免 root 安装宝塔面板</h1>
+const n={title:"安卓上运行宝塔",published:"2024-07-30T00:00:00.000Z",image:"https://wp-cdn.4ce.cn/v2/u4dgCr8.jpeg",description:"使用temux安装宝塔面板",tags:["termux"],category:"安卓折腾记",draft:!1},e=`<h1>免 root 安装宝塔面板</h1>
 <h3>欢迎来到本期教程，本期的安卓手机改造服务器教程。</h3>
 <h1>准备工作</h1>
 <ol>
