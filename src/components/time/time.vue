@@ -1,5 +1,5 @@
 <template>
-  <div class="glass h-15 w-100 shadow-sm rounded-xl flex items-center p-5">
+  <div class="glass h-15 w-full shadow-sm rounded-xl flex items-center p-5">
     {{ label }}
   </div>
 </template>

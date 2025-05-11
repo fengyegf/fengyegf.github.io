@@ -7,7 +7,7 @@
       <!-- 按年份和月份组织文章 -->
       <div v-for="year in sortedYears" :key="year" class="mb-5 md:mb-10">
         <!-- 年份 -->
-        <div class="animate-on-scroll slide-in-left">
+        <div class="animate-on-scroll slide-in-left w-full">
           <time-component :label="`${year}年`" />
         </div>
 
