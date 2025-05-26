@@ -18,14 +18,14 @@ const n={title:"ssh安装",published:"2024-10-21T00:00:00.000Z",description:"安
 </code></pre>
 <p>拿到 ip 地址</p>
 <img src="https://github.com/MLeaf-coder/FY/blob/main/termux/1.png?raw=true"/>
-<p>:::note
+<p>:::info
 本期是内网 ssh 互连不是 公网 ssh，也就是两台设备都需要在同一 WiFi 上
 :::
 拿到 ip 后我们设置 ssh 的连接密码</p>
 <pre><code class="language-sh">passwd
 </code></pre>
 <p>设置密码</p>
-<p>:::note
+<p>:::info
 手机上 termux 开启的 sshd 服务用的是 8022 端口，而不是常用的 22 端口
 :::
 然后我们打开 Tabby 点击设置-&gt;配置和连接-&gt;新建-&gt;新配置-&gt;ssh 连接</p>

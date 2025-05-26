@@ -70,4 +70,17 @@ vs
 <li>PayPal
 :::</li>
 </ul>
-`,e=[{level:"1",content:"&#x6587;&#x672C;&#x6837;&#x5F0F;"},{level:"2",content:"2"},{level:"3",content:"3"},{level:"1",content:"&#x63D0;&#x9192;&#x6837;&#x5F0F;"},{level:"1",content:"&#x8FDC;&#x7A0B;&#x5BF9;&#x6BD4;&#x56FE;"},{level:"1",content:"&#x672C;&#x5730;&#x56FE;&#x50CF;"},{level:"1",content:"&#x6298;&#x53E0;&#x9762;&#x677F;&#x6548;&#x679C;"}];export{n as attributes,t as html,e as toc};
+<h1>可扩展图库</h1>
+<p>:::Gallery{h-400}{horizontal}
+<img src="https://wp-cdn.4ce.cn/v2/1mgFKet.jpeg" alt="图片1">
+<img src="https://wp-cdn.4ce.cn/v2/CISy0Iy.jpeg" alt="图片2">
+<img src="https://wp-cdn.4ce.cn/v2/HZy6qyd.jpeg" alt="图片3">
+:::</p>
+<div class="divider"></div>
+:::Gallery{h-300}{horizontal}
+![风景1](https://wp-cdn.4ce.cn/v2/1mgFKet.jpeg)
+![风景2](https://wp-cdn.4ce.cn/v2/CISy0Iy.jpeg)
+![风景3](https://wp-cdn.4ce.cn/v2/HZy6qyd.jpeg)
+![风景4](https://wp-cdn.4ce.cn/v2/UF0EU4a.jpeg)
+:::
+`,e=[{level:"1",content:"&#x6587;&#x672C;&#x6837;&#x5F0F;"},{level:"2",content:"2"},{level:"3",content:"3"},{level:"1",content:"&#x63D0;&#x9192;&#x6837;&#x5F0F;"},{level:"1",content:"&#x8FDC;&#x7A0B;&#x5BF9;&#x6BD4;&#x56FE;"},{level:"1",content:"&#x672C;&#x5730;&#x56FE;&#x50CF;"},{level:"1",content:"&#x6298;&#x53E0;&#x9762;&#x677F;&#x6548;&#x679C;"},{level:"1",content:"&#x53EF;&#x6269;&#x5C55;&#x56FE;&#x5E93;"}];export{n as attributes,t as html,e as toc};
