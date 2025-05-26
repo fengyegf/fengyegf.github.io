@@ -279,6 +279,203 @@ export const processImageContainers = (html) => {
 };
 
 /**
+ * 处理 Expandable Gallery 可展开图片画廊
+ * @param {string} html - 原始 HTML 内容
+ * @returns {string} - 处理后的 HTML
+ */
+export const processExpandableGallery = (html) => {
+  // 匹配 Gallery 块语法
+  // 格式为 :::Gallery{height}{direction}内容:::
+  const galleryBlockRegex =
+    /:::Gallery(?:{([^}]*)})?(?:{([^}]*)})?(?:{([^}]*)})?[\r\n]?([\s\S]*?):::/gi;
+
+  return html.replace(
+    galleryBlockRegex,
+    (match, variant1, variant2, variant3, content) => {
+      // 解析内容，提取图片信息
+      const imageRegex =
+        /!\[(.*?)\]\(([^)]+)\)|<img.*?src=["'](.*?)["'].*?>|(https?:\/\/[^\s"']+\.(jpg|jpeg|png|gif|webp|svg))/gi;
+      const images = [];
+      let imageMatch;
+
+      while ((imageMatch = imageRegex.exec(content)) !== null) {
+        if (imageMatch[1] !== undefined && imageMatch[2] !== undefined) {
+          // Markdown 格式 ![alt](url)
+          images.push({
+            url: imageMatch[2].trim(),
+            alt: imageMatch[1].trim() || "画廊图片",
+          });
+        } else if (imageMatch[3] !== undefined) {
+          // HTML img 标签
+          images.push({
+            url: imageMatch[3].trim(),
+            alt: "画廊图片",
+          });
+        } else if (imageMatch[0].includes("http")) {
+          // 直接URL
+          images.push({
+            url: imageMatch[0].trim(),
+            alt: "画廊图片",
+          });
+        }
+      }
+
+      if (images.length === 0) {
+        return `<div class="alert alert-error">Gallery格式错误: 未找到有效的图片</div>`;
+      }
+
+      // 处理可选参数
+      let height = "400px"; // 默认高度
+      let direction = "horizontal"; // 默认方向 (horizontal/vertical)
+
+      // 检查高度参数
+      [variant1, variant2, variant3].forEach((variant) => {
+        if (variant && variant.includes("h-")) {
+          height = variant.replace("h-", "") + "px";
+        } else if (variant && variant.includes("height-")) {
+          height = variant.replace("height-", "") + "px";
+        }
+      });
+
+      // 检查方向参数
+      if ([variant1, variant2, variant3].includes("vertical")) {
+        direction = "vertical";
+      }
+
+      // 生成唯一ID
+      const galleryId = `gallery-${Math.random().toString(36).substring(2, 8)}`;
+
+      // 生成图片项目HTML
+      const imageItems = images
+        .map((image, index) => {
+          return `<div class="gallery-item" data-index="${index}">
+          <img src="${image.url}" alt="${image.alt}" loading="lazy" />
+        </div>`;
+        })
+        .join("");
+
+      // 根据方向生成不同的CSS样式
+      const flexDirection = direction === "vertical" ? "flex-col" : "flex-row";
+
+      // 生成Gallery组件的HTML和内联样式
+      return `<div class="expandable-gallery ${flexDirection}" id="${galleryId}" style="height: ${height};">
+        ${imageItems}
+        <style>
+          #${galleryId} {
+            display: flex;
+            gap: 2px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            min-height: ${height};
+            max-height: ${height};
+            padding: 0; /* 确保容器没有内边距 */
+            margin: 0;
+          }
+          
+          #${galleryId} .gallery-item {
+            flex: 1;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+            position: relative;
+          }
+          
+          #${galleryId} .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            margin: 0;
+            padding: 0;
+            vertical-align: top;
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+          }
+          
+          #${galleryId} .gallery-item:first-child img {
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+          }
+          
+          #${galleryId} .gallery-item:last-child img {
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+          }
+          
+          #${galleryId}.flex-col .gallery-item:first-child img {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border-bottom-left-radius: 0;
+          }
+          
+          #${galleryId}.flex-col .gallery-item:last-child img {
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            border-top-right-radius: 0;
+          }
+          
+          ${
+            direction === "horizontal"
+              ? `
+          #${galleryId}:hover .gallery-item {
+            flex: 0.5;
+          }
+          
+          #${galleryId}:hover .gallery-item:hover {
+            flex: 3;
+          }
+          `
+              : `
+          #${galleryId}:hover .gallery-item {
+            flex: 0.5;
+          }
+          
+          #${galleryId}:hover .gallery-item:hover {
+            flex: 3;
+          }
+          `
+          }
+          
+          #${galleryId} .gallery-item:hover img {
+            transform: scale(1.02);
+          }
+          
+          @media (max-width: 768px) {
+            #${galleryId} {
+              height: 250px !important;
+              min-height: 250px !important;
+              max-height: 250px !important;
+              flex-direction: column;
+            }
+            
+            #${galleryId} .gallery-item:first-child img {
+              border-radius: 0;
+              border-top-left-radius: 12px;
+              border-top-right-radius: 12px;
+            }
+            
+            #${galleryId} .gallery-item:last-child img {
+              border-radius: 0;
+              border-bottom-left-radius: 12px;
+              border-bottom-right-radius: 12px;
+            }
+            
+            #${galleryId}:hover .gallery-item {
+              flex: 0.3;
+            }
+            
+            #${galleryId}:hover .gallery-item:hover {
+              flex: 2;
+            }
+          }
+        </style>
+      </div>`;
+    }
+  );
+};
+
+/**
  * 处理所有自定义块
  * @param {string} html - 原始 HTML 内容
  * @returns {string} - 处理后的 HTML
@@ -292,6 +489,9 @@ export const processCustomBlocks = (html) => {
 
   // 处理 Accordion 折叠面板
   html = processAccordionBlocks(html);
+
+  // 处理 Expandable Gallery 可展开画廊
+  html = processExpandableGallery(html);
 
   // 处理图像
   html = processImages(html);
