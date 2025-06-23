@@ -1,0 +1,27 @@
+const n={title:"虚幻的高级控制绑定(续1)",published:"2025-06-23T00:00:00.000Z",description:"本期记录表情控制",image:"https://wp-cdn.4ce.cn/v2/91JESLY.jpeg",tags:["Unreal Engine5"],category:"教程分享",draft:!1},t=`<p>本期涉及控制器和面部表情控制话不多说开始吧</p>
+<p>首先你需要确认你的模型是有<strong>表情</strong>的也就是俗称<strong>变形目标</strong>既然你都学虚幻引擎了这个是建模领域的应该也熟悉吧,不熟悉的也没有关系，如图下图红框位置</p>
+<h1>导入</h1>
+<p>首先在导出时你需要找到<strong>变形目标</strong>并导出为 fbx 模型
+<img src="https://wp-cdn.4ce.cn/v2/7XYNVKp.png" alt="image.png">
+我记得 blender 应该是默认会导出的</p>
+<h1>导入</h1>
+<p>勾上导入变形器目标
+<img src="https://wp-cdn.4ce.cn/v2/Z4DuWLc.png" alt="image.png"></p>
+<p>我们打开骨骼网格体看到如图，就说明导入成功了，可以试试拖动条预览效果
+<img src="https://wp-cdn.4ce.cn/v2/CKl25KT.png" alt="image.png">
+确认后就开始准备工作了，打开上期的<strong>控制绑定</strong>我们开始操作首先创建一个控制器
+<img src="https://wp-cdn.4ce.cn/v2/iaxxPgi.png" alt="image.png">
+和上期不同的是不是创建控制点，创建一个这个，不要问为什么，要问就自己去翻看文档(至少我没有翻到)回到话题，创建这个后我们将他移动出来，放在一边，要问为什么在头部骨骼创建其实这个答案也很简单，我不想调整他的 z 轴高度坐标，头部这个位置创建后直接拖出完美高度</p>
+<p>接下来设置类型如图，最大和最小需要调成，最大 4 最小 0 这样，样子你可以随便调整想要什么样子就什么样子
+<img src="https://wp-cdn.4ce.cn/v2/rrear4s.png" alt="image.png">
+接下来就是配置变形器，打开骨骼网格体，找到变形器预览的表情，复制名称，选择旁边的曲线有内容的话且和变形器预览内容一样的话就不需要管这一步，没有的话就创建一个，反正就是同步一下</p>
+<p>然后转到我们的绑定控制中，看到下面的曲线容器
+<img src="https://wp-cdn.4ce.cn/v2/BkGKXCb.png" alt="image.png">
+如果有内容我只能说 np,你又可以跳过这一步了，那么没有的看过来
+<img src="https://wp-cdn.4ce.cn/v2/IhKxkuz.png" alt="image.png">
+导入你的骨骼，然后你就可以看到了
+接下来如图
+<img src="https://wp-cdn.4ce.cn/v2/OV7vTST.png" alt="image.png">
+我知道部分人搜索不到中文名称嘿嘿给你们放出英文名称<strong>Set Curve Value</strong>设置曲线值，曲线就选择你的表情，值的部分拖出搜索<strong>除</strong>或者你使用符号也可以找到这个除，最后一个不出意外也搜索不到，嘿嘿英文名称<strong>Get Control Float</strong>获取浮点控制值然后嘛你就可以拖动控制器看到效果了</p>
+<p>原理嘛大概为很简单，但是我研究了几个小时，还记得我们在控制器那里设置了最大和最小值，是的，这个那个地方我们设置了最大为 4 通过浮点去除 2 就得到最大为 2 最小为 0 的控制在动态传递给设置曲线值，emm 正常来说应该是最小为-1 最大为 1 这样才对，我用作教程演示一下你们自己去把握平衡吧</p>
+`,p=[{level:"1",content:"&#x5BFC;&#x5165;"},{level:"1",content:"&#x5BFC;&#x5165;"}];export{n as attributes,t as html,p as toc};
