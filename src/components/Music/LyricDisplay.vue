@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-4 md:mt-6 bg-white p-3 md:p-4 rounded-xl shadow-md border border-gray-100">
+    <div class="mt-4 md:mt-6 bg-white/80 backdrop-blur-lg p-3 md:p-4 rounded-xl shadow-xl border border-gray-100">
         <h3 class="text-base md:text-lg font-semibold mb-3 md:mb-4 border-b pb-2 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 md:h-5 w-4 md:w-5 mr-1 md:mr-2 text-blue-500"
                 viewBox="0 0 20 20" fill="currentColor">
@@ -9,15 +9,11 @@
             </svg>
             歌词
         </h3>
-        <!-- 添加一个相对定位的容器，便于放置指示器 -->
+        <!-- 移除中间指示线和点 -->
         <div class="relative lyrics-wrapper">
-            <!-- 中间指示线 -->
-            <div class="center-indicator">
-                <div class="center-line"></div>
-            </div>
-
             <!-- 歌词容器 -->
-            <div ref="lyricsContainer" class="max-h-80 md:max-h-120 overflow-y-auto py-16 md:py-24 hide-scrollbar"
+            <div ref="lyricsContainer"
+                class="max-h-80 md:max-h-120 overflow-y-auto py-16 md:py-24 hide-scrollbar lyrics-bg"
                 style="scroll-behavior: smooth;">
                 <div v-if="lyrics.length > 0" class="space-y-2 md:space-y-3">
                     <p v-for="(lyric, index) in lyrics" :key="index"
@@ -139,58 +135,71 @@ const scrollToActiveLyric = () => {
 
 /* 歌词容器样式 */
 .lyrics-wrapper {
-    background-color: #fcfcfc;
+    background: #fff;
     border-radius: 0.75rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+    overflow: hidden;
 }
 
-/* 中间指示器 */
-.center-indicator {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 3rem;
-    background: linear-gradient(to right, rgba(219, 234, 254, 0.1), rgba(219, 234, 254, 0.3), rgba(219, 234, 254, 0.1));
-    top: calc(50% - 1.5rem);
-    border-radius: 0.5rem;
-    pointer-events: none;
-    z-index: 10;
+.lyrics-bg {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.85) 100%);
 }
 
-.center-line {
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(to right, rgba(96, 165, 250, 0), rgba(96, 165, 250, 0.7), rgba(96, 165, 250, 0));
-    top: 50%;
+/* 移除 center-indicator、center-line、center-dot 相关样式 */
+.center-indicator,
+.center-line,
+.center-dot {
+    display: none !important;
 }
 
 /* 歌词行样式 */
 .lyric-line {
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(.4, 2, .6, 1);
     padding: 0.375rem 1rem;
     text-align: center;
     line-height: 1.5;
     border-radius: 0.5rem;
     margin: 0.25rem 0;
-    font-size: 0.875rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.lyric-line:hover {
+    background: rgba(219, 234, 254, 0.18);
+    transform: scale(1.04);
 }
 
 .lyric-line.active {
     color: #2563eb;
-    font-weight: 600;
-    font-size: 1rem;
-    background-color: rgba(219, 234, 254, 0.5);
-    transform: scale(1.02);
+    font-weight: 700;
+    font-size: 1.08rem;
+    background: rgba(219, 234, 254, 0.7);
+    box-shadow: 0 0 16px 2px #60a5fa33;
+    transform: scale(1.08);
+    animation: lyric-breath 1.2s infinite alternate;
+}
+
+@keyframes lyric-breath {
+    0% {
+        box-shadow: 0 0 16px 2px #60a5fa33;
+    }
+
+    100% {
+        box-shadow: 0 0 32px 8px #60a5fa55;
+    }
 }
 
 .lyric-line.near {
     color: #374151;
+    opacity: 0.85;
 }
 
 .lyric-line.far {
     color: #9ca3af;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    opacity: 0.6;
 }
 
 /* 添加渐变淡化效果 */
@@ -237,6 +246,19 @@ const scrollToActiveLyric = () => {
     .relative::before,
     .relative::after {
         height: 60px;
+    }
+
+    .center-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .lyric-line {
+        font-size: 0.85rem;
+    }
+
+    .lyric-line.active {
+        font-size: 0.95rem;
     }
 }
 </style>

@@ -159,7 +159,7 @@ const handleSongClick = (index) => {
 
 <style scoped>
 .music-player-container {
-    background-color: #f9fafb;
+    background-color: #fff;
 }
 
 .player-main-area {
