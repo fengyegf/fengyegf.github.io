@@ -3,7 +3,7 @@ import { RouterView } from "vue-router";
 </script>
 
 <template>
-  <main class="w-full min-h-screen flex">
+  <main class="w-full min-h-screen flex ">
     <RouterView />
   </main>
 </template>

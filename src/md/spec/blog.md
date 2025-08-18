@@ -15,7 +15,6 @@ image: "/assets/img/bg.jpg"
 想到什么开发什么，缺少什么编写什么。
 
 样式已经完成大部分了，可以在博文的样式测试的文章中看到所以样式效果
-该界面灵感来源于[codepen](https://codepen.io/leonam-silva-de-souza)
 
 联系可以在我的其他博客下留言也可以直接找我
 
@@ -23,4 +22,4 @@ image: "/assets/img/bg.jpg"
 
 [高德](https://t.me/FY_YUN)
 
-过几天在写一下侧边栏吧
+不写侧边直接给侧边飞了
