@@ -45,7 +45,7 @@ export const navBarConfig: NavBarConfig = {
     LinkPreset.About,
     {
       name: 'GitHub',
-      url: 'https://github.com/MLeaf-coder',     // Internal links should not include the base path, as it is automatically added
+      url: 'https://fengyegf.cn/',     // Internal links should not include the base path, as it is automatically added
       external: true,                               // Show an external link icon and will open in a new tab
     },
   ],
@@ -71,7 +71,7 @@ export const profileConfig: ProfileConfig = {
     {
       name: 'GitHub',
       icon: 'fa6-brands:github',
-      url: 'https://github.com/MLeaf-coder',
+      url: 'https://fengyegf.cn/',
     },
   ],
 }
