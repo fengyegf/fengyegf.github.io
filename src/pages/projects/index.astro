@@ -1,0 +1,83 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getCollection } from "astro:content";
+import ProjectCard from "@components/ProjectCard.astro";
+import { i18n } from "@i18n/translation";
+import I18nKey from "@i18n/i18nKey";
+
+const projects = await getCollection("projects");
+
+const stats = {
+  total: projects.length,
+  completed: projects.filter((p) => p.data.status === "completed").length,
+  developing: projects.filter((p) => p.data.status === "developing").length,
+  planned: projects.filter((p) => p.data.status === "planned").length,
+};
+
+// 按状态排序：开发中 > 已完成 > 计划中
+const sortedProjects = projects.sort((a, b) => {
+  const order: Record<string, number> = {
+    developing: 0,
+    completed: 1,
+    planned: 2,
+  };
+  return order[a.data.status] - order[b.data.status];
+});
+---
+
+<MainGridLayout
+  title={i18n(I18nKey.projects)}
+  description={i18n(I18nKey.projects)}
+>
+  <div class="flex flex-col gap-6">
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-3 gap-4">
+      <div
+        class="card-base p-6 flex flex-col items-center justify-center rounded-[var(--radius-large)]"
+      >
+        <span class="text-4xl font-bold text-[var(--primary)] mb-1"
+          >{stats.total}</span
+        >
+        <span class="text-sm text-neutral-500 dark:text-neutral-400 font-medium"
+          >项目总数</span
+        >
+      </div>
+      <div
+        class="card-base p-6 flex flex-col items-center justify-center rounded-[var(--radius-large)]"
+      >
+        <span class="text-4xl font-bold text-green-500 mb-1"
+          >{stats.completed}</span
+        >
+        <span class="text-sm text-neutral-500 dark:text-neutral-400 font-medium"
+          >已完成</span
+        >
+      </div>
+      <div
+        class="card-base p-6 flex flex-col items-center justify-center rounded-[var(--radius-large)]"
+      >
+        <span class="text-4xl font-bold text-blue-500 mb-1"
+          >{stats.developing}</span
+        >
+        <span class="text-sm text-neutral-500 dark:text-neutral-400 font-medium"
+          >开发中</span
+        >
+      </div>
+    </div>
+
+    <!-- 项目列表 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {
+        sortedProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            image={project.data.image}
+            url={project.data.url}
+            status={project.data.status}
+            tags={project.data.tags}
+          />
+        ))
+      }
+    </div>
+  </div>
+</MainGridLayout>
