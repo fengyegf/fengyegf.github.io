@@ -46,8 +46,19 @@ export const navBarConfig: NavBarConfig = {
     LinkPreset.About,
     LinkPreset.Projects,
     {
-      name: "Bangumi",
-      url: "/bangumi/",
+      name: "More",
+      url: "#",
+      children: [
+        {
+          name: "Bangumi",
+          url: "/bangumi/",
+        },
+        {
+          name: "GitHub",
+          url: "https://github.com/fengyegf",
+          external: true,
+        },
+      ],
     },
     {
       name: "GitHub",
