@@ -4,5 +4,5 @@ description: "一个基于 Node.js + TypeScript + TDLib 的现代化 Telegram Bo
 status: "completed"
 tags: ["tdlib", "bot"]
 url: "https://github.com/CatMoeCircle/Fuyu_TDBot"
-image: "https://files.catbox.moe/xcuo7x.jpg"
+image: "https://wp-cdn.4ce.cn/v2/YfzLZNL.jpeg"
 ---
