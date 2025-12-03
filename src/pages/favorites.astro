@@ -1,0 +1,58 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import SiteCard from "@components/SiteCard.astro";
+import { i18n } from "@i18n/translation";
+import I18nKey from "@i18n/i18nKey";
+
+const favorites = [
+  {
+    title: "Astro",
+    desc: "好用的静态网站框架",
+    url: "https://astro.build",
+    image: "https://astro.build/assets/press/astro-icon-light-gradient.png",
+  },
+  {
+    title: "Tailwind CSS",
+    desc: "快速构建现代网站",
+    url: "https://tailwindcss.com",
+    image:
+      "https://tailwindcss.com/_next/static/media/tailwindcss-mark.d52e9897.svg",
+  },
+  {
+    title: "GitHub",
+    desc: "无需多言",
+    url: "https://github.com",
+    image:
+      "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+  },
+];
+---
+
+<MainGridLayout
+  title={i18n(I18nKey.favorites)}
+  description={i18n(I18nKey.favorites)}
+>
+  <div
+    class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32"
+  >
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      <h1
+        class="text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-100"
+      >
+        {i18n(I18nKey.favorites)}
+      </h1>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {
+          favorites.map((item) => (
+            <SiteCard
+              title={item.title}
+              desc={item.desc}
+              url={item.url}
+              image={item.image}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</MainGridLayout>

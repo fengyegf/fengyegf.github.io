@@ -44,13 +44,26 @@ export const navBarConfig: NavBarConfig = {
     LinkPreset.Home,
     LinkPreset.Archive,
     LinkPreset.About,
-    LinkPreset.Projects,
+    {
+      name: "我",
+      url: "#",
+      children: [
+        {
+          name: "项目",
+          url: "/projects/",
+        },
+      ],
+    },
     {
       name: "More",
       url: "#",
       children: [
         {
-          name: "Bangumi",
+          name: "我的收藏",
+          url: "/favorites/",
+        },
+        {
+          name: "番组计划",
           url: "/bangumi/",
         },
         {

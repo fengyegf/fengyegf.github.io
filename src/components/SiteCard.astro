@@ -1,0 +1,49 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title: string;
+  desc: string;
+  url: string;
+  image?: string;
+}
+
+const { title, desc, url, image } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block rounded-[var(--radius-large)] overflow-hidden bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] transition-colors duration-300 no-underline"
+>
+  <div class="flex p-3 gap-3">
+    <div
+      class="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center"
+    >
+      {
+        image ? (
+          <img
+            src={image}
+            alt={title}
+            class="w-full h-full object-contain p-1"
+          />
+        ) : (
+          <div class="w-full h-full flex items-center justify-center text-neutral-400 dark:text-neutral-500">
+            <Icon name="material-symbols:web" class="text-2xl" />
+          </div>
+        )
+      }
+    </div>
+    <div class="flex-grow min-w-0 flex flex-col justify-center">
+      <h3
+        class="text-sm font-bold text-neutral-900 dark:text-neutral-100 truncate"
+      >
+        {title}
+      </h3>
+      <p class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2">
+        {desc}
+      </p>
+    </div>
+  </div>
+</a>
