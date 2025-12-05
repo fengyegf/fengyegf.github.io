@@ -3,9 +3,10 @@ import type { UserSubjectCollection } from "@/types/bangumi";
 
 interface Props {
   item: UserSubjectCollection;
+  isGame?: boolean;
 }
 
-const { item } = Astro.props;
+const { item, isGame = false } = Astro.props;
 
 const subject_base_url = "https://bgm.tv/subject/";
 
@@ -29,11 +30,11 @@ const getStatusColor = (type: number) => {
 const getStatusText = (type: number) => {
   switch (type) {
     case 1:
-      return "想看";
+      return isGame ? "想玩" : "想看";
     case 2:
-      return "看过";
+      return isGame ? "玩过" : "看过";
     case 3:
-      return "在看";
+      return isGame ? "在玩" : "在看";
     case 4:
       return "搁置";
     case 5:
