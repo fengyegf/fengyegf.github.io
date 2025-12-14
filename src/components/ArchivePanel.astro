@@ -4,6 +4,7 @@ import I18nKey from '../i18n/i18nKey'
 import { i18n } from '../i18n/translation'
 import { getSortedPosts } from '../utils/content-utils'
 import { getPostUrlBySlug } from '../utils/url-utils'
+import { Icon } from 'astro-icon/components'
 
 interface Props {
   keyword?: string
@@ -102,6 +103,7 @@ function formatTag(tag: string[]) {
                                 group-hover:translate-x-1 transition-all group-hover:text-[var(--primary)]
                                 text-75 pr-8 whitespace-nowrap overflow-ellipsis overflow-hidden"
                             >
+                                    {(post.data.sticky ?? 0) > 0 && <Icon name="material-symbols:book-2-rounded" class="inline text-[1.25rem] mr-1 -translate-y-0.5" />}
                                     {post.data.title}
                             </div>
                             <!-- tag list -->
