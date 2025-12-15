@@ -2,7 +2,7 @@
 title: vscode设置喜欢的字体
 published: 2025-12-14
 description: '给vscode设置上自己喜欢的字体'
-image: 'https://www.catw.top/d/%E4%B8%BB%E7%BD%91%E7%9B%98/%E5%9B%BE%E5%83%8F/%E4%BA%8C%E6%AC%A1%E5%85%83/20251101_190754.jpg?sign=ZiWxlJnDQ9FcmcyKlBW8pe-PrJ8SnEsyFow0QBmNcWg=:0'
+image: 'https://wp-cdn.4ce.cn/v2/OD2JSIe.jpeg'
 tags: [vscode,教程]
 category: '教程分享'
 draft: false 

@@ -2,7 +2,7 @@
 title: 把玩Open-AutoGLM
 published: 2025-12-14
 description: '尝试一下游玩和部分讲解'
-image: 'https://www.catw.top/d/%E4%B8%BB%E7%BD%91%E7%9B%98/%E5%9B%BE%E5%83%8F/%E4%BA%8C%E6%AC%A1%E5%85%83/1742183218941_xwkh.jpg?sign=iTEyDs4-k_QORb7QW4_Uvix40-8nJ9G1e6UWVMdVm3w=:0'
+image: 'https://wp-cdn.4ce.cn/v2/L5pLos4.jpeg'
 tags: [大模型,随手记]
 category: '人工智能'
 draft: false 
