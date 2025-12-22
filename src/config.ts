@@ -96,12 +96,12 @@ export const profileConfig: ProfileConfig = {
     {
       name: "telegram",
       icon: "fa6-brands:telegram",
-      url: "https://t.me/fengyemusic",
+      url: "https://t.me/TPFTY",
     },
     {
       name: "GitHub",
       icon: "fa6-brands:github",
-      url: "https://fengyegf.cn/",
+      url: "https://github.com/fengyegf",
     },
   ],
 };
