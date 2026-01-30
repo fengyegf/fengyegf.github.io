@@ -75,7 +75,7 @@ export const navBarConfig: NavBarConfig = {
     },
     {
       name: "GitHub",
-      url: "https://fengyegf.cn/", // Internal links should not include the base path, as it is automatically added
+      url: "https://github.com/fengyegf", // Internal links should not include the base path, as it is automatically added
       external: true, // Show an external link icon and will open in a new tab
     },
   ],

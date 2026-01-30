@@ -320,6 +320,3 @@ cv2.destroyAllWindows()
 
 ```
 我们打开摄像头实时推理即可看到效果
-# 恰饭
-ok结束，点个关注不迷路
-![alt text](https://fengyegf.cn/_astro/1.DqL_SGt4_13jxcC.webp)
