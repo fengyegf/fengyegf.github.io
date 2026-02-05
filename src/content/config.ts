@@ -32,7 +32,16 @@ const projectsCollection = defineCollection({
   }),
 });
 
+const statusCollection = defineCollection({
+  schema: z.object({
+    content: z.string(),
+    published: z.date(),
+    images: z.array(z.string()).optional().default([]),
+  }),
+});
+
 export const collections = {
   posts: postsCollection,
   projects: projectsCollection,
+  status: statusCollection,
 };
