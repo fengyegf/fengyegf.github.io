@@ -1,4 +1,4 @@
-# 🍥 枫叶的小窝 (FY)
+# 🧩 枫叶的小窝 (FY)
 
 基于 [Fuwari](https://github.com/saicaca/fuwari) 模板开发的个人博客，使用 [Astro](https://astro.build) 构建。
 
