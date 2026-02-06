@@ -1,16 +1,19 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import StatusCard from "@components/status/StatusCard.astro";
 
 // 获取所有说说，按日期倒序排列
 const statusEntries = await getCollection("status");
-const sortedStatus = statusEntries.sort(
-  (a, b) => b.data.published.getTime() - a.data.published.getTime(),
+type StatusEntry = CollectionEntry<"status">;
+const sortedStatus: StatusEntry[] = statusEntries.sort(
+  (a: StatusEntry, b: StatusEntry) =>
+    b.data.published.getTime() - a.data.published.getTime(),
 );
 
 // 只显示最新30条
-const displayStatus = sortedStatus.slice(0, 30);
+const displayStatus: StatusEntry[] = sortedStatus.slice(0, 30);
 
 const pageTitle = "说说";
 const pageDescription = "生活点滴，随时记录";
@@ -74,16 +77,13 @@ const interval = 80;
     <!-- 说说列表 -->
     <div class="flex flex-col gap-4 md:gap-5">
       {
-        displayStatus.map((entry) => {
-          const animationDelay = `calc(var(--content-delay) + ${delay++ * interval}ms)`;
-          return (
-            <StatusCard
-              entry={entry}
-              class="onload-animation"
-              style={`animation-delay: ${animationDelay};`}
-            />
-          );
-        })
+        displayStatus.map((entry, index) => (
+          <StatusCard
+            entry={entry}
+            class="onload-animation"
+            style={`animation-delay: calc(var(--content-delay) + ${index * interval}ms);`}
+          />
+        ))
       }
     </div>
 

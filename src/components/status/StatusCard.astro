@@ -62,14 +62,16 @@ const getImageUrl = (image: string) => {
       >
         {images.map((image: string, index: number) => {
           const imageUrl = getImageUrl(image);
+          const isSingleImage = images.length === 1;
           return (
             <a
               href={imageUrl}
               class:list={[
                 "block relative overflow-hidden rounded-lg",
                 "transition-transform duration-300 active:scale-95 md:hover:scale-105",
-                "aspect-square cursor-pointer touch-manipulation",
+                "cursor-pointer touch-manipulation",
                 {
+                  "aspect-square": !isSingleImage,
                   "col-span-2": images.length === 3 && index === 0,
                 },
               ]}
@@ -79,7 +81,13 @@ const getImageUrl = (image: string) => {
               <img
                 src={imageUrl}
                 alt={`Image ${index + 1}`}
-                class="w-full h-full object-cover select-none"
+                class:list={[
+                  "w-full select-none",
+                  {
+                    "h-full object-cover": !isSingleImage,
+                    "object-contain": isSingleImage,
+                  },
+                ]}
                 loading="lazy"
                 draggable="false"
               />
@@ -136,11 +144,6 @@ const getImageUrl = (image: string) => {
 
   /* 单张图片特殊处理 */
   .image-grid.grid-cols-1 a {
-    max-height: 400px;
-  }
-
-  .image-grid.grid-cols-1 img {
-    object-fit: contain;
-    background: var(--card-bg);
+    max-height: 500px;
   }
 </style>
