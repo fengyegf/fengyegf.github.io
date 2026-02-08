@@ -2,15 +2,17 @@
 import path from "path";
 import { getDir } from "@utils/url-utils";
 import { formatDateToYYYYMMDD } from "@utils/date-utils";
+import type { ImageMetadata } from "astro";
+import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  entry: any;
+  entry: CollectionEntry<"status">;
   class?: string;
   style?: string;
 }
 
 const { entry, class: className, style } = Astro.props;
-const { content, published, images = [] } = entry.data;
+const { content, published, images = [], video, videoCover } = entry.data;
 
 // 计算发布日期距今天数
 const now = new Date();
@@ -19,16 +21,56 @@ const diffTime = Math.abs(now.getTime() - publishDate.getTime());
 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
 // 图片基础路径
-const basePath = path.join("content/status/", getDir(entry.id));
+const dir = getDir(entry.id);
+const cleanDir = dir === "/" ? "" : dir;
+const basePath = path.join("content/status", cleanDir);
 
 // 判断是否为远程URL
 const isRemoteUrl = (url: string) =>
   url.startsWith("http://") || url.startsWith("https://");
 
-// 获取图片完整路径
-const getImageUrl = (image: string) => {
-  return isRemoteUrl(image) ? image : `/${basePath}/${image}`;
+// 获取图片相关信息
+const getImageInfo = (image: string | ImageMetadata) => {
+  if (typeof image === "string") {
+    // 处理相对路径，类似于 getImageUrl 逻辑
+    if (!isRemoteUrl(image)) {
+      const url = `/${basePath}/${image}`;
+      return {
+        src: url.replace(/\\/g, "/").replace(/\/+/g, "/"),
+        width: 1200,
+        height: 1200,
+      };
+    }
+    return {
+      src: image,
+      width: 1200, // 默认宽
+      height: 1200, // 默认高
+    };
+  }
+  return {
+    src: image.src,
+    width: image.width,
+    height: image.height,
+  };
 };
+
+// 获取本地视频文件映射
+// 使用 import.meta.glob 获取所有视频文件的 URL
+const videoFiles = import.meta.glob(
+  "/src/content/status/**/*.{mp4,webm,ogg,mov}",
+  { query: "?url", import: "default" },
+);
+
+// 解析视频 URL
+let resolvedVideoUrl = video;
+if (video && !isRemoteUrl(video)) {
+  const videoPath = path.join(cleanDir, video).replace(/\\/g, "/");
+  const fullPath = `/src/content/status/${videoPath}`;
+
+  if (fullPath in videoFiles) {
+    resolvedVideoUrl = (await videoFiles[fullPath]()) as string;
+  }
+}
 ---
 
 <div
@@ -46,6 +88,24 @@ const getImageUrl = (image: string) => {
     {content}
   </div>
 
+  <!-- 视频播放器 -->
+  {
+    video && (
+      <div class="video-container mb-6 rounded-lg overflow-hidden bg-black/5 dark:bg-white/5">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster={videoCover}
+          class="w-full max-h-[500px] object-contain"
+        >
+          <source src={resolvedVideoUrl} type="video/mp4" />
+          您的浏览器不支持视频播放。
+        </video>
+      </div>
+    )
+  }
+
   <!-- 图片网格 -->
   {
     images.length > 0 && (
@@ -60,12 +120,12 @@ const getImageUrl = (image: string) => {
           },
         ]}
       >
-        {images.map((image: string, index: number) => {
-          const imageUrl = getImageUrl(image);
+        {images.map((image: string | ImageMetadata, index: number) => {
+          const imgInfo = getImageInfo(image);
           const isSingleImage = images.length === 1;
           return (
             <a
-              href={imageUrl}
+              href={imgInfo.src}
               class:list={[
                 "block relative overflow-hidden rounded-lg",
                 "transition-transform duration-300 active:scale-95 md:hover:scale-105",
@@ -75,21 +135,23 @@ const getImageUrl = (image: string) => {
                   "col-span-2": images.length === 3 && index === 0,
                 },
               ]}
-              data-pswp-width="1200"
-              data-pswp-height="1200"
+              data-pswp-width={imgInfo.width}
+              data-pswp-height={imgInfo.height}
             >
               <img
-                src={imageUrl}
+                src={imgInfo.src}
                 alt={`Image ${index + 1}`}
                 class:list={[
                   "w-full select-none",
                   {
                     "h-full object-cover": !isSingleImage,
-                    "object-contain": isSingleImage,
+                    "object-contain max-h-[500px] bg-black/5 dark:bg-white/5":
+                      isSingleImage,
                   },
                 ]}
                 loading="lazy"
                 draggable="false"
+                onerror="const l=this.closest('a'); const g=l.parentElement; l.remove(); if(g.children.length===0) { g.style.display='none'; g.classList.remove('mb-6'); }"
               />
             </a>
           );

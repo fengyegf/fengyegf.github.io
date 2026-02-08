@@ -33,11 +33,14 @@ const projectsCollection = defineCollection({
 });
 
 const statusCollection = defineCollection({
-  schema: z.object({
-    content: z.string(),
-    published: z.date(),
-    images: z.array(z.string()).optional().default([]),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      content: z.string(),
+      published: z.date(),
+      images: z.array(image().or(z.string())).optional().default([]),
+      video: z.string().optional(),
+      videoCover: z.string().optional(),
+    }),
 });
 
 export const collections = {
