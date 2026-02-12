@@ -127,7 +127,7 @@ if (video && !isRemoteUrl(video)) {
             <a
               href={imgInfo.src}
               class:list={[
-                "block relative overflow-hidden rounded-lg",
+                "block relative overflow-hidden rounded-lg pswp-gallery__item",
                 "transition-transform duration-300 active:scale-95 md:hover:scale-105",
                 "cursor-pointer touch-manipulation",
                 {
@@ -137,12 +137,13 @@ if (video && !isRemoteUrl(video)) {
               ]}
               data-pswp-width={imgInfo.width}
               data-pswp-height={imgInfo.height}
+              target="_blank"
             >
               <img
                 src={imgInfo.src}
                 alt={`Image ${index + 1}`}
                 class:list={[
-                  "w-full select-none",
+                  "w-full select-none pswp-no-zoom",
                   {
                     "h-full object-cover": !isSingleImage,
                     "object-contain max-h-[500px] bg-black/5 dark:bg-white/5":
