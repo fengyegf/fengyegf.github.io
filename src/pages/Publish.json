@@ -1,0 +1,28 @@
+{
+  "1": {
+    "name": "枫叶",
+    "icon": "https://wp-cdn.4ce.cn/v2/5LtoNCp.jpeg",
+    "url": "https://tmini.net/api/shortvideo?url={url}",
+    "Query": {
+      "kry": "null"
+    },
+    "time": "5000",
+    "type": "视频",
+    "response": {
+      "code": 200,
+      "msg": "null",
+      "data": {
+        "title": "${tag}",
+        "cover": "${cover}",
+        "auther": "${name}",
+        "avatar": "${cover}",
+        "description": "${desc}",
+        "url": "${videoUrl}",
+        "user": {
+          "name": "${name}",
+          "avatar": "${cover}"
+        }
+      }
+    }
+  }
+}
