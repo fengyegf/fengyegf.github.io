@@ -1,11 +1,9 @@
 {
   "1": {
-    "name": "枫叶",
+    "name": "枫叶_视频",
     "icon": "https://wp-cdn.4ce.cn/v2/5LtoNCp.jpeg",
     "url": "https://tmini.net/api/shortvideo?url={url}",
-    "Query": {
-      "kry": "null"
-    },
+    "Query": {},
     "time": "5000",
     "type": "视频",
     "response": {
@@ -17,12 +15,28 @@
         "auther": "${name}",
         "avatar": "${cover}",
         "description": "${desc}",
-        "url": "${videoUrl}",
-        "user": {
-          "name": "${name}",
-          "avatar": "${cover}"
-        }
+        "url": "${videoUrl}"
       }
+    }
+  },
+  "2": {
+    "name": "枫叶_音乐",
+    "icon": "https://wp-cdn.4ce.cn/v2/5LtoNCp.jpeg",
+    "url": "https://api.bugpk.com/api/music?id={url}",
+    "Query": {
+      "netease": "netease",
+      "type": "song"
+    },
+    "time": "5000",
+    "type": "音乐",
+    "response": {
+      "name": "${name}",
+      "url": "${url}",
+      "song_id": 2739203779,
+      "cover": "${cover}",
+      "author": "KNSRK",
+      "lrc_data": "",
+      "version": "1.5.10"
     }
   }
 }
