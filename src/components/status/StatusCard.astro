@@ -1,7 +1,7 @@
 ---
 import path from "path";
 import { getDir } from "@utils/url-utils";
-import { formatDateToYYYYMMDD } from "@utils/date-utils";
+import { formatDateToYYYYMMDD, getDiffDaysFromNow } from "@utils/date-utils";
 import type { ImageMetadata } from "astro";
 import type { CollectionEntry } from "astro:content";
 
@@ -14,11 +14,8 @@ interface Props {
 const { entry, class: className, style } = Astro.props;
 const { content, published, images = [], video, videoCover } = entry.data;
 
-// 计算发布日期距今天数
-const now = new Date();
-const publishDate = new Date(published);
-const diffTime = Math.abs(now.getTime() - publishDate.getTime());
-const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+const diffDays = getDiffDaysFromNow(published);
+const publishedIso = published.toISOString();
 
 // 图片基础路径
 const dir = getDir(entry.id);
@@ -177,7 +174,7 @@ if (video && !isRemoteUrl(video)) {
         stroke-width="2"
         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
     </svg>
-    <span>{diffDays}天前</span>
+    <span data-published={publishedIso}>{diffDays}天前</span>
     <span class="mx-1.5 md:mx-2">·</span>
     <span class="hidden sm:inline">{formatDateToYYYYMMDD(published)}</span>
     <span class="sm:hidden">{formatDateToYYYYMMDD(published).slice(5)}</span>

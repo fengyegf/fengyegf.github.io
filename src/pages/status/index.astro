@@ -117,6 +117,32 @@ const interval = 80;
         </div>
       )
     }
+
+    <script>
+      if (typeof window !== "undefined") {
+        const updateRelativeTimes = () => {
+          const dayMs = 1000 * 60 * 60 * 24;
+          document
+            .querySelectorAll(".status-card [data-published]")
+            .forEach((element) => {
+              const publishedValue = element.getAttribute("data-published");
+              if (!publishedValue) {
+                return;
+              }
+              const publishedDate = new Date(publishedValue);
+              if (Number.isNaN(publishedDate.getTime())) {
+                return;
+              }
+              const diffDays = Math.floor(
+                Math.max(0, Date.now() - publishedDate.getTime()) / dayMs,
+              );
+              element.textContent = `${diffDays}天前`;
+            });
+        };
+
+        updateRelativeTimes();
+      }
+    </script>
   </div>
 </MainGridLayout>
 
