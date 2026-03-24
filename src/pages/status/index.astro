@@ -119,29 +119,35 @@ const interval = 80;
     }
 
     <script>
-      if (typeof window !== "undefined") {
-        const updateRelativeTimes = () => {
-          const dayMs = 1000 * 60 * 60 * 24;
-          document
-            .querySelectorAll(".status-card [data-published]")
-            .forEach((element) => {
-              const publishedValue = element.getAttribute("data-published");
-              if (!publishedValue) {
-                return;
-              }
-              const publishedDate = new Date(publishedValue);
-              if (Number.isNaN(publishedDate.getTime())) {
-                return;
-              }
-              const diffDays = Math.floor(
-                Math.max(0, Date.now() - publishedDate.getTime()) / dayMs,
-              );
-              element.textContent = `${diffDays}天前`;
-            });
-        };
+      const DAY_MS = 1000 * 60 * 60 * 24;
 
-        updateRelativeTimes();
-      }
+      const toLocalDayStart = (date: Date) =>
+        new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+
+      const updateRelativeTimes = () => {
+        const nowStart = toLocalDayStart(new Date());
+        document
+          .querySelectorAll(".status-card [data-published]")
+          .forEach((element) => {
+            const publishedValue = element.getAttribute("data-published");
+            if (!publishedValue) {
+              return;
+            }
+            const publishedDate = new Date(publishedValue);
+            if (Number.isNaN(publishedDate.getTime())) {
+              return;
+            }
+            const publishedStart = toLocalDayStart(publishedDate);
+            const diffDays = Math.max(
+              0,
+              Math.floor((nowStart - publishedStart) / DAY_MS),
+            );
+            element.textContent = `${diffDays}天前`;
+          });
+      };
+
+      updateRelativeTimes();
+      document.addEventListener("astro:page-load", updateRelativeTimes);
     </script>
   </div>
 </MainGridLayout>

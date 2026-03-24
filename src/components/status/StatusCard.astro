@@ -1,7 +1,10 @@
 ---
 import path from "path";
 import { getDir } from "@utils/url-utils";
-import { formatDateToYYYYMMDD, getDiffDaysFromNow } from "@utils/date-utils";
+import {
+  formatDateToYYYYMMDD,
+  getDiffCalendarDaysFromNow,
+} from "@utils/date-utils";
 import type { ImageMetadata } from "astro";
 import type { CollectionEntry } from "astro:content";
 
@@ -14,7 +17,7 @@ interface Props {
 const { entry, class: className, style } = Astro.props;
 const { content, published, images = [], video, videoCover } = entry.data;
 
-const diffDays = getDiffDaysFromNow(published);
+const diffDays = getDiffCalendarDaysFromNow(published);
 const publishedIso = published.toISOString();
 
 // 图片基础路径
