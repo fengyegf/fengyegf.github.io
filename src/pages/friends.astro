@@ -1,0 +1,104 @@
+---
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import FriendCard from "@components/FriendCard.astro";
+
+// 友链数据
+const friends = [
+  {
+    name: "Astro Official",
+    desc: "Astro，比你想的还要快的全能Web框架，快来试试吧！",
+    avatar: "https://astro.build/favicon.svg",
+    url: "https://astro.build",
+  },
+  {
+    name: "GitHub Copilot",
+    desc: "你的AI结对编程助手，让你的代码充满灵气和效率！",
+    avatar: "https://github.com/fluidicon.png",
+    url: "https://github.com/features/copilot",
+  },
+];
+---
+
+<MainGridLayout
+  title="友情链接"
+  description="一些有趣的灵魂与技术大佬，欢迎互换友链！"
+>
+  <div class="flex flex-col gap-6 w-full">
+    <!-- Header/Introduction -->
+    <div
+      class="card-base z-10 px-9 py-6 relative w-full flex flex-col gap-4 rounded-[var(--radius-large)] overflow-hidden min-h-32"
+    >
+      <h1
+        class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-2"
+      >
+        🎈 友人帐
+      </h1>
+      <p class="text-neutral-600 dark:text-neutral-400 leading-7">
+        海内存知己，天涯若比邻。<br />
+        这里是一些有趣的灵魂、技术大牛或是路过的好友。如果你也想出现在这里，欢迎在这个页面下留言或通过邮件联系我互换友链哦！
+      </p>
+      <div
+        class="mt-4 p-4 bg-[var(--primary)]/10 dark:bg-[var(--primary)]/20 rounded-xl border border-[var(--primary)]/20"
+      >
+        <h2 class="font-bold text-[var(--primary)] mb-2">⭐ 站点信息</h2>
+        <ul
+          class="list-disc list-inside text-sm text-neutral-600 dark:text-neutral-400 space-y-1"
+        >
+          <li>名称: MLeaf-coder's Space</li>
+          <li>介绍: 拥抱开源，热爱生活，向往未来。</li>
+          <li>头像: /favicon/android-chrome-512x512.png或您喜欢的版本</li>
+          <li>友链地址: https://yourwebsite.com/friends</li>
+        </ul>
+        <div>
+          <h1 class="font-bold text-[var(--primary)] mb-2">💡 友链要求</h1>
+          <p class="text-sm text-neutral-600 dark:text-neutral-400">
+            1. 网站内容健康，积极向上。<br />
+            2. 网站需有明确的关于页面或联系方式。<br />
+            3. 不接受广告性质的网站。<br />
+          </p>
+        </div>
+        <h1 class="font-bold text-[var(--primary)] mb-2 mt-4">📬 联系方式</h1>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400">
+          如果你想和我交换友链，可以通过邮件发送到：
+          <span
+            id="email-address"
+            class="font-medium text-[var(--primary)] hover:underline ml-1"
+          ></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script is:inline>
+      const s = "827737456@dd.pbz";
+
+      String.prototype.rot13 = function () {
+        return this.replace(/[a-zA-Z]/g, function (c) {
+          return String.fromCharCode(
+            (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26,
+          );
+        });
+      };
+
+      const emailContainer = document.getElementById("email-address");
+      if (emailContainer) {
+        const email = s.rot13();
+        emailContainer.innerHTML = `<a href="mailto:${email}">${email}</a>`;
+      }
+    </script>
+
+    <!-- Links Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+      {
+        friends.map((friend) => (
+          <FriendCard
+            name={friend.name}
+            desc={friend.desc}
+            avatar={friend.avatar}
+            url={friend.url}
+          />
+        ))
+      }
+    </div>
+  </div>
+</MainGridLayout>

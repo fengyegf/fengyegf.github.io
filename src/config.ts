@@ -56,6 +56,10 @@ export const navBarConfig: NavBarConfig = {
           name: "说说",
           url: "/status/",
         },
+        {
+          name: "友链",
+          url: "/friends/",
+        },
       ],
     },
     {

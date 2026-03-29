@@ -1,0 +1,76 @@
+---
+interface Props {
+  name: string;
+  desc: string;
+  avatar: string;
+  url: string;
+}
+
+const { name, desc, avatar, url } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group relative block overflow-hidden rounded-[var(--radius-large)] bg-[var(--card-bg)] card-base transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-[var(--primary)]/20"
+>
+  <!-- Background Glow / Gradient Effect on Hover -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-[var(--primary)]/30"
+  >
+  </div>
+
+  <div class="relative flex items-center gap-5 p-5 z-10">
+    <!-- Avatar -->
+    <div
+      class="relative shrink-0 w-16 h-16 rounded-full overflow-hidden border-2 border-transparent transition-all duration-500 group-hover:border-[var(--primary)] group-hover:rotate-[360deg]"
+    >
+      <img
+        src={avatar}
+        alt={name}
+        class="w-full h-full object-cover select-none pointer-events-none"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col justify-center min-w-0 flex-1">
+      <h3
+        class="text-lg font-bold text-neutral-900 dark:text-neutral-100 truncate transition-colors duration-300 group-hover:text-[var(--primary)]"
+      >
+        {name}
+      </h3>
+      <p
+        class="text-sm text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2"
+      >
+        {desc}
+      </p>
+    </div>
+
+    <!-- Link Icon -->
+    <div
+      class="opacity-0 -translate-x-4 transition-all duration-300 text-[var(--primary)] group-hover:opacity-100 group-hover:translate-x-0"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+        ></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Fancy Bottom Border -->
+  <div
+    class="absolute bottom-0 left-0 h-1 w-0 bg-[var(--primary)] transition-all duration-500 group-hover:w-full"
+  >
+  </div>
+</a>
