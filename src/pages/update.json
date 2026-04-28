@@ -1,8 +1,12 @@
 {
-    "version": "1.0.1",
-    "title": "版本迭代",
-    "description": "发布正式版本，重写全部逻辑",
-    "img": "https://wp-cdn.4ce.cn/v2/L5pLos4.jpeg",
+    "version": "1.0.3",
+    "title": "版本更新",
+    "description": [
+        "修复链接输入过长导致解析界面的底部按键溢出屏幕",
+        "添加更多动画效果",
+        "初步敲定调色板方案，后续版本将会逐步完善"
+    ],
+    "img": "https://wp-cdn.4ce.cn/v2/Nnmqbb4.jpeg",
     "video": "null",
-    "url": "http://catw.top:5244/d/%E6%8A%97%E6%8F%8D%E4%BA%91/alpha/1.0.1/app-release.apk?sign=QOrzqEJPGc1OzowUoNbmK1HXgRj3ErsYXAKJEp7GzHg=:0"
+    "url": "http://192.168.31.114:5244/d/%E6%8A%97%E6%8F%8D%E4%BA%91/alpha/1.0.3/app-release.apk?sign=3OhIOdRYiIMDFtxnX_iyJjVuBu1YM1ZNwl75GtxwmXM=:0"
 }
