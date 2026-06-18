@@ -7,12 +7,24 @@ import I18nKey from "@i18n/i18nKey";
 
 const projects = await getCollection("projects");
 
+const categories = [
+  { id: "all", name: "全部", icon: "grid" },
+  { id: "web", name: "Web 应用", icon: "globe" },
+  { id: "mobile", name: "移动应用", icon: "smartphone" },
+  { id: "desktop", name: "桌面应用", icon: "monitor" },
+];
+
 const stats = {
   total: projects.length,
   completed: projects.filter((p) => p.data.status === "completed").length,
   developing: projects.filter((p) => p.data.status === "developing").length,
   planned: projects.filter((p) => p.data.status === "planned").length,
 };
+
+const categoryStats = categories.map((cat) => ({
+  ...cat,
+  count: cat.id === "all" ? projects.length : projects.filter((p) => p.data.category === cat.id).length,
+}));
 
 // 按状态排序：开发中 > 已完成 > 计划中
 const sortedProjects = projects.sort((a, b) => {
@@ -29,55 +41,84 @@ const sortedProjects = projects.sort((a, b) => {
   title={i18n(I18nKey.projects)}
   description={i18n(I18nKey.projects)}
 >
-  <div class="flex flex-col gap-6">
-    <!-- 统计卡片 -->
-    <div class="grid grid-cols-3 gap-4">
-      <div
-        class="card-base p-6 flex flex-col items-center justify-center rounded-[var(--radius-large)]"
-      >
-        <span class="text-4xl font-bold text-[var(--primary)] mb-1"
-          >{stats.total}</span
-        >
-        <span class="text-sm text-neutral-500 dark:text-neutral-400 font-medium"
-          >项目总数</span
-        >
+  <div class="card-base p-6 md:p-8 rounded-[var(--radius-large)]">
+    <div class="flex flex-col gap-6">
+      <!-- 页面标题 -->
+      <div class="mb-2">
+        <h1 class="text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+          项目
+        </h1>
+        <p class="text-lg text-neutral-600 dark:text-neutral-400">
+          我的开发项目作品集
+        </p>
       </div>
-      <div
-        class="card-base p-6 flex flex-col items-center justify-center rounded-[var(--radius-large)]"
-      >
-        <span class="text-4xl font-bold text-green-500 mb-1"
-          >{stats.completed}</span
-        >
-        <span class="text-sm text-neutral-500 dark:text-neutral-400 font-medium"
-          >已完成</span
-        >
-      </div>
-      <div
-        class="card-base p-6 flex flex-col items-center justify-center rounded-[var(--radius-large)]"
-      >
-        <span class="text-4xl font-bold text-blue-500 mb-1"
-          >{stats.developing}</span
-        >
-        <span class="text-sm text-neutral-500 dark:text-neutral-400 font-medium"
-          >开发中</span
-        >
-      </div>
-    </div>
 
-    <!-- 项目列表 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {
-        sortedProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            image={project.data.image}
-            url={project.data.url}
-            status={project.data.status}
-            tags={project.data.tags}
-          />
-        ))
-      }
+      <!-- 分类过滤按钮 -->
+      <div class="flex flex-wrap gap-3" id="category-filters">
+        {
+          categoryStats.map((cat) => (
+            <button
+              data-category={cat.id}
+              class:list={[
+                "filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
+                cat.id === "all"
+                  ? "bg-[var(--primary)] text-white"
+                  : "bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600",
+              ]}
+            >
+              {cat.name} ({cat.count})
+            </button>
+          ))
+        }
+      </div>
+
+      <!-- 项目列表 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
+        {
+          sortedProjects.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              image={project.data.image}
+              url={project.data.url}
+              github={project.data.github}
+              status={project.data.status}
+              tags={project.data.tags}
+              category={project.data.category}
+            />
+          ))
+        }
+      </div>
     </div>
   </div>
 </MainGridLayout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const projectCards = document.querySelectorAll("[data-project-category]");
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // 更新按钮样式
+        filterBtns.forEach((b) => {
+          b.classList.remove("bg-[var(--primary)]", "text-white");
+          b.classList.add("bg-neutral-200", "dark:bg-neutral-700", "text-neutral-700", "dark:text-neutral-300");
+        });
+        btn.classList.add("bg-[var(--primary)]", "text-white");
+        btn.classList.remove("bg-neutral-200", "dark:bg-neutral-700", "text-neutral-700", "dark:text-neutral-300");
+
+        const category = btn.getAttribute("data-category");
+
+        projectCards.forEach((card) => {
+          const cardCategory = card.getAttribute("data-project-category");
+          if (category === "all" || cardCategory === category) {
+            (card as HTMLElement).style.display = "block";
+          } else {
+            (card as HTMLElement).style.display = "none";
+          }
+        });
+      });
+    });
+  });
+</script>

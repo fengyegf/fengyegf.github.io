@@ -75,8 +75,8 @@ if (video && !isRemoteUrl(video)) {
 
 <div
   class:list={[
-    "status-card group card-base rounded-[var(--radius-large)] overflow-hidden p-5 md:p-8",
-    "transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
+    "status-card group rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden p-5 md:p-8",
+    "transition-all duration-300 hover:-translate-y-1 hover:shadow-md",
     className,
   ]}
   style={style}
@@ -114,9 +114,8 @@ if (video && !isRemoteUrl(video)) {
           "image-grid gap-2 md:gap-3 mb-6",
           {
             "grid grid-cols-1": images.length === 1,
-            "grid grid-cols-2": images.length === 2 || images.length === 4,
-            "grid grid-cols-2 md:grid-cols-3":
-              images.length === 3 || images.length > 4,
+            "grid grid-cols-2": images.length === 2 || images.length === 3 || images.length === 4,
+            "grid grid-cols-2 md:grid-cols-3": images.length > 4,
           },
         ]}
       >
@@ -132,7 +131,7 @@ if (video && !isRemoteUrl(video)) {
                 "cursor-pointer touch-manipulation",
                 {
                   "aspect-square": !isSingleImage,
-                  "col-span-2": images.length === 3 && index === 0,
+
                 },
               ]}
               data-pswp-width={imgInfo.width}
@@ -143,9 +142,8 @@ if (video && !isRemoteUrl(video)) {
                 src={imgInfo.src}
                 alt={`Image ${index + 1}`}
                 class:list={[
-                  "w-full select-none pswp-no-zoom",
+                  "w-full h-full select-none pswp-no-zoom object-cover",
                   {
-                    "h-full object-cover": !isSingleImage,
                     "object-contain max-h-[500px] bg-black/5 dark:bg-white/5":
                       isSingleImage,
                   },

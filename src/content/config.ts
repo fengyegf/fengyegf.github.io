@@ -27,8 +27,10 @@ const projectsCollection = defineCollection({
     description: z.string(),
     image: z.string().optional(),
     url: z.string().optional(),
+    github: z.string().optional(),
     status: z.enum(["completed", "developing", "planned"]),
     tags: z.array(z.string()).optional().default([]),
+    category: z.enum(["web", "mobile", "desktop", "other"]).default("other"),
   }),
 });
 

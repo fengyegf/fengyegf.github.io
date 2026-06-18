@@ -70,10 +70,6 @@ export const navBarConfig: NavBarConfig = {
           name: "我的收藏",
           url: "/favorites/",
         },
-        {
-          name: "番组计划",
-          url: "/bangumi/",
-        },
       ],
     },
     {
