@@ -551,6 +551,57 @@ function disableAnimation() {
   import PhotoSwipeLightbox from "photoswipe/lightbox";
   import "photoswipe/style.css";
 
+  const articleImageSelector = ".custom-md img, #post-cover img, [data-post-card] img";
+
+  function hideBrokenImage(image: HTMLImageElement) {
+    if (image.dataset.imageUnavailable === "true") return;
+
+    const postCard = image.closest<HTMLElement>("[data-post-card]");
+    if (postCard) {
+      postCard.dataset.coverFailed = "true";
+      image.dataset.imageUnavailable = "true";
+      return;
+    }
+
+    const postCover = image.closest<HTMLElement>("#post-cover");
+    if (postCover) {
+      postCover.dataset.imageUnavailable = "true";
+    }
+
+    const imageLink = image.closest("a");
+    if (imageLink?.querySelectorAll("img").length === 1) {
+      imageLink.dataset.imageUnavailable = "true";
+    }
+
+    image.dataset.imageUnavailable = "true";
+    image.hidden = true;
+    image.setAttribute("aria-hidden", "true");
+  }
+
+  function hidePreviouslyBrokenImages() {
+    document
+      .querySelectorAll<HTMLImageElement>(articleImageSelector)
+      .forEach((image) => {
+        if (image.complete && image.naturalWidth === 0) {
+          hideBrokenImage(image);
+        }
+      });
+  }
+
+  document.addEventListener(
+    "error",
+    (event) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLImageElement &&
+        target.matches(articleImageSelector)
+      ) {
+        hideBrokenImage(target);
+      }
+    },
+    true,
+  );
+
   let lightbox: PhotoSwipeLightbox;
   let pswp = import("photoswipe");
 
@@ -620,7 +671,9 @@ function disableAnimation() {
     if (!lightbox) {
       createPhotoSwipe();
     }
+    hidePreviouslyBrokenImages();
     window.swup.hooks.on("page:view", () => {
+      hidePreviouslyBrokenImages();
       createPhotoSwipe();
     });
 
@@ -636,6 +689,7 @@ function disableAnimation() {
   if (window.swup) {
     setup();
   } else {
+    hidePreviouslyBrokenImages();
     document.addEventListener("swup:enable", setup);
   }
 </script>

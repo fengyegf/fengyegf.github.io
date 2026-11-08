@@ -132,6 +132,26 @@
     @apply cursor-zoom-in
 }
 
+[data-image-unavailable="true"],
+[data-post-card][data-cover-failed="true"] [data-post-cover] {
+    display: none !important;
+}
+
+[data-post-cover-fallback] {
+    display: none !important;
+}
+
+@media (min-width: 768px) {
+    [data-post-card][data-has-cover="false"] [data-post-cover-fallback],
+    [data-post-card][data-cover-failed="true"] [data-post-cover-fallback] {
+        display: flex !important;
+    }
+
+    [data-post-card][data-cover-failed="true"] [data-post-content] {
+        width: calc(100% - 52px - 12px);
+    }
+}
+
 ::selection {
     background-color: var(--selection-bg)
 }
